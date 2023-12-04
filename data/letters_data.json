@@ -1,0 +1,53 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Hello jotain",
+      "body": "Lets do this!",
+      "sender_id": 1,
+      "recipient_id": 2
+    },
+    {
+      "id": 2,
+      "title": "Hello admin",
+      "body": "Lets do this! 2",
+      "sender_id": 2,
+      "recipient_id": 1
+    },
+    {
+      "id": 3,
+      "title": "Hello again admin",
+      "body": "Lets do this! 3",
+      "sender_id": 3,
+      "recipient_id": 1
+    },
+    {
+      "id": 4,
+      "title": "from Jotain with Love",
+      "body": "Hello how are you dear Admin?\r\n\r\nGreat to hear you are good.\r\n\r\nThanks, bye.\r\n\r\nFrom Jotain.",
+      "recipient_id": 1,
+      "sender_id": 2
+    },
+    {
+      "id": 5,
+      "title": "Dear Admin I forgot to tell you something",
+      "body": "Oops I forgot to tell you something. Hmm what was it again? I dont remember but I'll let you know if I do in the next letter.\r\n\r\nOkay good talk, Bye!",
+      "recipient_id": 1,
+      "sender_id": 2
+    },
+    {
+      "id": 6,
+      "title": "Important message for Jotain",
+      "body": "Dear Jotain,\r\n\r\nStop spamming me!\r\n\r\nOkay good talk,\r\n\r\nThanks.\r\n\r\nFrom Admin.",
+      "recipient_id": 2,
+      "sender_id": 1
+    },
+    {
+      "id": 7,
+      "title": "Jotain in Latin",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam mi non magna ullamcorper, at tristique lorem viverra. Nullam at ipsum lacus. In id lobortis eros. Quisque tempor dui augue, a pulvinar turpis pulvinar a. Donec efficitur efficitur metus non tincidunt. Pellentesque mauris magna, sollicitudin sed nisl eu, vestibulum consectetur nunc. Morbi fermentum faucibus justo at vestibulum. Vestibulum at mi pulvinar, posuere diam at, elementum risus. Ut consectetur sed leo id blandit.\r\n\r\nPraesent semper, justo vel consequat finibus, quam orci tincidunt dolor, quis laoreet quam sapien in ante. Vestibulum at ligula ultrices mauris condimentum egestas. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis nec sollicitudin turpis. Fusce id ante nunc. Quisque nibh turpis, euismod non mi eget, convallis egestas nibh. Integer mattis, ipsum in mollis sollicitudin, tellus tortor efficitur lectus, in ultricies ligula lorem id mi. Nullam nec tristique diam, in laoreet turpis. Cras ut eros dignissim, pretium lacus et, vulputate nibh. Nunc commodo iaculis ante, at accumsan urna sodales in. Sed ut vestibulum leo. Nam vel malesuada neque, et molestie nibh. Curabitur lacinia odio libero, quis dapibus lectus maximus sit amet. Donec ac molestie lectus. Nulla vitae congue elit. Sed aliquam eros vel enim ornare mattis.\r\n\r\nSincerely,\r\nYour #1 Enemy",
+      "recipient_id": 2,
+      "sender_id": 1
+    }
+  ]
+}
