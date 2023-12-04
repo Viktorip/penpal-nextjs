@@ -11,7 +11,7 @@ export default function LoginButton() {
     const loggedIn = !!user.id;
     
     const submitHandler = async () => {
-        const status = await logout();
+        await logout();
         setUser({});
         router.push('/');
     }
