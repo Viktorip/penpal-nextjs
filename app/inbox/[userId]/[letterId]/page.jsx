@@ -2,6 +2,7 @@
 import PageContainer from "@/components/PageContainer";
 import useFetch from "@/hooks/useFetch";
 import { endpoint } from "@/utils/constants";
+import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 import { useParams } from "next/navigation";
 
 
@@ -34,7 +35,7 @@ export default function LetterPage() {
                 </div>
                 <div className="h-full w-full ">
                     <textarea
-                        className="w-full h-full bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl"
+                        className={`w-[38rem] bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl ${data.letter.style ? getClassNameFromStyleId(data.letter.style) : getClassNameFromStyleId(getAllStyleIds()[0])}`}
                         id="body"
                         name="body"
                         rows="22"

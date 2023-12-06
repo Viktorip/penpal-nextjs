@@ -48,6 +48,22 @@
       "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam mi non magna ullamcorper, at tristique lorem viverra. Nullam at ipsum lacus. In id lobortis eros. Quisque tempor dui augue, a pulvinar turpis pulvinar a. Donec efficitur efficitur metus non tincidunt. Pellentesque mauris magna, sollicitudin sed nisl eu, vestibulum consectetur nunc. Morbi fermentum faucibus justo at vestibulum. Vestibulum at mi pulvinar, posuere diam at, elementum risus. Ut consectetur sed leo id blandit.\r\n\r\nPraesent semper, justo vel consequat finibus, quam orci tincidunt dolor, quis laoreet quam sapien in ante. Vestibulum at ligula ultrices mauris condimentum egestas. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis nec sollicitudin turpis. Fusce id ante nunc. Quisque nibh turpis, euismod non mi eget, convallis egestas nibh. Integer mattis, ipsum in mollis sollicitudin, tellus tortor efficitur lectus, in ultricies ligula lorem id mi. Nullam nec tristique diam, in laoreet turpis. Cras ut eros dignissim, pretium lacus et, vulputate nibh. Nunc commodo iaculis ante, at accumsan urna sodales in. Sed ut vestibulum leo. Nam vel malesuada neque, et molestie nibh. Curabitur lacinia odio libero, quis dapibus lectus maximus sit amet. Donec ac molestie lectus. Nulla vitae congue elit. Sed aliquam eros vel enim ornare mattis.\r\n\r\nSincerely,\r\nYour #1 Enemy",
       "recipient_id": 2,
       "sender_id": 1
+    },
+    {
+      "id": 8,
+      "title": "Check my style",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt ex at nisi volutpat, in porta ligula auctor. Vestibulum posuere a sapien sed molestie. Nam gravida vestibulum cursus. Nunc posuere justo eget mi iaculis, vestibulum pharetra urna sollicitudin. Cras non neque eget nisi posuere malesuada. Praesent et elit et tortor tristique sagittis sit amet id magna. Nunc pretium, ligula sed finibus interdum, risus neque consectetur arcu, sit amet tincidunt risus lorem ut mauris. Ut sit amet fringilla lectus. Donec tempor nulla vel orci vulputate, vitae blandit turpis tempus. Aliquam eu ipsum aliquet ex tempus tincidunt. Cras dignissim semper nibh eget tempor. Donec eu eleifend tortor. Maecenas consectetur metus quis odio pretium, vitae sodales risus ornare.\r\n\r\nMaecenas tellus sem, accumsan quis neque a, lacinia pellentesque nisi. Donec sed egestas elit, et semper mi. Donec mauris lectus, mollis tristique diam at, vehicula ullamcorper.\r\nWith love, Jotain",
+      "recipient_id": 1,
+      "sender_id": 2,
+      "style": "nothing"
+    },
+    {
+      "id": 9,
+      "title": "Cool style bro",
+      "body": "Nice style Jotain but it cant beat my fancy style. Can you even read this? Haha didn't think so.... pathetic lol.\r\n\r\nCya later Jotain\r\n\r\nFrom,\r\nAdmin",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "tangerine"
     }
   ]
 }

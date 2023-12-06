@@ -29,7 +29,8 @@ export async function POST(req, {params}) {
                 title: data.title,
                 body: data.body,
                 recipient_id: recipient.id,
-                sender_id: parseInt(data.senderId, 10)
+                sender_id: parseInt(data.senderId, 10),
+                style: data.style
             };
     
             console.log("created newData to insert:", newData);

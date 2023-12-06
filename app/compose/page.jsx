@@ -5,35 +5,11 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import useValidate from "@/hooks/useValidate";
 import { AuthContext } from "../layout";
-import { caveat, indieflower, nothing, parisienne, reeniebeanie, tangerine } from "../fonts";
 import Modal from "@/components/Modal";
+import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 
-const fontmap = [
-    {
-        id: 'caveat',
-        className: caveat.className
-    },
-    {
-        id: 'indieflower',
-        className: indieflower.className
-    },
-    {
-        id: 'nothing',
-        className: nothing.className
-    },
-    {
-        id: 'parisienne',
-        className: parisienne.className
-    },
-    {
-        id: 'reeniebeanie',
-        className: reeniebeanie.className
-    },
-    {
-        id: 'tangerine',
-        className: tangerine.className
-    },
-];
+
+const styleIds = getAllStyleIds();
 
 export default function ComposePage() {
     const {user, setUser} = useContext(AuthContext);
@@ -46,7 +22,7 @@ export default function ComposePage() {
     const [sending, setSending] = useState(false);
     const [titleIsValid, titleError] = useValidate(title, { type: 'text' });
     const [recipientIsValid, recipientError] = useValidate(recipient, { type: 'email' });
-    const [selectedFont, setSelectedFont] = useState(fontmap[0].className);
+    const [selectedStyle, setSelectedStyle] = useState(styleIds[0]);
     const [showWarningModal, setShowWarningModal] = useState(false);
 
     const formHandler = async () => {
@@ -56,6 +32,7 @@ export default function ComposePage() {
         formData.append("title", title);
         formData.append("recipientEmail", recipient);
         formData.append("senderId", user.id);
+        formData.append("style", selectedStyle);
         setSending(true);
         const resp = await sendLetter(formData);
         console.log("got response from sendLetter", resp);
@@ -97,7 +74,7 @@ export default function ComposePage() {
             letterBodyHandler();
             setShowWarningModal(true);
         }else{
-            setSelectedFont(fontmap[e.target.value].className);
+            setSelectedStyle(e.target.value);
         }
     }
 
@@ -159,11 +136,11 @@ export default function ComposePage() {
                         ) : (
                             <div className="mt-4">
                                 <select onChange={(e)=>{fontChangeHandler(e)}}>
-                                    {fontmap.map((item, index) => (<option value={index} className={item.className} key={item.id}>Choose your writing style</option>))}
+                                    {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>Choose your writing style</option>))}
                                 </select>
                                 <div className="h-full w-full ">
                                     <textarea
-                                        className={`w-[38rem] bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl ${selectedFont}`}
+                                        className={`w-[38rem] bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl ${getClassNameFromStyleId(selectedStyle)}`}
                                         id="body"
                                         name="body"
                                         placeholder="The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart. -Helen Keller"
