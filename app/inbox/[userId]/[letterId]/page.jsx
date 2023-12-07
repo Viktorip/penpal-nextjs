@@ -1,6 +1,7 @@
 'use client'
 import PageContainer from "@/components/PageContainer";
 import useFetch from "@/hooks/useFetch";
+import t from "@/lib/localization";
 import { endpoint } from "@/utils/constants";
 import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 import { useParams } from "next/navigation";
@@ -9,21 +10,18 @@ import { useParams } from "next/navigation";
 
 export default function LetterPage() {
     const params = useParams();
-    console.log("params are:", params);
     const [data, loading, error] = useFetch(`${endpoint}/letters/${params.letterId}`);
-    console.log("have data:", data);
     const [senderData, senderLoading, senderError] = useFetch(`${endpoint}/users/${params.userId}`);
-    console.log("have senderData:", senderData);
 
     if (loading) return (
         <PageContainer>
-            Loading letter ...
+            {t('loading')}
         </PageContainer>
     );
 
     if (error) return (
         <PageContainer>
-            Error: {error}
+            {error}
         </PageContainer>
     );
 
@@ -52,7 +50,7 @@ export default function LetterPage() {
 
     return (
         <PageContainer>
-            <div>Something went wrong</div>
+            <div>{t('not_found')}</div>
         </PageContainer>
     )
 }

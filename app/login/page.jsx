@@ -5,6 +5,7 @@ import { authenticate } from '@/app/actions';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '../layout';
+import t from '@/lib/localization';
 
 
 export default function LoginForm() {
@@ -26,7 +27,7 @@ export default function LoginForm() {
       <form action={dispatch} className="space-y-3">
         <div>
           <div className='text-xl'>
-            Please log in to continue.
+            {t('login_title')}
           </div>
           <div>
             <div>
@@ -34,7 +35,7 @@ export default function LoginForm() {
                 className="mb-3 mt-5 block text-s font-medium text-gray-900"
                 htmlFor="email"
               >
-                Email
+                {t('login_email')}
               </label>
               <div>
                 <input
@@ -42,7 +43,7 @@ export default function LoginForm() {
                   id="email"
                   type="email"
                   name="email"
-                  placeholder="Enter your email address"
+                  placeholder={t('login_email_placeholder')}
                   required
                 />
               </div>
@@ -52,7 +53,7 @@ export default function LoginForm() {
                 className="mb-3 mt-5 block text-s font-medium text-gray-900"
                 htmlFor="password"
               >
-                Password
+                {t('login_password')}
               </label>
               <div>
                 <input
@@ -60,7 +61,7 @@ export default function LoginForm() {
                   id="password"
                   type="password"
                   name="password"
-                  placeholder="Enter password"
+                  placeholder={t('login_password_placeholder')}
                   required
                   minLength={4}
                 />
@@ -78,6 +79,6 @@ function LoginButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button aria-disabled={pending} disabled={pending} className='mt-6 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>Login</button>
+    <button aria-disabled={pending} disabled={pending} className='mt-6 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{t('login_btn')}</button>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 import { logout } from "@/app/actions";
 import { AuthContext } from "@/app/layout";
+import t from "@/lib/localization";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
@@ -20,13 +21,13 @@ export default function LoginButton() {
             {loggedIn ?
                 <form action={submitHandler}>
                     <button className="border-solid hover:bg-red-400 border-2 border-red-700 p-1 rounded-md w-24 bg-red-200 text-black-700 text-center">
-                        Sign out
+                        {t('navi_logout_btn')}
                     </button>
                 </form>
                 :
                 <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-24 bg-white text-blue-700 text-center">
 
-                    <Link href='/login'>Sign in</Link>
+                    <Link href='/login'>{t('navi_login_btn')}</Link>
                 </button>
             }
         </div>

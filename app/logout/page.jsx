@@ -1,4 +1,5 @@
 import PageContainer from "@/components/PageContainer";
+import t from "@/lib/localization";
 
 
 export default async function LogoutPage() {
@@ -7,9 +8,9 @@ export default async function LogoutPage() {
     return (
         <PageContainer>
             {success ?
-                <div>Succesfully signed out</div>
+                <div>{t('logout_success')}</div>
                 :
-                <div>Sorry something went wrong</div>
+                <div>{t('logout_error')}</div>
             }
         </PageContainer>
     )

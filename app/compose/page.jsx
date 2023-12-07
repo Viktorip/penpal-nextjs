@@ -7,6 +7,7 @@ import useValidate from "@/hooks/useValidate";
 import { AuthContext } from "../layout";
 import Modal from "@/components/Modal";
 import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
+import t from "@/lib/localization";
 
 
 const styleIds = getAllStyleIds();
@@ -35,23 +36,18 @@ export default function ComposePage() {
         formData.append("style", selectedStyle);
         setSending(true);
         const resp = await sendLetter(formData);
-        console.log("got response from sendLetter", resp);
         if (resp) {
-            console.log("Success sending letter");
             router.push('/success');
             return;
         }
 
         setSending(false);
-        console.log("Failed to send???");
     }
 
     const letterBodyHandler = () => {
         try {
-            console.log("try to set content right");
             while (bodyRef.current.clientHeight < bodyRef.current.scrollHeight) {
                 let halved = Math.ceil(Math.abs((bodyRef.current.value.length - body.length) / 10));
-                console.log("halved is:", halved);
                 if (halved < 1) halved = 1;
 
                 bodyRef.current.value = bodyRef.current.value.substr(0, bodyRef.current.value.length - halved);
@@ -59,7 +55,6 @@ export default function ComposePage() {
         } catch (error) {
             console.log("caught error:", error);
         } finally {
-            console.log("Finally setBody");
             //set cursor to the end
             bodyRef.current.selectionStart = bodyRef.current.selectionEnd = bodyRef.current.value.length;
             bodyRef.current.focus();
@@ -84,7 +79,7 @@ export default function ComposePage() {
             <form action={formHandler} className="space-y-3">
                 <div>
                     <div className='text-xl'>
-                        Write from your heart
+                        {t('compose_title')}
                     </div>
                     <div>
                         {closed ? (
@@ -94,7 +89,7 @@ export default function ComposePage() {
                                         className="mb-3 mt-5 block text-s font-medium text-gray-900"
                                         htmlFor="title"
                                     >
-                                        Title
+                                        {t('compose_title_title')}
                                     </label>
                                     <div>
                                         <input
@@ -102,7 +97,7 @@ export default function ComposePage() {
                                             id="title"
                                             type="text"
                                             name="title"
-                                            placeholder="Enter title"
+                                            placeholder={t('compose_title_title_placeholder')}
                                             required
                                             value={title}
                                             onChange={(e) => { setTitle(e.target.value) }}
@@ -115,7 +110,7 @@ export default function ComposePage() {
                                         className="mb-3 mt-5 block text-s font-medium text-gray-900"
                                         htmlFor="email"
                                     >
-                                        Recipient
+                                        {t('compose_recipient')}
                                     </label>
                                     <div>
                                         <input
@@ -123,7 +118,7 @@ export default function ComposePage() {
                                             id="email"
                                             type="email"
                                             name="email"
-                                            placeholder="Enter recipient email address"
+                                            placeholder={t('compose_recipient_placeholder')}
                                             required
                                             value={recipient}
                                             onChange={(e) => { setRecipient(e.target.value) }}
@@ -131,19 +126,19 @@ export default function ComposePage() {
                                     </div>
                                     <div className="text-red-700">{recipient.length < 2 || recipientIsValid ? '' : recipientError.message}</div>
                                 </div>
-                                <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2" disabled={sending}>Send the letter</button>
+                                <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2" disabled={sending}>{t('compose_send_btn')}</button>
                             </div>
                         ) : (
                             <div className="mt-4">
                                 <select onChange={(e)=>{fontChangeHandler(e)}}>
-                                    {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>Choose your writing style</option>))}
+                                    {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example')}</option>))}
                                 </select>
                                 <div className="h-full w-full ">
                                     <textarea
-                                        className={`w-[38rem] bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl ${getClassNameFromStyleId(selectedStyle)}`}
+                                        className={`w-[38rem] p-2 resize-none overflow-hidden focus:outline-none text-2xl ${getClassNameFromStyleId(selectedStyle)} bg-[url('/custom_letter_paper.png')] bg-contain bg-no-repeat placeholder:text-blue-700`}
                                         id="body"
                                         name="body"
-                                        placeholder="The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart. -Helen Keller"
+                                        placeholder={t('compose_body_placeholder')}
                                         required
                                         rows="22"
                                         maxLength={2000}
@@ -158,7 +153,7 @@ export default function ComposePage() {
                         )}
                     </div>
 
-                    <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? 'Open the letter' : 'Close the letter'}</div>
+                    <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? t('compose_open_letter') : t('compose_close_letter')}</div>
                 </div>
             </form>
         </PageContainer>

@@ -16,15 +16,21 @@ export const AuthContext = createContext({
   setUser: () => { }
 });
 
-export default function RootLayout({ children }) {
+export const LocalizationContext = createContext({
+  loc: 'en',
+  setLoc: () => { }
+});
 
+export default function RootLayout({ children }) {
   const [user, setUser] = useState({});
   const providerValue = { user, setUser };
+
+  const [loc, setLoc] = useState('en');
+  const locProviderValue = { loc, setLoc };
 
   useEffect(() => {
     const checkLogin = async () => {
       const foundUser = await isLoggedIn();
-      console.log("found user value:", foundUser);
       if (foundUser) setUser(foundUser);
     }
 
@@ -36,10 +42,12 @@ export default function RootLayout({ children }) {
 
       <body>
         <AuthContext.Provider value={providerValue}>
-          <div className='flex'>
-            <Navigation className={`${robotoHeavyFont.className}`} />
-            {children}
-          </div>
+          <LocalizationContext.Provider value={locProviderValue}>
+            <div className='flex'>
+              <Navigation className={`${robotoHeavyFont.className}`} />
+              {children}
+            </div>
+          </LocalizationContext.Provider>
         </AuthContext.Provider>
       </body>
 

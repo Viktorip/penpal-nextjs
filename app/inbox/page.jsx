@@ -8,6 +8,7 @@ import { endpoint } from "@/utils/constants";
 import Link from "next/link";
 import { GiLoveLetter } from "react-icons/gi";
 import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
+import t from "@/lib/localization";
 
 
 export default function InboxPage() {
@@ -17,13 +18,13 @@ export default function InboxPage() {
     console.log("Inbox letters:", data.letters);
     if (loading) return (
         <PageContainer>
-            Loading letters ...
+            {t('loading')}
         </PageContainer>
     );
 
     if (error) return (
         <PageContainer>
-            Error: {error}
+            {error}
         </PageContainer>
     );
 
@@ -37,7 +38,7 @@ export default function InboxPage() {
 
     return (
         <PageContainer>
-            No letters found
+            {t('inbox_empty')}
         </PageContainer>
     );
 }
