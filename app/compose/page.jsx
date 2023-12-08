@@ -95,34 +95,26 @@ export default function ComposePage() {
     return (
         <PageContainer>
             {showWarningModal.show &&
-                <Modal 
-                okCallback={handleModalContinue} 
-                cancelCallback={handleModalCancel} 
-                type='warning'
-                title={t('modal_changestyle_title')}
-                body={t('modal_changestyle_body')}
-                okString={t('modal_changestyle_ok')}
-                cancelString={t('modal_default_cancel')}
+                <Modal
+                    okCallback={handleModalContinue}
+                    cancelCallback={handleModalCancel}
+                    type='warning'
+                    title={t('modal_changestyle_title')}
+                    body={t('modal_changestyle_body')}
+                    okString={t('modal_changestyle_ok')}
+                    cancelString={t('modal_default_cancel')}
                 />
             }
             <form action={formHandler} className="space-y-3">
                 <div>
-                    <div className='text-xl'>
-                        {t('compose_title')}
-                    </div>
-                    <div>
-                        {closed ? (
-                            <div>
-                                <div>
-                                    <label
-                                        className="mb-3 mt-5 block text-s font-medium text-gray-900"
-                                        htmlFor="title"
-                                    >
-                                        {t('compose_title_title')}
-                                    </label>
+                    {closed ? (
+                        //Closed letter
+                        <div>
+                            <div className="w-[30rem] h-[18rem] bg-[url('/envelope.png')] bg-contain bg-no-repeat relative">
+                                <div className="absolute top-[8rem] left-[8rem]">
                                     <div>
                                         <input
-                                            className="w-80 focus:outline-none focus:ring focus:border-blue-500"
+                                            className="w-60 focus:outline-none focus:ring focus:border-blue-500"
                                             id="title"
                                             type="text"
                                             name="title"
@@ -134,13 +126,7 @@ export default function ComposePage() {
                                     </div>
                                     <div className="text-red-700">{title.length < 2 || titleIsValid ? '' : titleError.message}</div>
                                 </div>
-                                <div>
-                                    <label
-                                        className="mb-3 mt-5 block text-s font-medium text-gray-900"
-                                        htmlFor="email"
-                                    >
-                                        {t('compose_recipient')}
-                                    </label>
+                                <div className="absolute top-[1.25rem] left-[1rem]">
                                     <div>
                                         <input
                                             className="w-80 focus:outline-none focus:ring focus:border-blue-500"
@@ -155,9 +141,15 @@ export default function ComposePage() {
                                     </div>
                                     <div className="text-red-700">{recipient.length < 2 || recipientIsValid ? '' : recipientError.message}</div>
                                 </div>
-                                <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2" disabled={sending}>{t('compose_send_btn')}</button>
                             </div>
-                        ) : (
+                            <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-[30rem] bg-white text-blue-700 text-center mt-2" disabled={sending}>{t('compose_send_btn')}</button>
+                        </div>
+                    ) : (
+                        //Open letter
+                        <div>
+                            <div className='text-xl'>
+                                {t('compose_title')}
+                            </div>
                             <div className="mt-4">
                                 <select ref={styleRef} onChange={(e) => { fontChangeHandler(e) }}>
                                     {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example')}</option>))}
@@ -169,13 +161,13 @@ export default function ComposePage() {
                                     onChange={letterBodyHandler}
                                     taRef={bodyRef}
                                 />
-
                             </div>
-                        )}
-                    </div>
-
-                    <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? t('compose_open_letter') : t('compose_close_letter')}</div>
+                        </div>
+                    )}
                 </div>
+
+                <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-36 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? t('compose_open_letter') : t('compose_close_letter')}</div>
+
             </form>
         </PageContainer>
     )
