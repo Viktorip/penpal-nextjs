@@ -1,4 +1,5 @@
 'use client'
+import Letter from "@/components/Letter";
 import PageContainer from "@/components/PageContainer";
 import useFetch from "@/hooks/useFetch";
 import t from "@/lib/localization";
@@ -31,17 +32,11 @@ export default function LetterPage() {
                 <div>
                     {`From: ${senderData?.user?.email}`}
                 </div>
-                <div className="h-full w-full ">
-                    <textarea
-                        className={`w-[38rem] bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl ${data.letter.style ? getClassNameFromStyleId(data.letter.style) : getClassNameFromStyleId(getAllStyleIds()[0])}`}
-                        id="body"
-                        name="body"
-                        rows="22"
-                        value={data.letter.body}
-                        readOnly
-                    >
-                    </textarea>
-                </div>
+                <Letter
+                    style={data.letter.style ? getClassNameFromStyleId(data.letter.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
+                    value={data.letter.body}
+                    readOnly={true}
+                />
 
             </div>
 
@@ -54,3 +49,19 @@ export default function LetterPage() {
         </PageContainer>
     )
 }
+
+/*
+
+<div className="h-full w-full ">
+                    <textarea
+                        className={`w-[38rem] bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl ${data.letter.style ? getClassNameFromStyleId(data.letter.style) : getClassNameFromStyleId(getAllStyleIds()[0])}`}
+                        id="body"
+                        name="body"
+                        rows="22"
+                        value={data.letter.body}
+                        readOnly
+                    >
+                    </textarea>
+                </div>
+
+*/

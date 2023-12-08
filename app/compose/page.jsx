@@ -8,12 +8,13 @@ import { AuthContext } from "../layout";
 import Modal from "@/components/Modal";
 import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 import t from "@/lib/localization";
+import Letter from "@/components/Letter";
 
 
 const styleIds = getAllStyleIds();
 
 export default function ComposePage() {
-    const {user, setUser} = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const [body, setBody] = useState('');
     const [recipient, setRecipient] = useState('');
     const [title, setTitle] = useState('');
@@ -45,19 +46,26 @@ export default function ComposePage() {
     }
 
     const letterBodyHandler = () => {
+        //let changed = false;
         try {
             while (bodyRef.current.clientHeight < bodyRef.current.scrollHeight) {
                 let halved = Math.ceil(Math.abs((bodyRef.current.value.length - body.length) / 10));
                 if (halved < 1) halved = 1;
 
                 bodyRef.current.value = bodyRef.current.value.substr(0, bodyRef.current.value.length - halved);
+                //if (!changed) changed = true;
             }
         } catch (error) {
             console.log("caught error:", error);
         } finally {
-            //set cursor to the end
-            bodyRef.current.selectionStart = bodyRef.current.selectionEnd = bodyRef.current.value.length;
-            bodyRef.current.focus();
+            /*
+            //this seems to do nothing?
+            if (changed) {
+                //set cursor to the end
+                bodyRef.current.selectionStart = bodyRef.current.selectionEnd = bodyRef.current.value.length;
+                bodyRef.current.focus();
+            }
+            */
 
             setBody(bodyRef.current.value);
         }
@@ -68,7 +76,7 @@ export default function ComposePage() {
         if (body.length > 0) {
             letterBodyHandler();
             setShowWarningModal(true);
-        }else{
+        } else {
             setSelectedStyle(e.target.value);
         }
     }
@@ -130,10 +138,31 @@ export default function ComposePage() {
                             </div>
                         ) : (
                             <div className="mt-4">
-                                <select onChange={(e)=>{fontChangeHandler(e)}}>
+                                <select onChange={(e) => { fontChangeHandler(e) }}>
                                     {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example')}</option>))}
                                 </select>
-                                <div className="h-full w-full ">
+                                <Letter
+                                    style={getClassNameFromStyleId(selectedStyle)}
+                                    placeholder={t('compose_body_placeholder')}
+                                    value={body}
+                                    onChange={letterBodyHandler}
+                                    taRef={bodyRef}
+                                />
+
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? t('compose_open_letter') : t('compose_close_letter')}</div>
+                </div>
+            </form>
+        </PageContainer>
+    )
+}
+
+/*
+
+<div className="h-full w-full ">
                                     <textarea
                                         className={`w-[38rem] p-2 resize-none overflow-hidden focus:outline-none text-2xl ${getClassNameFromStyleId(selectedStyle)} bg-[url('/custom_letter_paper.png')] bg-contain bg-no-repeat placeholder:text-blue-700`}
                                         id="body"
@@ -149,13 +178,5 @@ export default function ComposePage() {
                                     >
                                     </textarea>
                                 </div>
-                            </div>
-                        )}
-                    </div>
 
-                    <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-32 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? t('compose_open_letter') : t('compose_close_letter')}</div>
-                </div>
-            </form>
-        </PageContainer>
-    )
-}
+*/

@@ -1,8 +1,41 @@
+import Image from "next/image";
 
 
-export default function LetterPage() {
+export default function Letter(props) {
 
     return (
-        <div>Letter page</div>
+        <div className="w-[42rem] p-10 bg-[url('/custom_letter_paper.png')] bg-contain bg-no-repeat">
+            
+            <textarea
+                className={`w-[36.5rem] resize-none overflow-hidden focus:outline-none text-2xl ${props.style}  placeholder:text-blue-700 bg-transparent`}
+                id="body"
+                name="body"
+                placeholder={props.placeholder}
+                required
+                rows="22"
+                maxLength={2000}
+                minLength={3}
+                value={props.value}
+                onChange={props.onChange}
+                ref={props.taRef}
+                readOnly={props.readOnly ? true : false}
+            >
+            </textarea>
+            
+        </div>
     )
 }
+
+// bg-[url('/custom_letter_paper.png')] bg-contain bg-no-repeat
+
+/*
+
+<div className="absolute top-0 left-0 z-0">
+                <Image
+                    src="/custom_letter_paper.png"
+                    width={608}
+                    height={724}
+                />
+            </div>
+
+*/
