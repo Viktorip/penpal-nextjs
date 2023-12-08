@@ -27,7 +27,13 @@
         "compose_recipient": "Recipient",
         "compose_recipient_placeholder": "Enter recipient email address",
         "compose_send_btn": "Send the letter",
-        "compose_open_letter": "Unseal the letter"
+        "compose_open_letter": "Unseal the letter",
+        "modal_default_ok": "Continue",
+        "modal_default_cancel": "Cancel",
+        "modal_changestyle_title": "Change your writing style",
+        "modal_changestyle_body": "Are you sure you want to change your writing style? Writing that does not fit on the page will be erased. This action cannot be undone.",
+        "modal_changestyle_ok": "Change style"
+        
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -57,7 +63,12 @@
         "compose_recipient": "Vastaanottaja",
         "compose_recipient_placeholder": "Anna vastaanottajan sähköposti osoite",
         "compose_send_btn": "Lähetä kirje",
-        "compose_open_letter": "Avaa kirje"
+        "compose_open_letter": "Avaa kirje",
+        "modal_default_ok": "Jatka",
+        "modal_default_cancel": "Peruuta",
+        "modal_changestyle_title": "Kirjoitustyylin vaihto",
+        "modal_changestyle_body": "Haluatko varmasti vaihtaa kirjoitustyyliä? Kirjoitus mikä ei mahdu sivulle pyyhitään pois. Tätä toimenpidettä ei voi peruuttaa.",
+        "modal_changestyle_ok": "Vaihda"
     },
     "vn": {
         "navi_home_title": "Home",
@@ -87,6 +98,11 @@
         "compose_recipient": "Recipient",
         "compose_recipient_placeholder": "Enter recipient email address",
         "compose_send_btn": "Send the letter",
-        "compose_open_letter": "Unseal the letter"
+        "compose_open_letter": "Unseal the letter",
+        "modal_default_ok": "Continue",
+        "modal_default_cancel": "Cancel",
+        "modal_changestyle_title": "Change your writing style",
+        "modal_changestyle_body": "Are you sure you want to change your writing style? Writing that does not fit on the page will be erased. This action cannot be undone.",
+        "modal_changestyle_ok": "Change style"
     }
 }

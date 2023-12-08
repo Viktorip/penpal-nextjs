@@ -20,12 +20,13 @@ export default function ComposePage() {
     const [title, setTitle] = useState('');
     const [closed, setClosed] = useState(false);
     const bodyRef = useRef();
+    const styleRef = useRef();
     const router = useRouter();
     const [sending, setSending] = useState(false);
     const [titleIsValid, titleError] = useValidate(title, { type: 'text' });
     const [recipientIsValid, recipientError] = useValidate(recipient, { type: 'email' });
     const [selectedStyle, setSelectedStyle] = useState(styleIds[0]);
-    const [showWarningModal, setShowWarningModal] = useState(false);
+    const [showWarningModal, setShowWarningModal] = useState({ show: false, blocked: '' });
 
     const formHandler = async () => {
         const formData = new FormData();
@@ -75,15 +76,35 @@ export default function ComposePage() {
     const fontChangeHandler = (e) => {
         if (body.length > 0) {
             letterBodyHandler();
-            setShowWarningModal(true);
+            setShowWarningModal({ show: true, blocked: e.target.value });
         } else {
             setSelectedStyle(e.target.value);
         }
     }
 
+    const handleModalContinue = () => {
+        setSelectedStyle(showWarningModal.blocked);
+        setShowWarningModal({ show: false, blocked: '' });
+    }
+
+    const handleModalCancel = () => {
+        setShowWarningModal({ show: false, blocked: '' });
+        styleRef.current.value = selectedStyle;
+    }
+
     return (
         <PageContainer>
-            {showWarningModal && <Modal />}
+            {showWarningModal.show &&
+                <Modal 
+                okCallback={handleModalContinue} 
+                cancelCallback={handleModalCancel} 
+                type='warning'
+                title={t('modal_changestyle_title')}
+                body={t('modal_changestyle_body')}
+                okString={t('modal_changestyle_ok')}
+                cancelString={t('modal_default_cancel')}
+                />
+            }
             <form action={formHandler} className="space-y-3">
                 <div>
                     <div className='text-xl'>
@@ -138,7 +159,7 @@ export default function ComposePage() {
                             </div>
                         ) : (
                             <div className="mt-4">
-                                <select onChange={(e) => { fontChangeHandler(e) }}>
+                                <select ref={styleRef} onChange={(e) => { fontChangeHandler(e) }}>
                                     {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example')}</option>))}
                                 </select>
                                 <Letter

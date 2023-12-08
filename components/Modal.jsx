@@ -1,7 +1,7 @@
 
 
-export default function Modal() {
-
+export default function Modal(props) {
+    
 
     return (
         <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -18,16 +18,16 @@ export default function Modal() {
                                     </svg>
                                 </div>
                                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Change your writing style</h3>
+                                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{props.title}</h3>
                                     <div class="mt-2">
-                                        <p class="text-sm text-gray-500">Are you sure you want to change your writing style? Writing that does not fit on the page will be erased. This action cannot be undone.</p>
+                                        <p class="text-sm text-gray-500">{props.body}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Change style</button>
-                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" onClick={props.okCallback}>{props.okString}</button>
+                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" onClick={props.cancelCallback}>{props.cancelString}</button>
                         </div>
                     </div>
                 </div>
