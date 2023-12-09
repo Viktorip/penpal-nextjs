@@ -37,3 +37,7 @@ export const getClassNameFromStyleId = (id) => {
     const style = fontmap.find(item => (item.id === id));
     return style.className;
 }
+
+export const getAllStamps = ()=>{
+    return ['stamps/empty_stamp.png', 'stamps/punatulkku_stamp.png', 'stamps/suomi180_stamp.png'];
+}

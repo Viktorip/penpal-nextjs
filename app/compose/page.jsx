@@ -6,12 +6,15 @@ import { useRouter } from "next/navigation";
 import useValidate from "@/hooks/useValidate";
 import { AuthContext } from "../layout";
 import Modal from "@/components/Modal";
-import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
+import { getAllStamps, getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 import t from "@/lib/localization";
 import Letter from "@/components/Letter";
+import StampSelectionModal from "@/components/StampSelectionModal";
+import Envelope from "@/components/Envelope";
 
 
 const styleIds = getAllStyleIds();
+const stamps = getAllStamps();
 
 export default function ComposePage() {
     const { user, setUser } = useContext(AuthContext);
@@ -19,23 +22,36 @@ export default function ComposePage() {
     const [recipient, setRecipient] = useState('');
     const [title, setTitle] = useState('');
     const [closed, setClosed] = useState(false);
-    const bodyRef = useRef();
-    const styleRef = useRef();
-    const router = useRouter();
     const [sending, setSending] = useState(false);
-    const [titleIsValid, titleError] = useValidate(title, { type: 'text' });
-    const [recipientIsValid, recipientError] = useValidate(recipient, { type: 'email' });
     const [selectedStyle, setSelectedStyle] = useState(styleIds[0]);
     const [showWarningModal, setShowWarningModal] = useState({ show: false, blocked: '' });
+    const [optionalRecipient, setOptionalRecipient] = useState('');
+    const [optionalSender, setOptionalSender] = useState('');
+    const [showStampModal, setShowStampModal] = useState(false);
+    const [selectedStamp, setSelectedStamp] = useState('');
+
+    const bodyRef = useRef();
+    const styleRef = useRef();
+    const optionalRecipientRef = useRef();
+    const optionalSenderRef = useRef();
+
+    const router = useRouter();
+
+    const [titleIsValid, titleError] = useValidate(title, { type: 'text' });
+    const [recipientIsValid, recipientError] = useValidate(recipient, { type: 'email' });
+
+
 
     const formHandler = async () => {
         const formData = new FormData();
         //validate data first??
         formData.append("body", body);
-        formData.append("title", title);
         formData.append("recipientEmail", recipient);
         formData.append("senderId", user.id);
         formData.append("style", selectedStyle);
+        formData.append("optionalSender", optionalSender);
+        formData.append("optionalRecipient", optionalRecipient);
+        formData.append("stamp", selectedStamp);
         setSending(true);
         const resp = await sendLetter(formData);
         if (resp) {
@@ -46,14 +62,15 @@ export default function ComposePage() {
         setSending(false);
     }
 
-    const letterBodyHandler = () => {
+    const textareaHandler = (targetRef, cb, small = false) => {
         //let changed = false;
         try {
-            while (bodyRef.current.clientHeight < bodyRef.current.scrollHeight) {
-                let halved = Math.ceil(Math.abs((bodyRef.current.value.length - body.length) / 10));
+            while (targetRef.current.clientHeight < targetRef.current.scrollHeight) {
+                let halved = Math.ceil(Math.abs((targetRef.current.value.length - body.length) / 10));
                 if (halved < 1) halved = 1;
+                if (small) halved = 1;
 
-                bodyRef.current.value = bodyRef.current.value.substr(0, bodyRef.current.value.length - halved);
+                targetRef.current.value = targetRef.current.value.substr(0, targetRef.current.value.length - halved);
                 //if (!changed) changed = true;
             }
         } catch (error) {
@@ -63,19 +80,18 @@ export default function ComposePage() {
             //this seems to do nothing?
             if (changed) {
                 //set cursor to the end
-                bodyRef.current.selectionStart = bodyRef.current.selectionEnd = bodyRef.current.value.length;
-                bodyRef.current.focus();
+                targetRef.current.selectionStart = targetRef.current.selectionEnd = targetRef.current.value.length;
+                targetRef.current.focus();
             }
             */
 
-            setBody(bodyRef.current.value);
+            cb(targetRef.current.value);
         }
-
     }
 
     const fontChangeHandler = (e) => {
         if (body.length > 0) {
-            letterBodyHandler();
+            textareaHandler(bodyRef, setBody);
             setShowWarningModal({ show: true, blocked: e.target.value });
         } else {
             setSelectedStyle(e.target.value);
@@ -92,6 +108,17 @@ export default function ComposePage() {
         styleRef.current.value = selectedStyle;
     }
 
+    const handleStampSelection = (path) => {
+        if (path === stamps[0]) {
+            setSelectedStamp(null);
+        } else {
+            setSelectedStamp(path);
+        }
+
+        setShowStampModal(false);
+        console.log("selected stamp:", path);
+    }
+
     return (
         <PageContainer>
             {showWarningModal.show &&
@@ -105,43 +132,45 @@ export default function ComposePage() {
                     cancelString={t('modal_default_cancel')}
                 />
             }
+            {showStampModal &&
+                <StampSelectionModal
+                    okCallback={() => setShowStampModal(false)}
+                    cancelCallback={() => setShowStampModal(false)}
+                    type='custom'
+                    title='Choose your stamp'
+                    okString={t('modal_default_ok')}
+                    cancelString={t('modal_default_cancel')}
+                    stamps={stamps}
+                    stampCallback={handleStampSelection}
+                />
+            }
             <form action={formHandler} className="space-y-3">
                 <div>
                     {closed ? (
                         //Closed letter
                         <div>
-                            <div className="w-[30rem] h-[18rem] bg-[url('/envelope.png')] bg-contain bg-no-repeat relative">
-                                <div className="absolute top-[8rem] left-[8rem]">
-                                    <div>
-                                        <input
-                                            className="w-60 focus:outline-none focus:ring focus:border-blue-500"
-                                            id="title"
-                                            type="text"
-                                            name="title"
-                                            placeholder={t('compose_title_title_placeholder')}
-                                            required
-                                            value={title}
-                                            onChange={(e) => { setTitle(e.target.value) }}
-                                        />
-                                    </div>
-                                    <div className="text-red-700">{title.length < 2 || titleIsValid ? '' : titleError.message}</div>
-                                </div>
-                                <div className="absolute top-[1.25rem] left-[1rem]">
-                                    <div>
-                                        <input
-                                            className="w-80 focus:outline-none focus:ring focus:border-blue-500"
-                                            id="email"
-                                            type="email"
-                                            name="email"
-                                            placeholder={t('compose_recipient_placeholder')}
-                                            required
-                                            value={recipient}
-                                            onChange={(e) => { setRecipient(e.target.value) }}
-                                        />
-                                    </div>
-                                    <div className="text-red-700">{recipient.length < 2 || recipientIsValid ? '' : recipientError.message}</div>
-                                </div>
-                            </div>
+                            <Envelope
+                                style={getClassNameFromStyleId(selectedStyle)}
+                                optionalRecipientRef={optionalRecipientRef}
+                                optionalRecipient={optionalRecipient}
+                                onChangeRecipient={() => textareaHandler(optionalRecipientRef, setOptionalRecipient, true)}
+                                optionalSenderRef={optionalSenderRef}
+                                optionalSender={optionalSender}
+                                onChangeSender={() => textareaHandler(optionalSenderRef, setOptionalSender, true)}
+                                onClickStamp={() => setShowStampModal(true)}
+                                stamp={selectedStamp}
+                            />
+
+                            <div className="text-xl">Preview</div>
+
+                            <Envelope
+                                optionalSender={optionalSender}
+                                optionalRecipient={optionalRecipient}
+                                style={getClassNameFromStyleId(selectedStyle)}
+                                stamp={selectedStamp}
+                                readOnly
+                            />
+
                             <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-[30rem] bg-white text-blue-700 text-center mt-2" disabled={sending}>{t('compose_send_btn')}</button>
                         </div>
                     ) : (
@@ -158,7 +187,7 @@ export default function ComposePage() {
                                     style={getClassNameFromStyleId(selectedStyle)}
                                     placeholder={t('compose_body_placeholder')}
                                     value={body}
-                                    onChange={letterBodyHandler}
+                                    onChange={() => textareaHandler(bodyRef, setBody)}
                                     taRef={bodyRef}
                                 />
                             </div>
@@ -186,10 +215,73 @@ export default function ComposePage() {
                                         maxLength={2000}
                                         minLength={3}
                                         value={body}
-                                        onChange={letterBodyHandler}
+                                        onChange={textareaHandler}
                                         ref={bodyRef}
                                     >
                                     </textarea>
                                 </div>
+
+<input
+                                            className="w-60 focus:outline-none focus:ring focus:border-blue-500"
+                                            id="title"
+                                            type="text"
+                                            name="title"
+                                            placeholder={t('compose_title_title_placeholder')}
+                                            required
+                                            value={title}
+                                            onChange={(e) => { setTitle(e.target.value) }}
+                                        />                                
+
+<input
+                                            className="w-80 focus:outline-none focus:ring focus:border-blue-500"
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            placeholder={t('compose_recipient_placeholder')}
+                                            required
+                                            value={recipient}
+                                            onChange={(e) => { setRecipient(e.target.value) }}
+                                        />
+
+
+<div className="w-[30rem] h-[18rem] bg-[url('/envelope.png')] bg-contain bg-no-repeat relative">
+                                <div className="absolute top-[8rem] left-[8.25rem]">
+                                    <div>
+                                        <textarea
+                                            className={`focus:outline-none focus:ring focus:border-blue-500 resize-none overflow-hidden text-xl ${getClassNameFromStyleId(selectedStyle)}`}
+                                            placeholder="Optional field"
+                                            rows={3}
+                                            cols={26}
+                                            maxLength={200}
+                                            ref={optionalRecipientRef}
+                                            value={optionalRecipient}
+                                            onChange={() => textareaHandler(optionalRecipientRef, setOptionalRecipient, true)}
+                                        >
+                                        </textarea>
+
+                                    </div>
+                                    <div className="text-red-700">{title.length < 2 || titleIsValid ? '' : titleError.message}</div>
+                                </div>
+                                <div className="absolute top-[1.25rem] left-[1rem]">
+                                    <div>
+
+                                        <textarea
+                                            className={`focus:outline-none focus:ring focus:border-blue-500 resize-none overflow-hidden text-xl ${getClassNameFromStyleId(selectedStyle)}`}
+                                            placeholder="Optional field"
+                                            rows={3}
+                                            cols={26}
+                                            maxLength={200}
+                                            ref={optionalSenderRef}
+                                            value={optionalSender}
+                                            onChange={() => textareaHandler(optionalSenderRef, setOptionalSender, true)}
+                                        >
+                                        </textarea>
+                                    </div>
+                                    <div className="text-red-700">{recipient.length < 2 || recipientIsValid ? '' : recipientError.message}</div>
+                                </div>
+                                <div className="absolute top-[1rem] left-[24.15rem] bg-[url('/punatulkku_stamp.png')] bg-contain bg-no-repeat z-4 w-20 h-20" onClick={()=>setShowStampModal(true)}>
+                                    
+                                </div>
+                            </div>                                       
 
 */
