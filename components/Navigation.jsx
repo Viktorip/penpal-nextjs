@@ -20,7 +20,7 @@ export default function Navigation({ className }) {
     }
 
     return (
-        <div className={`flex-none h-screen w-48 bg-blue-200 py-10 space-y-4 ${className}`}>
+        <div className={`flex-none min-h-screen w-48 bg-blue-200 py-10 space-y-4 ${className}`}>
             <div className="flex flex-row space-x-4 p-2 justify-center">
                 <div>
                     <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('en')}>

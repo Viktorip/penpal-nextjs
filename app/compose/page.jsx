@@ -11,6 +11,7 @@ import t from "@/lib/localization";
 import Letter from "@/components/Letter";
 import StampSelectionModal from "@/components/StampSelectionModal";
 import Envelope from "@/components/Envelope";
+import SendModal from "@/components/SendModal";
 
 
 const styleIds = getAllStyleIds();
@@ -29,6 +30,7 @@ export default function ComposePage() {
     const [optionalSender, setOptionalSender] = useState('');
     const [showStampModal, setShowStampModal] = useState(false);
     const [selectedStamp, setSelectedStamp] = useState('');
+    const [showSendModal, setShowSendModal] = useState(false);
 
     const bodyRef = useRef();
     const styleRef = useRef();
@@ -37,9 +39,10 @@ export default function ComposePage() {
 
     const router = useRouter();
 
+    /*
     const [titleIsValid, titleError] = useValidate(title, { type: 'text' });
     const [recipientIsValid, recipientError] = useValidate(recipient, { type: 'email' });
-
+    */
 
 
     const formHandler = async () => {
@@ -52,13 +55,14 @@ export default function ComposePage() {
         formData.append("optionalSender", optionalSender);
         formData.append("optionalRecipient", optionalRecipient);
         formData.append("stamp", selectedStamp);
-        setSending(true);
+        
         const resp = await sendLetter(formData);
-        if (resp) {
+        if (resp) {            
             router.push('/success');
             return;
         }
-
+        console.log("Failed to send the letter");
+        setShowSendModal(false);
         setSending(false);
     }
 
@@ -91,7 +95,7 @@ export default function ComposePage() {
 
     const fontChangeHandler = (e) => {
         if (body.length > 0) {
-            textareaHandler(bodyRef, setBody);
+            textareaHandler(bodyRef, (val)=>setBody(val));
             setShowWarningModal({ show: true, blocked: e.target.value });
         } else {
             setSelectedStyle(e.target.value);
@@ -144,7 +148,23 @@ export default function ComposePage() {
                     stampCallback={handleStampSelection}
                 />
             }
-            <form action={formHandler} className="space-y-3">
+            {showSendModal &&
+                <SendModal
+                    value={recipient}
+                    onChange={(e) => setRecipient(e.target.value)}
+                    formAction={()=>{
+                        setSending(true);
+                        formHandler();
+                    }}
+                    cancelCallback={() => { setShowSendModal(false); }}
+                    okString='Send'
+                    cancelString={t('modal_default_cancel')}
+                    title='Just one thing before we send the letter...'
+                    body='Please tell us the email address of the recipient so the letter finds itself to the right person'
+                    sending={sending}
+                />
+            }
+            <div className="space-y-3">
                 <div>
                     {closed ? (
                         //Closed letter
@@ -171,7 +191,7 @@ export default function ComposePage() {
                                 readOnly
                             />
 
-                            <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-[30rem] bg-white text-blue-700 text-center mt-2" disabled={sending}>{t('compose_send_btn')}</button>
+                            <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-[30rem] bg-white text-blue-700 text-center mt-2" onClick={() => setShowSendModal(true)}>Continue</button>
                         </div>
                     ) : (
                         //Open letter
@@ -197,7 +217,7 @@ export default function ComposePage() {
 
                 <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-36 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? t('compose_open_letter') : t('compose_close_letter')}</div>
 
-            </form>
+            </div>
         </PageContainer>
     )
 }

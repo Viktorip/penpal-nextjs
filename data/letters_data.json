@@ -2,84 +2,113 @@
   "data": [
     {
       "id": 1,
-      "title": "Hello jotain",
-      "body": "Lets do this!",
+      "optional_recipient": "Jotain Virtanen",
+      "optional_sender": "Sent by Admin",
+      "body": "This is the first test message. Don't think too much about it.",
+      "recipient_id": 2,
       "sender_id": 1,
-      "recipient_id": 2
+      "style": "caveat",
+      "stamp": "punatulkku_stamp.png",
+      "timestamp": 1702214563
     },
     {
       "id": 2,
-      "title": "Hello admin",
-      "body": "Lets do this! 2",
-      "sender_id": 2,
-      "recipient_id": 1
+      "optional_recipient": "Jotain Virtanen\r\nOrvokkitie 5 B 12\r\n06610 Savonlinna",
+      "optional_sender": "Admin Virtanen\r\nKielokuja 3 A 18\r\n045610 Seinäjoki",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt, nisl rutrum lacinia laoreet, magna risus commodo lacus, eu porttitor urna purus ac nunc. Cras volutpat mi at iaculis sagittis. Nam convallis sit amet purus at lobortis. Pellentesque suscipit pellentesque elementum. Proin vitae consequat leo. Aliquam lobortis posuere lacus sed placerat. Cras libero sem, feugiat non arcu at, ullamcorper cursus nibh. Nam turpis risus, dapibus eget justo ac, vulputate eleifend nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent dui libero, feugiat ac augue vel, posuere pharetra elit. Proin et quam quis velit commodo imperdiet non non augue.\r\n\r\nIn sit amet arcu nec sapien placerat sollicitudin ac vitae neque. Integer vitae sagittis nunc. Vivamus quis dolor tempor, commodo mauris non, condimentum felis. Aliquam erat volutpat. Nulla congue cursus mauris non pharetra. Integer ornare urna quis orci molestie, id dictum lectus ornare. Sed at massa arcu. Mauris malesuada fermentum lobortis. Nunc interdum suscipit purus a ornare. Mauris viverra leo a imperdiet mollis. Nam interdum elit a neque pulvinar, tincidunt egestas tortor condimentum. Duis nunc mi, aliquet nec luctus ac, tristique id orci.\r\n\r\nWith love from,\r\nAdmin",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "caveat",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1702216702.06
     },
     {
       "id": 3,
-      "title": "Hello again admin",
-      "body": "Lets do this! 3",
-      "sender_id": 3,
-      "recipient_id": 1
+      "optional_recipient": "",
+      "optional_sender": "",
+      "body": "I sent you an empty letter cuz I'm an ahole. Lets hope it breaks everything!",
+      "recipient_id": 1,
+      "sender_id": 2,
+      "style": "caveat",
+      "stamp": "",
+      "timestamp": 1702217869.659
     },
     {
       "id": 4,
-      "title": "from Jotain with Love",
-      "body": "Hello how are you dear Admin?\r\n\r\nGreat to hear you are good.\r\n\r\nThanks, bye.\r\n\r\nFrom Jotain.",
-      "recipient_id": 1,
-      "sender_id": 2
+      "optional_recipient": "To the jerk Jotain\r\nIn Hell",
+      "optional_sender": "From Admin With Love",
+      "body": "Dear Jotain, you are indeed an ahole. But unlucky for you the empty letter didn't break anything. Tough luck!\r\n\r\nTry again and I won't be so nice. (don't try again)\r\n\r\nYours,\r\nAdmin",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "nothing",
+      "stamp": "stamps/punatulkku_stamp.png",
+      "timestamp": 1702218470.509
     },
     {
       "id": 5,
-      "title": "Dear Admin I forgot to tell you something",
-      "body": "Oops I forgot to tell you something. Hmm what was it again? I dont remember but I'll let you know if I do in the next letter.\r\n\r\nOkay good talk, Bye!",
-      "recipient_id": 1,
-      "sender_id": 2
+      "optional_recipient": "Jotain the Testee",
+      "optional_sender": "Tester Admin",
+      "body": "Just a test. Nothing else.",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "caveat",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1702218831.918
     },
     {
       "id": 6,
-      "title": "Important message for Jotain",
-      "body": "Dear Jotain,\r\n\r\nStop spamming me!\r\n\r\nOkay good talk,\r\n\r\nThanks.\r\n\r\nFrom Admin.",
-      "recipient_id": 2,
-      "sender_id": 1
+      "optional_recipient": "Admin\r\nUnkonwn Street 001\r\nCalifornia",
+      "optional_sender": "Jotain Virtanen\r\nMuskstreet 123 A 9\r\nUSA",
+      "body": "Dear Admin,\r\n\r\nThank you for using me as a tester. I love it. I do feel used but I guess thats the life of a tester, right? Or maybe I should sue you for a lot of money. I'll think about it.\r\n\r\nCya later,\r\nWith love, Jotain",
+      "recipient_id": 1,
+      "sender_id": 2,
+      "style": "reeniebeanie",
+      "stamp": "",
+      "timestamp": 1702219402.465
     },
     {
       "id": 7,
-      "title": "Jotain in Latin",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam mi non magna ullamcorper, at tristique lorem viverra. Nullam at ipsum lacus. In id lobortis eros. Quisque tempor dui augue, a pulvinar turpis pulvinar a. Donec efficitur efficitur metus non tincidunt. Pellentesque mauris magna, sollicitudin sed nisl eu, vestibulum consectetur nunc. Morbi fermentum faucibus justo at vestibulum. Vestibulum at mi pulvinar, posuere diam at, elementum risus. Ut consectetur sed leo id blandit.\r\n\r\nPraesent semper, justo vel consequat finibus, quam orci tincidunt dolor, quis laoreet quam sapien in ante. Vestibulum at ligula ultrices mauris condimentum egestas. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis nec sollicitudin turpis. Fusce id ante nunc. Quisque nibh turpis, euismod non mi eget, convallis egestas nibh. Integer mattis, ipsum in mollis sollicitudin, tellus tortor efficitur lectus, in ultricies ligula lorem id mi. Nullam nec tristique diam, in laoreet turpis. Cras ut eros dignissim, pretium lacus et, vulputate nibh. Nunc commodo iaculis ante, at accumsan urna sodales in. Sed ut vestibulum leo. Nam vel malesuada neque, et molestie nibh. Curabitur lacinia odio libero, quis dapibus lectus maximus sit amet. Donec ac molestie lectus. Nulla vitae congue elit. Sed aliquam eros vel enim ornare mattis.\r\n\r\nSincerely,\r\nYour #1 Enemy",
-      "recipient_id": 2,
-      "sender_id": 1
+      "optional_recipient": "You!",
+      "optional_sender": "Someone",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt, nisl rutrum lacinia laoreet, magna risus commodo lacus, eu porttitor urna purus ac nunc. Cras volutpat mi at iaculis sagittis. Nam convallis sit amet purus at lobortis. Pellentesque suscipit pellentesque elementum. Proin vitae consequat leo. Aliquam lobortis posuere lacus sed placerat. Cras libero sem, feugiat non arcu at, ullamcorper cursus nibh. Nam turpis risus, dapibus eget justo ac, vulputate eleifend nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent dui libero, feugiat ac augue vel, posuere pharetra elit. Proin et quam quis velit commodo imperdiet non non augue.",
+      "recipient_id": 1,
+      "sender_id": 2,
+      "style": "indieflower",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1702219981.211
     },
     {
       "id": 8,
-      "title": "Check my style",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt ex at nisi volutpat, in porta ligula auctor. Vestibulum posuere a sapien sed molestie. Nam gravida vestibulum cursus. Nunc posuere justo eget mi iaculis, vestibulum pharetra urna sollicitudin. Cras non neque eget nisi posuere malesuada. Praesent et elit et tortor tristique sagittis sit amet id magna. Nunc pretium, ligula sed finibus interdum, risus neque consectetur arcu, sit amet tincidunt risus lorem ut mauris. Ut sit amet fringilla lectus. Donec tempor nulla vel orci vulputate, vitae blandit turpis tempus. Aliquam eu ipsum aliquet ex tempus tincidunt. Cras dignissim semper nibh eget tempor. Donec eu eleifend tortor. Maecenas consectetur metus quis odio pretium, vitae sodales risus ornare.\r\n\r\nMaecenas tellus sem, accumsan quis neque a, lacinia pellentesque nisi. Donec sed egestas elit, et semper mi. Donec mauris lectus, mollis tristique diam at, vehicula ullamcorper.\r\nWith love, Jotain",
+      "optional_recipient": "You!",
+      "optional_sender": "Someone",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt, nisl rutrum lacinia laoreet, magna risus commodo lacus, eu porttitor urna purus ac nunc. Cras volutpat mi at iaculis sagittis. Nam convallis sit amet purus at lobortis. Pellentesque suscipit pellentesque elementum. Proin vitae consequat leo. Aliquam lobortis posuere lacus sed placerat. Cras libero sem, feugiat non arcu at, ullamcorper cursus nibh. Nam turpis risus, dapibus eget justo ac, vulputate eleifend nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent dui libero, feugiat ac augue vel, posuere pharetra elit. Proin et quam quis velit commodo imperdiet non non augue.",
       "recipient_id": 1,
       "sender_id": 2,
-      "style": "nothing"
+      "style": "indieflower",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1702220238.402
     },
     {
       "id": 9,
-      "title": "Cool style bro",
-      "body": "Nice style Jotain but it cant beat my fancy style. Can you even read this? Haha didn't think so.... pathetic lol.\r\n\r\nCya later Jotain\r\n\r\nFrom,\r\nAdmin",
+      "optional_recipient": "To Jotain",
+      "optional_sender": "From Admin",
+      "body": "Hello Jotain, just letting you know you sent the previous letter TWICE! Only send letters once next time, thanks.\r\n\r\n(Don't let it happen again, I'm serious!)\r\n\r\nYours,\r\nAdmin",
       "recipient_id": 2,
       "sender_id": 1,
-      "style": "tangerine"
+      "style": "caveat",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1702220598.041
     },
     {
       "id": 10,
-      "title": "layout test",
-      "body": "But when I'm writing this I can just choose to go to the next line I dont need to fill it up if i dont want to because i get to choose what i do right pretty sure thats rightlets see a word that would go over what happens\r\nin reading.",
-      "recipient_id": 1,
-      "sender_id": 2,
-      "style": "caveat"
-    },
-    {
-      "id": 11,
-      "title": "perfectly lined up text",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida felis neque, eu sollicitudin augue lobortis non. Proin justo eros, scelerisque vitae vehicula nec, commodo non lacus. Integer interdum arcu et odio semper gravida vitae a leo. Integer finibus, enim eu auctor fermentum, erat magna porttitor turpis, id efficitur nunc dui tempor lectus. Nunc convallis vel libero eget finibus. Maecenas eleifend pellentesque justo. Fusce aliquet laoreet tellus a tincidunt. Ut sed lorem quis eros imperdiet mattis pharetra et augue. Curabitur at nisl ut felis tristique laoreet et ut est. Suspendisse et mollis felis. Curabitur a semper nulla. Donec id accumsan orca.\r\n\r\nInteger felis lectus, egestas in ornare sit amet, mattis quis nisi. Aliquam ac tempus nisi. Aliquam eu lorem vel eros pharetra viverra at in diam. Cras quis mi commodo, molestie diam eu, tincidunt ipsum. Morbi venenatis placerat diam, vitae imperdiet tortor porta id. Etiam imperdiet porttitor feugiat. Sed accumsan orci id metus aliquam ornare. Curabitur viverra turpis quis neque consectetur, ac tincidunt libero porta.\r\n\r\nSed ac est tempus, imperdiet lorem in, dignissim turpis. Curabitur non augue nec ligula sollicitudin fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod, not like this okay.\r\nWith love from Admin okay???",
+      "optional_recipient": "To Testee",
+      "optional_sender": "From Tester",
+      "body": "Okay just another test. Compile time seems slow for some reason? is that really the delay? Lets see.",
       "recipient_id": 2,
       "sender_id": 1,
-      "style": "caveat"
+      "style": "caveat",
+      "stamp": "",
+      "timestamp": 1702220685.825
     }
   ]
 }

@@ -15,7 +15,7 @@ export async function authenticate(prevState, formData) {
             console.log('previous page was:', )
             cookies().set(cookiename, JSON.stringify(user), {
                 path: "/",
-                maxAge: 3600,
+                maxAge: 9600,
                 secure: true,
                 httpOnly: true,
             });
@@ -55,10 +55,14 @@ export async function logout() {
 export async function sendLetter(formData) {
     try {
         console.log("object from entries in sendLetter", Object.fromEntries(formData));
+        await timeout(5000);
         const letter = await send(Object.fromEntries(formData));
-        return letter;
+        return letter;              
     }catch (error) {
         throw error;
-    }
-    
+    }    
+}
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

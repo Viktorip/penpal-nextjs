@@ -14,23 +14,27 @@ export async function GET(req, {params}) {
 
 export async function POST(req, {params}) {
     const {data} = await req.json();
-    console.log("running POST on letters/send");
+    console.log("running POST on letters/send", data);
     const recipient = await getUserById(data.recipientEmail);
 
     if (recipient?.id) {
         try {
             const jsonDataFromFile = await fsPromises.readFile(dataFilePath);
             const objectData = JSON.parse(jsonDataFromFile);
-            let nextId = objectData.data.reduce((a,b) => Math.max(a,b.id), 0);
+            let nextId = objectData.data.reduce((a,b) => Math.max(a,b.id), 0) || 0;
             console.log("nextId is:", nextId);
+            const unixTimeInSeconds = Date.now() / 1000;
     
             const newData = {
                 id: ++nextId,
-                title: data.title,
+                optional_recipient: data.optionalRecipient,
+                optional_sender: data.optionalSender,
                 body: data.body,
                 recipient_id: recipient.id,
                 sender_id: parseInt(data.senderId, 10),
-                style: data.style
+                style: data.style,
+                stamp: data.stamp,
+                timestamp: unixTimeInSeconds
             };
     
             console.log("created newData to insert:", newData);

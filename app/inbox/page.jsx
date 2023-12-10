@@ -9,6 +9,7 @@ import Link from "next/link";
 import { GiLoveLetter } from "react-icons/gi";
 import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 import t from "@/lib/localization";
+import Envelope from "@/components/Envelope";
 
 
 export default function InboxPage() {
@@ -30,8 +31,20 @@ export default function InboxPage() {
 
     if (data?.letters?.length) return (
         <PageContainer>
-            <div className="space-y-4">
-                {data.letters.map(item => (<LetterContainer key={item.id} userId={item.sender_id} title={item.title} letterId={item.id} style={item.style} />))}
+            <div className="flex flex-row flex-wrap gap-4">
+                {data.letters.map(item => (
+                    <div className="w-[30rem] h-[18rem]" key={item.id}>
+                        <Link href={`inbox/${user.id}/${item.id}`} >
+                            <Envelope
+                                optionalSender={item.optional_sender}
+                                optionalRecipient={item.optional_recipient}
+                                style={getClassNameFromStyleId(item.style)}
+                                stamp={item.stamp}
+                                readOnly
+                            />
+                        </Link>
+                    </div>
+                ))}
             </div>
         </PageContainer>
     );
@@ -48,7 +61,7 @@ const LetterContainer = (props) => {
     return (
         <div className="flex flex-row bg-white border-2 border-blue-300 rounded-lg p-4 space-x-4 items-center w-[42rem]">
             <GiLoveLetter className="text-yellow-700 text-6xl" />
-            <Link className={`text-blue-600 text-4xl ${props.style ? getClassNameFromStyleId(props.style) : getClassNameFromStyleId(getAllStyleIds()[0])}`} href={`inbox/${props.userId}/${props.letterId}`}>{props.title}</Link>
+            <Link className={`text-blue-600 text-4xl ${props.style ? getClassNameFromStyleId(props.style) : getClassNameFromStyleId(getAllStyleIds()[0])}`} href={`inbox/${props.userId}/${props.letterId}`}>No title anymore</Link>
         </div>
     )
 }
