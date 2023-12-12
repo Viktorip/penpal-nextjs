@@ -10,13 +10,11 @@ import t from '@/lib/localization';
 
 export default function LoginForm() {
   const [state, dispatch] = useFormState(authenticate, undefined);
-  console.log("State in Login Page", state);
   const router = useRouter();
   const {user, setUser} = useContext(AuthContext);
 
   useEffect(()=>{
     if (state?.id) {
-      console.log("got user with id:", state.id);
       setUser(state);
       router.push('/');
     }

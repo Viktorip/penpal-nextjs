@@ -34,7 +34,7 @@ export default function InboxPage() {
             <div className="flex flex-row flex-wrap gap-4">
                 {data.letters.map(item => (
                     <div className="w-[30rem] h-[18rem]" key={item.id}>
-                        <Link href={`inbox/${user.id}/${item.id}`} >
+                        <Link href={`inbox/${item.sender_id}/${item.id}`} >
                             <Envelope
                                 optionalSender={item.optional_sender}
                                 optionalRecipient={item.optional_recipient}
