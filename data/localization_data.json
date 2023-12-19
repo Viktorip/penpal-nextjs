@@ -32,7 +32,9 @@
         "modal_default_cancel": "Cancel",
         "modal_changestyle_title": "Change your writing style",
         "modal_changestyle_body": "Are you sure you want to change your writing style? Writing that does not fit on the page will be erased. This action cannot be undone.",
-        "modal_changestyle_ok": "Change style"
+        "modal_changestyle_ok": "Change style",
+        "from": "Sent by",
+        "date": "Received on"
         
     },
     "fi": {
@@ -68,7 +70,9 @@
         "modal_default_cancel": "Peruuta",
         "modal_changestyle_title": "Kirjoitustyylin vaihto",
         "modal_changestyle_body": "Haluatko varmasti vaihtaa kirjoitustyyliä? Kirjoitus mikä ei mahdu sivulle pyyhitään pois. Tätä toimenpidettä ei voi peruuttaa.",
-        "modal_changestyle_ok": "Vaihda"
+        "modal_changestyle_ok": "Vaihda",
+        "from": "Lähettäjä",
+        "date": "Saapunut"
     },
     "vn": {
         "navi_home_title": "Home",
@@ -103,6 +107,8 @@
         "modal_default_cancel": "Cancel",
         "modal_changestyle_title": "Change your writing style",
         "modal_changestyle_body": "Are you sure you want to change your writing style? Writing that does not fit on the page will be erased. This action cannot be undone.",
-        "modal_changestyle_ok": "Change style"
+        "modal_changestyle_ok": "Change style",
+        "from": "Sent by",
+        "date": "Received on"
     }
 }

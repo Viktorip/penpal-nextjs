@@ -30,7 +30,7 @@ export default function LetterPage() {
         if (data.letter) {
             const date = new Date(data.letter.timestamp * 1000);
             //const utc = date.toUTCString();
-            const day = date.getUTCDay() < 10 ? "0"+date.getUTCDay() : date.getUTCDay();
+            const day = date.getUTCDate() < 10 ? "0"+date.getUTCDay() : date.getUTCDate();
             const month = (date.getMonth() + 1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth() + 1);
             const formated ="" + day + "." + month + "." + date.getUTCFullYear();
             setDateSent(formated);
@@ -68,8 +68,8 @@ export default function LetterPage() {
                     </div>
 
                     <div className={`flex flex-col transition-opacity ease-in duration-700 opacity-0 ${showInfo ? 'opacity-100' : ''}`}>
-                        <div>From: {senderData?.user?.email}</div>
-                        <div>Date: {dateSent}</div>
+                        <div>{t('from')}: {senderData?.user?.email}</div>
+                        <div>{t('date')}: {dateSent}</div>
                     </div>
                 </div>
                 <Letter
