@@ -20,8 +20,12 @@ export default function Navigation({ className }) {
     }
 
     return (
-        <div className={`flex-none min-h-screen w-48 bg-blue-200 py-10 space-y-4 ${className}`}>
-            <div className="flex flex-row space-x-4 p-2 justify-center">
+        <div className={`sticky top-0 w-full z-10 bg-black p-4 ${className}`}>
+
+            <div className="flex flex-row justify-end items-center">
+                <div className="text-center">
+                    <LoginButton className="p-1 text-white bg-transparent text-center hover:text-gray-400 text-sm w-24" />
+                </div>
                 <div>
                     <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('en')}>
                         <Image
@@ -53,17 +57,10 @@ export default function Navigation({ className }) {
                     </button>
                 </div>
             </div>
-
-            <IconContext.Provider value={{ color: "rgb(38, 85, 240)", size: "2em" }}>
-                <div className="border-solid hover:bg-green-200 border-y-2 border-indigo-700 relative h-14"><Link className="absolute top-0 left-0 w-full h-full" href='/'><div className="flex items-center w-full h-full ml-4 space-x-4"><FaHome /><div>{t('navi_home_title')}</div></div></Link></div>
-                <div className="border-solid hover:bg-green-200 border-y-2 border-indigo-700 relative h-14"><Link className="absolute top-0 left-0 w-full h-full" href='/inbox'><div className="flex items-center w-full h-full ml-4 space-x-4"><BsMailbox2Flag /><div>{t('navi_inbox_title')}</div></div></Link></div>
-                <div className="border-solid hover:bg-green-200 border-y-2 border-indigo-700 relative h-14"><Link className="absolute top-0 left-0 w-full h-full" href='/compose'><div className="flex items-center w-full h-full ml-4 space-x-4"><RiMailSendFill /><div>{t('navi_compose_title')}</div></div></Link></div>
-            </IconContext.Provider>
-            <div className="text-center">
-                {user?.id ? `${user.email}` : ''}
-            </div>
-            <div className="text-center">
-                <LoginButton />
+            <div className="flex flex-row justify-center space-x-12 text-white">
+                <Link className="hover:text-gray-400" href='/'>{t('navi_home_title')}</Link>
+                <Link className="hover:text-gray-400" href='/inbox'>{t('navi_inbox_title')}</Link>
+                <Link className="hover:text-gray-400" href='/compose'>{t('navi_compose_title')}</Link>
             </div>
 
         </div>

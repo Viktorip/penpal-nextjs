@@ -6,28 +6,29 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
-export default function LoginButton() {
+export default function LoginButton({className}) {
     const router = useRouter();
-    const {user, setUser} = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const loggedIn = !!user.id;
-    
-    const submitHandler = async () => {
+
+    const logoutHandler = async () => {
         await logout();
         setUser({});
         router.push('/');
     }
+
+    const loginHandler = () => {
+        router.push('/login');
+    }
     return (
         <div>
             {loggedIn ?
-                <form action={submitHandler}>
-                    <button className="border-solid hover:bg-red-400 border-2 border-red-700 p-1 rounded-md w-24 bg-red-200 text-black-700 text-center">
-                        {t('navi_logout_btn')}
-                    </button>
-                </form>
+                <button className={className} onClick={logoutHandler}>
+                    {t('navi_logout_btn')}
+                </button>
                 :
-                <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-24 bg-white text-blue-700 text-center">
-
-                    <Link href='/login'>{t('navi_login_btn')}</Link>
+                <button className={className} onClick={loginHandler}>
+                    {t('navi_login_btn')}
                 </button>
             }
         </div>

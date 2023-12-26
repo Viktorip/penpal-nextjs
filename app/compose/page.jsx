@@ -12,6 +12,9 @@ import Letter from "@/components/Letter";
 import StampSelectionModal from "@/components/StampSelectionModal";
 import Envelope from "@/components/Envelope";
 import SendModal from "@/components/SendModal";
+import { GiWaxSeal } from "react-icons/gi";
+import { TbRubberStamp } from "react-icons/tb";
+import { TbRubberStampOff } from "react-icons/tb";
 
 
 const styleIds = getAllStyleIds();
@@ -55,9 +58,9 @@ export default function ComposePage() {
         formData.append("optionalSender", optionalSender);
         formData.append("optionalRecipient", optionalRecipient);
         formData.append("stamp", selectedStamp);
-        
+
         const resp = await sendLetter(formData);
-        if (resp) {            
+        if (resp) {
             router.push('/success');
             return;
         }
@@ -95,7 +98,7 @@ export default function ComposePage() {
 
     const fontChangeHandler = (e) => {
         if (body.length > 0) {
-            textareaHandler(bodyRef, (val)=>setBody(val));
+            textareaHandler(bodyRef, (val) => setBody(val));
             setShowWarningModal({ show: true, blocked: e.target.value });
         } else {
             setSelectedStyle(e.target.value);
@@ -124,7 +127,7 @@ export default function ComposePage() {
     }
 
     return (
-        <PageContainer>
+        <PageContainer className="relative">
             {showWarningModal.show &&
                 <Modal
                     okCallback={handleModalContinue}
@@ -152,7 +155,7 @@ export default function ComposePage() {
                 <SendModal
                     value={recipient}
                     onChange={(e) => setRecipient(e.target.value)}
-                    formAction={()=>{
+                    formAction={() => {
                         setSending(true);
                         formHandler();
                     }}
@@ -169,6 +172,10 @@ export default function ComposePage() {
                     {closed ? (
                         //Closed letter
                         <div>
+                            <div className="flex flex-row space-x-4 cursor-pointer w-24 hover:bg-gray-400" onClick={() => setClosed(false)}>
+                                <TbRubberStampOff className="text-gray-800 text-4xl" />
+                                <GiWaxSeal className="text-red-900 text-4xl" />
+                            </div>
                             <Envelope
                                 style={getClassNameFromStyleId(selectedStyle)}
                                 optionalRecipientRef={optionalRecipientRef}
@@ -196,13 +203,19 @@ export default function ComposePage() {
                     ) : (
                         //Open letter
                         <div>
-                            <div className='text-xl'>
-                                {t('compose_title')}
-                            </div>
                             <div className="mt-4">
-                                <select ref={styleRef} onChange={(e) => { fontChangeHandler(e) }}>
-                                    {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example')}</option>))}
-                                </select>
+                                <div className="flex flex-row justify-between items-center">
+                                    <div>
+                                        <select ref={styleRef} onChange={(e) => { fontChangeHandler(e) }}>
+                                            {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example')}</option>))}
+                                        </select>
+                                    </div>
+                                    <div className="flex flex-row space-x-2 cursor-pointer hover:bg-gray-400" onClick={() => setClosed(true)}>
+                                        <TbRubberStamp className="text-gray-800 text-4xl" />
+                                        <GiWaxSeal className="text-red-900 text-4xl" />
+                                    </div>
+                                </div>
+
                                 <Letter
                                     style={getClassNameFromStyleId(selectedStyle)}
                                     placeholder={t('compose_body_placeholder')}
@@ -214,9 +227,6 @@ export default function ComposePage() {
                         </div>
                     )}
                 </div>
-
-                <div className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-36 bg-white text-blue-700 text-center mt-2 cursor-pointer" onClick={() => { if (!sending) setClosed(!closed) }}>{closed ? t('compose_open_letter') : t('compose_close_letter')}</div>
-
             </div>
         </PageContainer>
     )
