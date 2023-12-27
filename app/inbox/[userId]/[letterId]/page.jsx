@@ -58,8 +58,8 @@ export default function LetterPage() {
 
     if (data?.letter?.id) return (
         <PageContainer>
-            <div className="flex-row space-y-2 h-full w-full">
-                <div className="flex flex-row space-x-4">
+            <div className="flex flex-col items-center space-y-2 h-full">
+                <div className="flex flex-row self-start space-x-4">
                     <div className="hover:bg-blue-200 hover:cursor-pointer" onClick={handleBack}>
                         <IoArrowBackCircleOutline className="text-5xl text-blue-400 bg-white rounded-full" />
                     </div>

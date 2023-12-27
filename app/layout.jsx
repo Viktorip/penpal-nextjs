@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
 
-      <body className='min-h-screen bg-gray-200'>
+      <body className="min-h-screen bg-[url('/background_paper_big.png')]">
         <AuthContext.Provider value={providerValue}>
           <LocalizationContext.Provider value={locProviderValue}>
 

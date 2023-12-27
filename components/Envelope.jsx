@@ -5,11 +5,11 @@ export default function Envelope(props) {
     
     return (
         <div>
-            <div className="w-[30rem] h-[18rem] bg-[url('/envelope.png')] bg-contain bg-no-repeat relative">
+            <div className="w-[30rem] h-[18rem] bg-[url('/envelope_v2.png')] bg-contain bg-no-repeat relative">
                 <div className="absolute top-[8rem] left-[8.25rem]">
                     <div>
                         <textarea
-                            className={`focus:outline-none resize-none overflow-hidden text-xl text-center ${props.style} ${props.readOnly ? 'bg-transparent hover:cursor-default' : 'focus:ring focus:border-blue-500'}`}
+                            className={`focus:outline-none resize-none overflow-hidden text-xl text-gray-200 bg-zinc-900 text-center ${props.style} ${props.readOnly ? 'bg-transparent hover:cursor-default' : 'focus:ring focus:border-blue-500'}`}
                             placeholder={props.readOnly ? '' : 'Optional field recipient'}
                             rows={3}
                             cols={26}
@@ -26,7 +26,7 @@ export default function Envelope(props) {
                 <div className="absolute top-[1.25rem] left-[1rem]">
                     <div>
                         <textarea
-                            className={`focus:outline-none resize-none overflow-hidden text-xl ${props.style} ${props.readOnly ? 'bg-transparent hover:cursor-default' : 'focus:ring focus:border-blue-500'}`}
+                            className={`focus:outline-none resize-none overflow-hidden text-xl text-gray-200 bg-zinc-900 ${props.style} ${props.readOnly ? 'bg-transparent hover:cursor-default' : 'focus:ring focus:border-blue-500'}`}
                             placeholder={props.readOnly ? '' : 'Optional field sender'}
                             rows={3}
                             cols={26}
@@ -50,7 +50,7 @@ export default function Envelope(props) {
                         />
                         :
                         (!props.readOnly &&                        
-                        <div className="text-center select-none text-6xl bg-white hover:bg-blue-100 hover:cursor-pointer">!</div>)
+                        <div className="text-center select-none text-gray-200 text-6xl bg-zinc-900 hover:bg-zinc-600 hover:cursor-pointer">!</div>)
                     }
 
                 </div>
