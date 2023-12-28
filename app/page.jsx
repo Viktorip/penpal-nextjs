@@ -17,9 +17,9 @@ export default function Home() {
       <div className="flex flex-col items-center w-[32rem] h-[42rem] bg-[url('/welcome_note.jpg')] bg-contain bg-no-repeat bg-top">
         <div className='p-20'>
           <p className={`text-3xl text-justify text-indigo-900 ${caveat.className}`}>
-            Hei ystävä!
+            {t('home_greeting')}
             <br /> <br />
-            Mukavaa, että olet kirjekaverit.fi sivustolla. Täällä voit lähettää kirjeitä rakkaillesi ja lukea heidän sinulle lähettämiä kirjeitä. Toivottavasti viihdyt kirjekaverit.fi parissa!
+            {t('home_welcome')}
           </p>
         </div>
       </div>
