@@ -32,7 +32,7 @@ export default function InboxPage() {
     if (data?.letters?.length) return (
         <PageContainer>
             <div className="flex flex-row flex-wrap gap-4 justify-center">
-                {data.letters.map(item => (
+                {data.letters.toReversed().map(item => (
                     <div className="w-[30rem] h-[18rem]" key={item.id}>
                         <Link href={`inbox/${item.sender_id}/${item.id}`} >
                             <Envelope
@@ -41,6 +41,7 @@ export default function InboxPage() {
                                 style={getClassNameFromStyleId(item.style)}
                                 stamp={item.stamp}
                                 readOnly
+                                className="hover:ring-4 hover:ring-blue-500"
                             />
                         </Link>
                     </div>

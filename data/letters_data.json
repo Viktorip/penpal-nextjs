@@ -131,6 +131,17 @@
       "style": "caveat",
       "stamp": "stamps/punatulkku_stamp.png",
       "timestamp": 1702388316.72
+    },
+    {
+      "id": 13,
+      "optional_recipient": "Jotain Virtanen\r\nKielokuja 2 B 9\r\n010010 Helsinki",
+      "optional_sender": "Admin Virtanen\r\nVarvaskatu 3 A 18\r\n02560 Seinäjoki",
+      "body": "Hei Jotain.\r\n\r\nMiten menee? Okei cool.\r\n\r\nEi mulla mitään muuta.\r\n\r\nTerveisin,\r\nAdmin Setä",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "indieflower",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1703769232.32
     }
   ]
 }

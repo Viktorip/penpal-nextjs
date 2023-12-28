@@ -1,3 +1,4 @@
+import t from "@/lib/localization";
 import { GiMailbox } from "react-icons/gi";
 
 export default function SendModal(props) {
@@ -22,7 +23,7 @@ export default function SendModal(props) {
                                             <div className="flex flex-row space-x-4">
                                                 <input
                                                     type="email"
-                                                    placeholder="Email address"
+                                                    placeholder={t('email_recipient_placeholder')}
                                                     value={props.value}
                                                     onChange={props.onChange}
                                                     className="w-full h-20 bg-blue-100 border-2 border-indigo-700 rounded-lg text-center outline-none focus:ring focus:border-blue-400"

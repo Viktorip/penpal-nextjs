@@ -22,7 +22,7 @@ export default function Navigation({ className }) {
     return (
         <div className={`sticky top-0 w-full z-10 bg-[url('/background_paper_big.png')] ${className}`}>
             <div className="flex flex-col w-full h-48 bg-[url('/navi_paper_torn.png')] bg-contain bg-no-repeat bg-top">
-                <div className="flex flex-row justify-end items-center">
+                <div className="flex flex-row justify-end items-center mr-2">
                     <div className="text-center">
                         <LoginButton className="p-1 text-indigo-900 bg-transparent text-center hover:text-gray-400 text-sm w-24" />
                     </div>

@@ -160,10 +160,10 @@ export default function ComposePage() {
                         formHandler();
                     }}
                     cancelCallback={() => { setShowSendModal(false); }}
-                    okString='Send'
+                    okString={t('send')}
                     cancelString={t('modal_default_cancel')}
-                    title='Just one thing before we send the letter...'
-                    body='Please tell us the email address of the recipient so the letter finds itself to the right person'
+                    title={t('compose_send_modal_title')}
+                    body={t('compose_send_modal_body')}
                     sending={sending}
                 />
             }
@@ -172,9 +172,12 @@ export default function ComposePage() {
                     {closed ? (
                         //Closed letter
                         <div>
-                            <div className="flex flex-row space-x-4 cursor-pointer w-24 hover:bg-gray-400" onClick={() => setClosed(false)}>
-                                <TbRubberStampOff className="text-gray-800 text-4xl" />
-                                <GiWaxSeal className="text-red-900 text-4xl" />
+                            <div className="flex flex-row justify-between">
+                                <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => setClosed(false)}>
+                                    <GiWaxSeal className="text-red-900 text-2xl" />
+                                    <div className="text-indigo-900">{t('compose_open_letter')}</div>
+                                </div>
+                                <div className="cursor-pointer mb-1 text-indigo-900 hover:ring hover:bg-gray-200" onClick={() => setShowSendModal(true)}>{t('continue')}</div>
                             </div>
                             <Envelope
                                 style={getClassNameFromStyleId(selectedStyle)}
@@ -188,7 +191,7 @@ export default function ComposePage() {
                                 stamp={selectedStamp}
                             />
 
-                            <div className="text-xl">Preview</div>
+                            <div className="text-xl text-gray-900">{t('compose_preview')}</div>
 
                             <Envelope
                                 optionalSender={optionalSender}
@@ -197,8 +200,6 @@ export default function ComposePage() {
                                 stamp={selectedStamp}
                                 readOnly
                             />
-
-                            <button className="border-solid hover:bg-blue-400 border-2 border-indigo-700 p-1 rounded-md w-[30rem] bg-white text-blue-700 text-center mt-2" onClick={() => setShowSendModal(true)}>Continue</button>
                         </div>
                     ) : (
                         //Open letter
@@ -210,9 +211,9 @@ export default function ComposePage() {
                                             {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example')}</option>))}
                                         </select>
                                     </div>
-                                    <div className="flex flex-row space-x-2 cursor-pointer hover:bg-gray-400" onClick={() => setClosed(true)}>
-                                        <TbRubberStamp className="text-gray-800 text-4xl" />
-                                        <GiWaxSeal className="text-red-900 text-4xl" />
+                                    <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => setClosed(true)}>
+                                        <GiWaxSeal className="text-red-900 text-2xl" />
+                                        <div className="text-indigo-900">{t('compose_close_letter')}</div>
                                     </div>
                                 </div>
 

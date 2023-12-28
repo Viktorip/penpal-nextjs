@@ -34,15 +34,23 @@
         "modal_changestyle_body": "Are you sure you want to change your writing style? Writing that does not fit on the page will be erased. This action cannot be undone.",
         "modal_changestyle_ok": "Change style",
         "from": "Sent by",
-        "date": "Received on"
-        
+        "date": "Received on",
+        "envelope_optional_sender_placeholder": "Sender address (optional)",
+        "envelope_optional_recipient_placeholder": "Recipient address (optional)",
+        "compose_preview": "Preview your letter below",
+        "continue": "Continue to sending",
+        "compose_send_modal_title": "Just one thing before we send the letter...",
+        "compose_send_modal_body": "Please tell us the email address of the recipient so the letter finds itself to the right person",
+        "send": "Send",
+        "email_recipient_placeholder": "Recipient email address",
+        "letter_success_title": "Letter send succesfully!"
     },
     "fi": {
         "navi_home_title": "Etusivu",
         "navi_inbox_title": "Postilaatikko",
         "navi_compose_title": "Kirjoita kirje",
         "navi_login_btn": "Kirjaudu",
-        "navi_logout_btn": "Poistu",
+        "navi_logout_btn": "Kirjaudu ulos",
         "home_greeting": "Tervetuloa kirjekaverit.fi sivustolle",
         "home_welcome": "Mukavaa, että olet takaisin",
         "login_title": "Kirjaudu palveluun sisään jatkaaksesi",
@@ -72,7 +80,16 @@
         "modal_changestyle_body": "Haluatko varmasti vaihtaa kirjoitustyyliä? Kirjoitus mikä ei mahdu sivulle pyyhitään pois. Tätä toimenpidettä ei voi peruuttaa.",
         "modal_changestyle_ok": "Vaihda",
         "from": "Lähettäjä",
-        "date": "Saapunut"
+        "date": "Saapunut",
+        "envelope_optional_sender_placeholder": "Lähettäjän osoite (ei pakollinen)",
+        "envelope_optional_recipient_placeholder": "Vastaanottajan osoite (ei pakollinen)",
+        "compose_preview": "Esikatsele kirje alla ennen lähetystä",
+        "continue": "Jatka lähetykseen",
+        "compose_send_modal_title": "Vielä yksi asia ennenkuin lähetämme kirjeesi...",
+        "compose_send_modal_body": "Anna vastaanottajan sähköpostiosoite jotta kirje löytää perille oikealle henkilölle",
+        "send": "Lähetä",
+        "email_recipient_placeholder": "Vastaanottajan sähköpostiosoite",
+        "letter_success_title": "Kirje on lähetetty onnistuneesti!"
     },
     "vn": {
         "navi_home_title": "Home",
@@ -109,6 +126,15 @@
         "modal_changestyle_body": "Are you sure you want to change your writing style? Writing that does not fit on the page will be erased. This action cannot be undone.",
         "modal_changestyle_ok": "Change style",
         "from": "Sent by",
-        "date": "Received on"
+        "date": "Received on",
+        "envelope_optional_sender_placeholder": "Sender address (optional)",
+        "envelope_optional_recipient_placeholder": "Recipient address (optional)",
+        "compose_preview": "Preview your letter below",
+        "continue": "Continue to sending",
+        "compose_send_modal_title": "Just one thing before we send the letter...",
+        "compose_send_modal_body": "Please tell us the email address of the recipient so the letter finds itself to the right person",
+        "send": "Send",
+        "email_recipient_placeholder": "Recipient email address",
+        "letter_success_title": "Letter send succesfully!"
     }
 }
