@@ -13,8 +13,9 @@ import StampSelectionModal from "@/components/StampSelectionModal";
 import Envelope from "@/components/Envelope";
 import SendModal from "@/components/SendModal";
 import { GiWaxSeal } from "react-icons/gi";
-import { TbRubberStamp } from "react-icons/tb";
-import { TbRubberStampOff } from "react-icons/tb";
+import { BiSolidLeftArrow } from "react-icons/bi";
+import { TbHexagonNumber1, TbHexagonNumber2, TbHexagonNumber3 } from "react-icons/tb";
+import { BsEnvelopeExclamation } from "react-icons/bs";
 
 
 const styleIds = getAllStyleIds();
@@ -177,29 +178,37 @@ export default function ComposePage() {
                                     <GiWaxSeal className="text-red-900 text-2xl" />
                                     <div className="text-indigo-900">{t('compose_open_letter')}</div>
                                 </div>
-                                <div className="cursor-pointer mb-1 text-indigo-900 hover:ring hover:bg-gray-200" onClick={() => setShowSendModal(true)}>{t('continue')}</div>
+                                <div className="flex flex-row cursor-pointer mb-1 text-indigo-900 hover:ring hover:bg-gray-200" onClick={() => setShowSendModal(true)}>
+                                    <div><BsEnvelopeExclamation className="text-2xl animate-bounce" /></div>
+                                    <div>{t('continue')}</div>
+                                    </div>
                             </div>
-                            <Envelope
-                                style={getClassNameFromStyleId(selectedStyle)}
-                                optionalRecipientRef={optionalRecipientRef}
-                                optionalRecipient={optionalRecipient}
-                                onChangeRecipient={() => textareaHandler(optionalRecipientRef, setOptionalRecipient, true)}
-                                optionalSenderRef={optionalSenderRef}
-                                optionalSender={optionalSender}
-                                onChangeSender={() => textareaHandler(optionalSenderRef, setOptionalSender, true)}
-                                onClickStamp={() => setShowStampModal(true)}
-                                stamp={selectedStamp}
-                            />
+                            <div className="relative">
+                                <Envelope
+                                    style={getClassNameFromStyleId(selectedStyle)}
+                                    optionalRecipientRef={optionalRecipientRef}
+                                    optionalRecipient={optionalRecipient}
+                                    onChangeRecipient={() => textareaHandler(optionalRecipientRef, setOptionalRecipient, true)}
+                                    optionalSenderRef={optionalSenderRef}
+                                    optionalSender={optionalSender}
+                                    onChangeSender={() => textareaHandler(optionalSenderRef, setOptionalSender, true)}
+                                    onClickStamp={() => setShowStampModal(true)}
+                                    stamp={selectedStamp}
+                                />
+                                <HelperArrow body={t('envelope_helper_fill')} animate="animate-bounce-x" index={1} />
+                            </div>
 
                             <div className="my-2 text-xl text-indigo-900">{t('compose_preview')}</div>
-
-                            <Envelope
-                                optionalSender={optionalSender}
-                                optionalRecipient={optionalRecipient}
-                                style={getClassNameFromStyleId(selectedStyle)}
-                                stamp={selectedStamp}
-                                readOnly
-                            />
+                            <div className="relative">
+                                <Envelope
+                                    optionalSender={optionalSender}
+                                    optionalRecipient={optionalRecipient}
+                                    style={getClassNameFromStyleId(selectedStyle)}
+                                    stamp={selectedStamp}
+                                    readOnly
+                                />
+                                <HelperArrow body={t('envelope_helper_preview')} animate="animate-bounce-x-slow" index={2} />
+                            </div>
                         </div>
                     ) : (
                         //Open letter
@@ -216,7 +225,6 @@ export default function ComposePage() {
                                         <div className="text-indigo-900">{t('compose_close_letter')}</div>
                                     </div>
                                 </div>
-
                                 <Letter
                                     style={getClassNameFromStyleId(selectedStyle)}
                                     placeholder={t('compose_body_placeholder')}
@@ -233,86 +241,30 @@ export default function ComposePage() {
     )
 }
 
-/*
+const HelperArrow = (props) => {
 
-<div className="h-full w-full ">
-                                    <textarea
-                                        className={`w-[38rem] p-2 resize-none overflow-hidden focus:outline-none text-2xl ${getClassNameFromStyleId(selectedStyle)} bg-[url('/custom_letter_paper.png')] bg-contain bg-no-repeat placeholder:text-blue-700`}
-                                        id="body"
-                                        name="body"
-                                        placeholder={t('compose_body_placeholder')}
-                                        required
-                                        rows="22"
-                                        maxLength={2000}
-                                        minLength={3}
-                                        value={body}
-                                        onChange={textareaHandler}
-                                        ref={bodyRef}
-                                    >
-                                    </textarea>
-                                </div>
+    return (
+        <div className="absolute top-1/2 -right-[140px] text-red-700">
+            <div className={`flex flex-row w-26 h-12 ${props.animate}`}>
+                <div className="w-8 h-8">
+                    <BiSolidLeftArrow className="text-5xl" />
+                </div>
+                <div className="w-8 h-10 -ml-4 mt-3">
+                    {props.index === 1 &&
+                        <TbHexagonNumber1 className="text-2xl text-white" />
+                    }
+                    {props.index === 2 &&
+                        <TbHexagonNumber2 className="text-2xl text-white" />
+                    }
+                    {props.index === 3 &&
+                        <TbHexagonNumber3 className="text-2xl text-white" />
+                    }
+                </div>
+                <div className="text-[13px] w-20 h-10 self-center">
+                    {props.body}
+                </div>
+            </div>
 
-<input
-                                            className="w-60 focus:outline-none focus:ring focus:border-blue-500"
-                                            id="title"
-                                            type="text"
-                                            name="title"
-                                            placeholder={t('compose_title_title_placeholder')}
-                                            required
-                                            value={title}
-                                            onChange={(e) => { setTitle(e.target.value) }}
-                                        />                                
-
-<input
-                                            className="w-80 focus:outline-none focus:ring focus:border-blue-500"
-                                            id="email"
-                                            type="email"
-                                            name="email"
-                                            placeholder={t('compose_recipient_placeholder')}
-                                            required
-                                            value={recipient}
-                                            onChange={(e) => { setRecipient(e.target.value) }}
-                                        />
-
-
-<div className="w-[30rem] h-[18rem] bg-[url('/envelope.png')] bg-contain bg-no-repeat relative">
-                                <div className="absolute top-[8rem] left-[8.25rem]">
-                                    <div>
-                                        <textarea
-                                            className={`focus:outline-none focus:ring focus:border-blue-500 resize-none overflow-hidden text-xl ${getClassNameFromStyleId(selectedStyle)}`}
-                                            placeholder="Optional field"
-                                            rows={3}
-                                            cols={26}
-                                            maxLength={200}
-                                            ref={optionalRecipientRef}
-                                            value={optionalRecipient}
-                                            onChange={() => textareaHandler(optionalRecipientRef, setOptionalRecipient, true)}
-                                        >
-                                        </textarea>
-
-                                    </div>
-                                    <div className="text-red-700">{title.length < 2 || titleIsValid ? '' : titleError.message}</div>
-                                </div>
-                                <div className="absolute top-[1.25rem] left-[1rem]">
-                                    <div>
-
-                                        <textarea
-                                            className={`focus:outline-none focus:ring focus:border-blue-500 resize-none overflow-hidden text-xl ${getClassNameFromStyleId(selectedStyle)}`}
-                                            placeholder="Optional field"
-                                            rows={3}
-                                            cols={26}
-                                            maxLength={200}
-                                            ref={optionalSenderRef}
-                                            value={optionalSender}
-                                            onChange={() => textareaHandler(optionalSenderRef, setOptionalSender, true)}
-                                        >
-                                        </textarea>
-                                    </div>
-                                    <div className="text-red-700">{recipient.length < 2 || recipientIsValid ? '' : recipientError.message}</div>
-                                </div>
-                                <div className="absolute top-[1rem] left-[24.15rem] bg-[url('/punatulkku_stamp.png')] bg-contain bg-no-repeat z-4 w-20 h-20" onClick={()=>setShowStampModal(true)}>
-                                    
-                                </div>
-                            </div>                                       
-
-*/
+        </div>
+    )
+}

@@ -11,6 +11,7 @@ export default function Navigation({ className }) {
     const { loc, setLoc } = useContext(LocalizationContext);
 
     const changeLocalization = (id) => {
+        console.log("changing localization to", id, loc);
         if (id === loc) return;
         setLoc(id);
     }
