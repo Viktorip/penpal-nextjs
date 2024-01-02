@@ -1,8 +1,8 @@
 'use server'
 
 import { signIn, signOut } from "@/lib/auth";
-import {cookies} from 'next/headers';
-import { cookiename } from "@/utils/constants";
+import { cookies } from 'next/headers';
+import { cookiename, redirectcookiename } from "@/utils/constants";
 import { send } from "@/lib/letters";
 
 export async function authenticate(prevState, formData) {
@@ -12,17 +12,27 @@ export async function authenticate(prevState, formData) {
         console.log("after formdata", user);
         if (user) {
             console.log('user is found, setting to cookie');
-            console.log('previous page was:', )
+            console.log('previous page was:',)
             cookies().set(cookiename, JSON.stringify(user), {
                 path: "/",
                 maxAge: 9600,
                 secure: true,
                 httpOnly: true,
             });
+            //check if user was redirected
+            const redicookie = cookies().get(redirectcookiename);
+            console.log("redicookie", redicookie);
+            if (redicookie) {
+                const { path } = JSON.parse(redicookie.value);
+                const resp = { ...user, redirected: "/" + path };
+                console.log("returning resp:", resp);
+                cookies().delete(redirectcookiename);
+                return resp;
+            }
+
             return user;
-            //redirect somehow from here??? useRouter ??? can only be used in client side though           
         }
-    }catch (error) {
+    } catch (error) {
         console.log("went to error");
         /*
         if (error.message.includes('CredentialsSignin')) {
@@ -47,7 +57,7 @@ export async function logout() {
         console.log("running logout in Actions.js");
         const status = await signOut();
         return status;
-    }catch (error){
+    } catch (error) {
         throw error;
     }
 }
@@ -57,10 +67,10 @@ export async function sendLetter(formData) {
         console.log("object from entries in sendLetter", Object.fromEntries(formData));
         await timeout(5000);
         const letter = await send(Object.fromEntries(formData));
-        return letter;              
-    }catch (error) {
+        return letter;
+    } catch (error) {
         throw error;
-    }    
+    }
 }
 
 function timeout(ms) {

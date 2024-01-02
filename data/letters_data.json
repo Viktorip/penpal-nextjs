@@ -8,14 +8,14 @@
       "recipient_id": 2,
       "sender_id": 1,
       "style": "caveat",
-      "stamp": "punatulkku_stamp.png",
+      "stamp": "stamps/punatulkku_stamp.png",
       "timestamp": 1702214563
     },
     {
       "id": 2,
       "optional_recipient": "Jotain Virtanen\r\nOrvokkitie 5 B 12\r\n06610 Savonlinna",
       "optional_sender": "Admin Virtanen\r\nKielokuja 3 A 18\r\n045610 Seinäjoki",
-      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt, nisl rutrum lacinia laoreet, magna risus commodo lacus, eu porttitor urna purus ac nunc. Cras volutpat mi at iaculis sagittis. Nam convallis sit amet purus at lobortis. Pellentesque suscipit pellentesque elementum. Proin vitae consequat leo. Aliquam lobortis posuere lacus sed placerat. Cras libero sem, feugiat non arcu at, ullamcorper cursus nibh. Nam turpis risus, dapibus eget justo ac, vulputate eleifend nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent dui libero, feugiat ac augue vel, posuere pharetra elit. Proin et quam quis velit commodo imperdiet non non augue.\r\n\r\nIn sit amet arcu nec sapien placerat sollicitudin ac vitae neque. Integer vitae sagittis nunc. Vivamus quis dolor tempor, commodo mauris non, condimentum felis. Aliquam erat volutpat. Nulla congue cursus mauris non pharetra. Integer ornare urna quis orci molestie, id dictum lectus ornare. Sed at massa arcu. Mauris malesuada fermentum lobortis. Nunc interdum suscipit purus a ornare. Mauris viverra leo a imperdiet mollis. Nam interdum elit a neque pulvinar, tincidunt egestas tortor condimentum. Duis nunc mi, aliquet nec luctus ac, tristique id orci.\r\n\r\nWith love from,\r\nAdmin",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tincidunt, nisl rutrum lacinia laoreet, magna risus commodo lacus, eu porttitor urna purus ac nunc. Cras volutpat mi at iaculis sagittis. Nam convallis sit amet purus at lobortis. Pellentesque suscipit pellentesque elementum. Proin vitae consequat leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent dui libero, feugiat ac augue vel, posuere pharetra elit. Proin et quam quis velit commodo imperdiet non non augue.\r\n\r\nIn sit amet arcu nec sapien placerat sollicitudin ac vitae neque. \r\n\r\nWith love from,\r\nAdmin",
       "recipient_id": 2,
       "sender_id": 1,
       "style": "caveat",

@@ -1,6 +1,7 @@
 export const endpoint = 'http://localhost:3000/api/';
 
 export const cookiename = 'penpaluser';
+export const redirectcookiename = 'redirectedfrom';
 
 export const FONT_CAVEAT = 'caveat';
 export const FONT_INDIEFLOWER = 'indieflower';

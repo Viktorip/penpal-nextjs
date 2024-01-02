@@ -1,34 +1,36 @@
-'use server'
-
 import { NextResponse } from "next/server";
-import {cookies} from 'next/headers';
-import { cookiename } from "./utils/constants";
-import { isLoggedIn } from "./app/actions";
+import { cookiename, redirectcookiename } from "./utils/constants";
 
-const checkLogin = () => {
-    console.log("checking login in middleware");
-    const user = cookies().get(cookiename);
-    //console.log("got user from cookie", user);
-
-    if (user) return true;
-    return false;
-}
 
 //req is NextRequest type
 export default function auth(request) {
     console.log("middleware auth");
     //authenticate by getting a cookie which will tell if authenticated or not
-    const isLoggedIn = checkLogin();
+    const isLoggedIn = !!request.cookies.get(cookiename);
     const isOnInbox = !!request.nextUrl.pathname.startsWith('/inbox');
     if (isOnInbox) {
         if (isLoggedIn) return NextResponse.next();
-        return NextResponse.redirect(new URL('/login', request.nextUrl));
+        const resp = NextResponse.redirect(new URL('/login', request.nextUrl));
+        resp.cookies.set(redirectcookiename, JSON.stringify({path:'inbox'}), {
+            path: "/",
+            maxAge: 9600,
+            secure: true,
+            httpOnly: true,
+        });
+        return resp;
     }
 
     const isOnCompose = !!request.nextUrl.pathname.startsWith('/compose');
     if (isOnCompose) {
         if (isLoggedIn) return NextResponse.next();
-        return NextResponse.redirect(new URL('/login', request.nextUrl));
+        const resp = NextResponse.redirect(new URL('/login', request.nextUrl));
+        resp.cookies.set(redirectcookiename, JSON.stringify({path:'compose'}), {
+            path: "/",
+            maxAge: 9600,
+            secure: true,
+            httpOnly: true,
+        });
+        return resp;
     }
 
     const isOnLogout = !!request.nextUrl.pathname.startsWith('/logout');

@@ -16,7 +16,13 @@ export default function LoginForm() {
   useEffect(()=>{
     if (state?.id) {
       setUser(state);
-      router.push('/');
+      console.log("user in login page:", state);
+      if (state.redirected) {
+        router.push(state.redirected);
+      }else {
+        router.push('/');
+      }
+      
     }
   }, [state]);
 
