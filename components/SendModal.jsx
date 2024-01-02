@@ -34,8 +34,8 @@ export default function SendModal(props) {
                                 </div>
                             </div>
                             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                <button className="inline-flex w-full justify-center rounded-md bg-green-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-600 sm:ml-3 sm:w-auto disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" disabled={props.sending}>{props.sending ? (<Spinner />) : props.okString}</button>
-                                <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" disabled={props.sending} onClick={props.cancelCallback}>{props.cancelString}</button>
+                                <button className="inline-flex w-full justify-center rounded-md bg-green-400 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-green-700 sm:ml-3 sm:w-auto disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" disabled={props.sending}>{props.sending ? (<Spinner />) : props.okString}</button>
+                                <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-500 sm:mt-0 sm:w-auto disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" disabled={props.sending} onClick={props.cancelCallback}>{props.cancelString}</button>
                             </div>
                         </div>
                     </div>

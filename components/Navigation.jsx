@@ -20,7 +20,7 @@ export default function Navigation({ className }) {
             <div className="flex flex-col w-full h-48 bg-[url('/navi_paper_torn.png')] bg-contain bg-no-repeat bg-top">
                 <div className="flex flex-row justify-end items-center mr-2">
                     <div className="text-center">
-                        <LoginButton className="p-1 text-indigo-900 bg-transparent text-center hover:text-gray-400 text-sm w-24" />
+                        <LoginButton className="p-1 text-indigo-900 bg-transparent text-center text-sm w-24 hover:bg-gray-200 hover:ring" />
                     </div>
                     <div>
                         <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('fi')}>
@@ -53,10 +53,10 @@ export default function Navigation({ className }) {
                         </button>
                     </div>
                 </div>
-                <div className="flex flex-row justify-center items-center space-x-12 mt-4 ml-12 text-indigo-900">
-                    <div><Link className="hover:text-gray-400" href='/'>{t('navi_home_title')}</Link></div>
-                    <div><Link className="hover:text-gray-400" href='/inbox'>{t('navi_inbox_title')}</Link></div>
-                    <div><Link className="hover:text-gray-400" href='/compose'>{t('navi_compose_title')}</Link></div>
+                <div className={`flex flex-row justify-center items-center space-x-10 mt-4 ml-12 text-indigo-900`}>
+                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/'>{t('navi_home_title')}</Link></div>
+                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/inbox'>{t('navi_inbox_title')}</Link></div>
+                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/compose'>{t('navi_compose_title')}</Link></div>
 
                     
                 </div>

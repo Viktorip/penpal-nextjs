@@ -43,7 +43,9 @@
         "compose_send_modal_body": "Please tell us the email address of the recipient so the letter finds itself to the right person",
         "send": "Send",
         "email_recipient_placeholder": "Recipient email address",
-        "letter_success_title": "Letter send succesfully!"
+        "letter_success_title": "Letter send succesfully!",
+        "choose_stamp_title": "Available stamps",
+        "choose_stamp_body": "Select the stamp you want to use for your letter by clicking the stamp. Choose the empty white stamp if you want to remove the stamp."
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -89,7 +91,9 @@
         "compose_send_modal_body": "Anna vastaanottajan sähköpostiosoite jotta kirje löytää perille oikealle henkilölle",
         "send": "Lähetä",
         "email_recipient_placeholder": "Vastaanottajan sähköpostiosoite",
-        "letter_success_title": "Kirje on lähetetty onnistuneesti!"
+        "letter_success_title": "Kirje on lähetetty onnistuneesti!",
+        "choose_stamp_title": "Käytettävissä olevat postimerkit",
+        "choose_stamp_body": "Liitä postimerkki kirjeeseesi klikkaamalla haluamaasi postimerkkiä. Valitse tyhjä valkoinen postimerkki jos haluat poistaa postimerkin kirjeestä."
     },
     "vn": {
         "navi_home_title": "Home",
@@ -135,6 +139,8 @@
         "compose_send_modal_body": "Please tell us the email address of the recipient so the letter finds itself to the right person",
         "send": "Send",
         "email_recipient_placeholder": "Recipient email address",
-        "letter_success_title": "Letter send succesfully!"
+        "letter_success_title": "Letter send succesfully!",
+        "choose_stamp_title": "Available stamps",
+        "choose_stamp_body": "Select the stamp you want to use for your letter by clicking the stamp. Choose the empty white stamp if you want to remove the stamp."
     }
 }

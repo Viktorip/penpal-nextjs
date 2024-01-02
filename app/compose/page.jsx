@@ -141,10 +141,10 @@ export default function ComposePage() {
             }
             {showStampModal &&
                 <StampSelectionModal
-                    okCallback={() => setShowStampModal(false)}
                     cancelCallback={() => setShowStampModal(false)}
                     type='custom'
-                    title='Choose your stamp'
+                    title={t('choose_stamp_title')}
+                    body={t('choose_stamp_body')}
                     okString={t('modal_default_ok')}
                     cancelString={t('modal_default_cancel')}
                     stamps={stamps}
@@ -191,7 +191,7 @@ export default function ComposePage() {
                                 stamp={selectedStamp}
                             />
 
-                            <div className="text-xl text-gray-900">{t('compose_preview')}</div>
+                            <div className="my-2 text-xl text-indigo-900">{t('compose_preview')}</div>
 
                             <Envelope
                                 optionalSender={optionalSender}

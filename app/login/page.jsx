@@ -30,13 +30,13 @@ export default function LoginForm() {
     <PageContainer>
       <form action={dispatch} className="space-y-3">
         <div>
-          <div className='text-xl'>
+          <div className='text-xl text-indigo-900'>
             {t('login_title')}
           </div>
           <div>
             <div>
               <label
-                className="mb-3 mt-5 block text-s font-medium text-gray-900"
+                className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                 htmlFor="email"
               >
                 {t('login_email')}
@@ -54,7 +54,7 @@ export default function LoginForm() {
             </div>
             <div className="mt-4">
               <label
-                className="mb-3 mt-5 block text-s font-medium text-gray-900"
+                className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                 htmlFor="password"
               >
                 {t('login_password')}
