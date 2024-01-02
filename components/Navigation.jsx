@@ -1,10 +1,6 @@
 'use client'
 import Link from "next/link"
 import LoginButton from "./LoginButton";
-import { FaHome } from 'react-icons/fa';
-import { IconContext } from "react-icons";
-import { BsMailbox2Flag } from "react-icons/bs";
-import { RiMailSendFill } from "react-icons/ri";
 import { useContext } from "react";
 import { AuthContext, LocalizationContext } from "@/app/layout";
 import t from "@/lib/localization";
@@ -27,16 +23,6 @@ export default function Navigation({ className }) {
                         <LoginButton className="p-1 text-indigo-900 bg-transparent text-center hover:text-gray-400 text-sm w-24" />
                     </div>
                     <div>
-                        <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('en')}>
-                            <Image
-                                src="/en.png"
-                                width={24}
-                                height={24}
-                                alt="In English"
-                            />
-                        </button>
-                    </div>
-                    <div>
                         <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('fi')}>
                             <Image
                                 src="/fi.png"
@@ -46,6 +32,16 @@ export default function Navigation({ className }) {
                             />
                         </button>
                     </div>
+                    <div>
+                        <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('en')}>
+                            <Image
+                                src="/en.png"
+                                width={24}
+                                height={24}
+                                alt="In English"
+                            />
+                        </button>
+                    </div>                   
                     <div>
                         <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('vn')}>
                             <Image

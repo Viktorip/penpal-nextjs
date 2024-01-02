@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
   const [user, setUser] = useState({});
   const providerValue = { user, setUser };
 
-  const [loc, setLoc] = useState('en');
+  const [loc, setLoc] = useState('fi');
   const locProviderValue = { loc, setLoc };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
   }, []);
 
   return (
-    <html lang="en">
+    <html lang="fi">
 
       <body className="min-h-screen bg-[url('/background_paper_big.png')]">
         <AuthContext.Provider value={providerValue}>
