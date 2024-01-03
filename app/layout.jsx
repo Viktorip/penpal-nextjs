@@ -17,7 +17,7 @@ export const AuthContext = createContext({
 });
 
 export const LocalizationContext = createContext({
-  loc: 'en',
+  loc: 'fi',
   setLoc: () => { }
 });
 

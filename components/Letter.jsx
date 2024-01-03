@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 
 export default function Letter(props) {
 
@@ -27,15 +25,3 @@ export default function Letter(props) {
 }
 
 // bg-[url('/custom_letter_paper.png')] bg-contain bg-no-repeat
-
-/*
-
-<div className="absolute top-0 left-0 z-0">
-                <Image
-                    src="/custom_letter_paper.png"
-                    width={608}
-                    height={724}
-                />
-            </div>
-
-*/

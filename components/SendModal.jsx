@@ -1,9 +1,11 @@
+import { LocalizationContext } from "@/app/layout";
 import t from "@/lib/localization";
+import { useContext } from "react";
 import { GiMailbox } from "react-icons/gi";
 
 export default function SendModal(props) {
-
-    console.log("in SendModal sending is:", props.sending);
+    const { loc, setLoc } = useContext(LocalizationContext);
+    
     return (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -23,7 +25,7 @@ export default function SendModal(props) {
                                             <div className="flex flex-row space-x-4">
                                                 <input
                                                     type="email"
-                                                    placeholder={t('email_recipient_placeholder')}
+                                                    placeholder={t('email_recipient_placeholder', loc)}
                                                     value={props.value}
                                                     onChange={props.onChange}
                                                     className="w-full h-20 bg-blue-100 border-2 border-indigo-700 rounded-lg text-center outline-none focus:ring focus:border-blue-400"

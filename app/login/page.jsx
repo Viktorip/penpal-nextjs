@@ -4,28 +4,24 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate, register } from '@/app/actions';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { AuthContext } from '../layout';
+import { AuthContext, LocalizationContext } from '../layout';
 import t from '@/lib/localization';
 
 
 export default function LoginForm() {
   const router = useRouter();
   const { user, setUser } = useContext(AuthContext);
+  const { loc, setLoc } = useContext(LocalizationContext);
   const [formResponse, setFormResponse] = useState();
 
   const [modeRegister, setModeRegister] = useState(false);
   const [feedback, setFeedback] = useState('');
 
-  const feedbackMessages = {
-    success: t('user_succesfully_created'),
-    error: t('something_went_wrong')
-  };
-
   useEffect(() => {
     if (formResponse?.id) {
       if (modeRegister) {
         setModeRegister(false);
-        setFeedback(`${feedbackMessages.success} ( ${formResponse.email} ).`);
+        setFeedback(`${t('user_succesfully_created', loc)} ( ${formResponse.email} ).`);
       } else {
         setUser(formResponse);
         console.log("user in login page:", formResponse);
@@ -38,7 +34,7 @@ export default function LoginForm() {
     }
 
     if (formResponse?.error) {
-      setFeedback(feedbackMessages.error);
+      setFeedback(t('something_went_wrong', loc));
     }
 
   }, [formResponse]);
@@ -61,7 +57,7 @@ export default function LoginForm() {
       <form action={formHandler} className="space-y-3">
         <div className='w-96'>
           <p className='text-xl text-indigo-900'>
-            {t('login_title')}
+            {t('login_title', loc)}
           </p>
           <div className='text-md text-black'>
             {feedback}
@@ -72,7 +68,7 @@ export default function LoginForm() {
                 className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                 htmlFor="email"
               >
-                {t('login_email')}
+                {t('login_email', loc)}
               </label>
               <div>
                 <input
@@ -80,7 +76,7 @@ export default function LoginForm() {
                   id="email"
                   type="email"
                   name="email"
-                  placeholder={t('login_email_placeholder')}
+                  placeholder={t('login_email_placeholder', loc)}
                   required
                 />
               </div>
@@ -90,7 +86,7 @@ export default function LoginForm() {
                 className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                 htmlFor="password"
               >
-                {t('login_password')}
+                {t('login_password', loc)}
               </label>
               <div>
                 <input
@@ -98,7 +94,7 @@ export default function LoginForm() {
                   id="password"
                   type="password"
                   name="password"
-                  placeholder={t('login_password_placeholder')}
+                  placeholder={t('login_password_placeholder', loc)}
                   required
                   minLength={4}
                 />
@@ -110,7 +106,7 @@ export default function LoginForm() {
                   className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                   htmlFor="password2"
                 >
-                  {t('password_again')}
+                  {t('password_again', loc)}
                 </label>
                 <div>
                   <input
@@ -118,7 +114,7 @@ export default function LoginForm() {
                     id="password2"
                     type="password"
                     name="password2"
-                    placeholder={t('login_password_placeholder')}
+                    placeholder={t('login_password_placeholder', loc)}
                     required
                     minLength={4}
                   />
@@ -131,7 +127,7 @@ export default function LoginForm() {
                   className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                   htmlFor="fullname"
                 >
-                  {t('full_name')}
+                  {t('full_name', loc)}
                 </label>
                 <div>
                   <input
@@ -139,7 +135,7 @@ export default function LoginForm() {
                     id="fullname"
                     type="text"
                     name="fullname"
-                    placeholder={t('full_name_placeholder')}
+                    placeholder={t('full_name_placeholder', loc)}
                     required
                   />
                 </div>
@@ -147,8 +143,8 @@ export default function LoginForm() {
             }
           </div>
           <div className='flex flex-row space-x-4 mt-6 items-center'>
-            <LoginButton statusRegister={modeRegister} />
-            <div className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account') : t('no_account_register')}</div>
+            <LoginButton statusRegister={modeRegister} loc={loc} />
+            <div className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</div>
           </div>
 
         </div>
@@ -157,10 +153,10 @@ export default function LoginForm() {
   );
 }
 
-function LoginButton({ statusRegister }) {
+function LoginButton({ statusRegister, loc }) {
   const { pending } = useFormStatus();
 
   return (
-    <button aria-disabled={pending} disabled={pending} className='border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{statusRegister ? t('register') : t('login_btn')}</button>
+    <button aria-disabled={pending} disabled={pending} className='border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{statusRegister ? t('register', loc) : t('login_btn', loc)}</button>
   )
 }

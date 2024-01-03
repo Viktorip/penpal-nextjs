@@ -1,8 +1,11 @@
+import { LocalizationContext } from "@/app/layout";
 import t from "@/lib/localization";
 import Image from "next/image";
+import { useContext } from "react";
 
 
 export default function Envelope(props) {
+    const { loc, setLoc } = useContext(LocalizationContext);
     
     return (
         <div className={props.className}>
@@ -11,7 +14,7 @@ export default function Envelope(props) {
                     <div>
                         <textarea
                             className={`focus:outline-none resize-none overflow-hidden text-xl text-gray-200 text-center ${props.style} ${props.readOnly ? 'bg-transparent hover:cursor-default' : 'focus:ring focus:border-blue-500 bg-zinc-900'}`}
-                            placeholder={props.readOnly ? '' : t('envelope_optional_recipient_placeholder')}
+                            placeholder={props.readOnly ? '' : t('envelope_optional_recipient_placeholder', loc)}
                             rows={3}
                             cols={26}
                             maxLength={200}
@@ -28,7 +31,7 @@ export default function Envelope(props) {
                     <div>
                         <textarea
                             className={`focus:outline-none resize-none overflow-hidden text-xl text-gray-200 ${props.style} ${props.readOnly ? 'bg-transparent hover:cursor-default' : 'focus:ring focus:border-blue-500 bg-zinc-900'}`}
-                            placeholder={props.readOnly ? '' : t('envelope_optional_sender_placeholder')}
+                            placeholder={props.readOnly ? '' : t('envelope_optional_sender_placeholder', loc)}
                             rows={3}
                             cols={26}
                             maxLength={200}
@@ -59,11 +62,3 @@ export default function Envelope(props) {
         </div>
     )
 }
-
-/*
-
-<div className={`absolute top-[1rem] left-[24.15rem] ${props.stamp ? `bg-[url('/${props.stamp}')] bg-contain bg-no-repeat` : ''} z-4 w-20 h-20`} onClick={props.onClickStamp}>
-
-                </div>
-
-*/

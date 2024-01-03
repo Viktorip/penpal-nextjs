@@ -55,11 +55,9 @@ export default function Navigation({ className }) {
                     </div>
                 </div>
                 <div className={`flex flex-row justify-center items-center space-x-10 mt-4 ml-12 text-indigo-900`}>
-                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/'>{t('navi_home_title')}</Link></div>
-                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/inbox'>{t('navi_inbox_title')}</Link></div>
-                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/compose'>{t('navi_compose_title')}</Link></div>
-
-                    
+                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/'>{t('navi_home_title', loc)}</Link></div>
+                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/inbox'>{t('navi_inbox_title', loc)}</Link></div>
+                    <div><Link className="p-2 hover:bg-gray-200 hover:ring" href='/compose'>{t('navi_compose_title', loc)}</Link></div>                   
                 </div>
             </div>
 
