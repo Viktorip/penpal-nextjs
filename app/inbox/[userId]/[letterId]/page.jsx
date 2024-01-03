@@ -16,9 +16,6 @@ export default function LetterPage() {
     const params = useParams();
     const router = useRouter();
     const [data, loading, error] = useFetch(`${endpoint}/letters/${params.letterId}`);
-    const date = new Date(1702388316.72 * 1000);
-    console.log("date:", date);
-    const utc = date.toUTCString();
 
     console.log("inside letter page data:", data);
     const [senderData, senderLoading, senderError] = useFetch(`${endpoint}/users/${params.userId}`);
@@ -28,7 +25,7 @@ export default function LetterPage() {
 
     useEffect(() => {
         if (data.letter) {
-            const date = new Date(data.letter.timestamp * 1000);
+            const date = new Date(data.letter.timestamp);
             //const utc = date.toUTCString();
             const day = date.getUTCDate() < 10 ? "0"+date.getUTCDay() : date.getUTCDate();
             const month = (date.getMonth() + 1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth() + 1);

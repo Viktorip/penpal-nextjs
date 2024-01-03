@@ -14,7 +14,8 @@ module.exports = {
       },
       animation: {
         'bounce-x': 'bouncex 1s 8',
-        'bounce-x-slow': 'bouncex 1s 8 8s'
+        'bounce-x-slow': 'bouncex 1s 8 8s',
+        'fade-in': 'fadeIn 2s 1'
       },
       keyframes: {
         bouncex: {
@@ -26,6 +27,14 @@ module.exports = {
             transform: 'translateX(0)',
             'animation-timing-function': 'cubic-bezier(0, 0, 0.2, 1)'
           },
+        },
+        fadeIn: {
+          '0%': {
+            opacity: 0
+          },
+          '100%': {
+            opacity: 1
+          }
         }
       }
     },

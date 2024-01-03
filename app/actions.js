@@ -1,11 +1,11 @@
 'use server'
 
-import { signIn, signOut } from "@/lib/auth";
+import { registerUser, signIn, signOut } from "@/lib/auth";
 import { cookies } from 'next/headers';
 import { cookiename, redirectcookiename } from "@/utils/constants";
 import { send } from "@/lib/letters";
 
-export async function authenticate(prevState, formData) {
+export async function authenticate(formData) {
     try {
         console.log("object from entries", Object.fromEntries(formData));
         const user = await signIn(Object.fromEntries(formData));
@@ -32,14 +32,28 @@ export async function authenticate(prevState, formData) {
 
             return user;
         }
+        return 'Signing in failed.';
     } catch (error) {
         console.log("went to error");
-        /*
-        if (error.message.includes('CredentialsSignin')) {
-            return 'CredentialSignin';
+
+        return 'Error while signing in.'
+    }
+}
+
+export async function register(formData) {
+    console.log("registering user");
+    console.log("object from entries", Object.fromEntries(formData));
+    try {
+        const user = await registerUser(Object.fromEntries(formData));
+        if (user) {
+            console.log("returning user to frontend", user);
+            return user;
         }
-        */
-        throw error;
+
+        console.log("failed to get user", user);
+        return null;
+    } catch (error) {
+        console.log("error", error);
     }
 }
 
