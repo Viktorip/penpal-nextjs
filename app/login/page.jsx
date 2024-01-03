@@ -16,11 +16,16 @@ export default function LoginForm() {
   const [modeRegister, setModeRegister] = useState(false);
   const [feedback, setFeedback] = useState('');
 
+  const feedbackMessages = {
+    success: t('user_succesfully_created'),
+    error: t('something_went_wrong')
+  };
+
   useEffect(() => {
     if (formResponse?.id) {
       if (modeRegister) {
         setModeRegister(false);
-        setFeedback(`${t('user_successfully_created')} ( ${formResponse.email} ).`);
+        setFeedback(`${feedbackMessages.success} ( ${formResponse.email} ).`);
       } else {
         setUser(formResponse);
         console.log("user in login page:", formResponse);
@@ -33,17 +38,12 @@ export default function LoginForm() {
     }
 
     if (formResponse?.error) {
-      setFeedback(t('something_went_wrong'));
+      setFeedback(feedbackMessages.error);
     }
 
   }, [formResponse]);
 
   const formHandler = async (formData) => {
-    console.log("trying to submit form");
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
     let resp;
     if (modeRegister) {
       resp = await register(formData);
@@ -54,7 +54,6 @@ export default function LoginForm() {
     }
 
     setFormResponse(resp);
-
   }
 
   return (

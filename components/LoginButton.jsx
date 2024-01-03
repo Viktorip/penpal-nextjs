@@ -14,7 +14,7 @@ export default function LoginButton({className}) {
     const logoutHandler = async () => {
         await logout();
         setUser({});
-        router.push('/');
+        router.push('/logout');
     }
 
     const loginHandler = () => {

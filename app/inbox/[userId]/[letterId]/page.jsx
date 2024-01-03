@@ -41,19 +41,7 @@ export default function LetterPage() {
         setShowInfo(!showInfo);
     }
 
-    if (loading) return (
-        <PageContainer>
-            {t('loading')}
-        </PageContainer>
-    );
-
-    if (error) return (
-        <PageContainer>
-            {error}
-        </PageContainer>
-    );
-
-    if (data?.letter?.id) return (
+    return (
         <PageContainer>
             <div className="flex flex-col items-center space-y-2 h-full relative">
                 <div className="flex flex-row justify-between w-full">
@@ -71,19 +59,14 @@ export default function LetterPage() {
                     <div>{t('date')}: <span className="text-red-900">{dateSent}</span></div>
                 </div>
                 <Letter
-                    style={data.letter.style ? getClassNameFromStyleId(data.letter.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
-                    value={data.letter.body}
+                    style={data?.letter?.style ? getClassNameFromStyleId(data?.letter?.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
+                    value={loading ? t('loading') : error ? t('something_went_wrong') : data?.letter?.body}
                     readOnly={true}
+                    className={loading ? 'animate-pulse' : ''}
                 />
 
             </div>
 
         </PageContainer>
     );
-
-    return (
-        <PageContainer>
-            <div>{t('not_found')}</div>
-        </PageContainer>
-    )
 }
