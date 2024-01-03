@@ -9,7 +9,6 @@ import t from '@/lib/localization';
 
 
 export default function LoginForm() {
-  const [state, dispatch] = useFormState(authenticate, undefined);
   const router = useRouter();
   const { user, setUser } = useContext(AuthContext);
   const [formResponse, setFormResponse] = useState();
@@ -18,22 +17,10 @@ export default function LoginForm() {
   const [feedback, setFeedback] = useState('');
 
   useEffect(() => {
-    if (state?.id) {
-      setUser(state);
-      console.log("user in login page:", state);
-      if (state.redirected) {
-        router.push(state.redirected);
-      } else {
-        router.push('/');
-      }
-    }
-  }, [state]);
-
-  useEffect(() => {
     if (formResponse?.id) {
       if (modeRegister) {
         setModeRegister(false);
-        setFeedback(`User succesfully created ( ${formResponse.email} ).`);
+        setFeedback(`${t('user_successfully_created')} ( ${formResponse.email} ).`);
       } else {
         setUser(formResponse);
         console.log("user in login page:", formResponse);
@@ -43,8 +30,12 @@ export default function LoginForm() {
           router.push('/');
         }
       }
-
     }
+
+    if (formResponse?.error) {
+      setFeedback(t('something_went_wrong'));
+    }
+
   }, [formResponse]);
 
   const formHandler = async (formData) => {
@@ -61,6 +52,7 @@ export default function LoginForm() {
       resp = await authenticate(formData);
       console.log("got response to signIn", resp);
     }
+
     setFormResponse(resp);
 
   }
@@ -72,7 +64,7 @@ export default function LoginForm() {
           <p className='text-xl text-indigo-900'>
             {t('login_title')}
           </p>
-          <div className='text-md text-green-600'>
+          <div className='text-md text-black'>
             {feedback}
           </div>
           <div>
@@ -119,7 +111,7 @@ export default function LoginForm() {
                   className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                   htmlFor="password2"
                 >
-                  Password again
+                  {t('password_again')}
                 </label>
                 <div>
                   <input
@@ -140,7 +132,7 @@ export default function LoginForm() {
                   className="mb-3 mt-5 block text-s font-medium text-indigo-900"
                   htmlFor="fullname"
                 >
-                  Full Name
+                  {t('full_name')}
                 </label>
                 <div>
                   <input
@@ -148,7 +140,7 @@ export default function LoginForm() {
                     id="fullname"
                     type="text"
                     name="fullname"
-                    placeholder="Enter your full name"
+                    placeholder={t('full_name_placeholder')}
                     required
                   />
                 </div>
@@ -157,7 +149,7 @@ export default function LoginForm() {
           </div>
           <div className='flex flex-row space-x-4 mt-6 items-center'>
             <LoginButton statusRegister={modeRegister} />
-            <div className="text-xs text-blue-500 cursor-pointer" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? 'I already have an account.' : "Don't have an account? Register."}</div>
+            <div className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account') : t('no_account_register')}</div>
           </div>
 
         </div>
@@ -170,6 +162,6 @@ function LoginButton({ statusRegister }) {
   const { pending } = useFormStatus();
 
   return (
-    <button aria-disabled={pending} disabled={pending} className='border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{statusRegister ? 'Register' : t('login_btn')}</button>
+    <button aria-disabled={pending} disabled={pending} className='border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{statusRegister ? t('register') : t('login_btn')}</button>
   )
 }

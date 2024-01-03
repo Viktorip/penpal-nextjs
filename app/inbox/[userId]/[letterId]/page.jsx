@@ -7,8 +7,8 @@ import { endpoint } from "@/utils/constants";
 import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { TbUserQuestion } from "react-icons/tb";
+import { IoChevronBack } from "react-icons/io5";
+import { LuMailQuestion } from "react-icons/lu";
 
 
 
@@ -27,9 +27,9 @@ export default function LetterPage() {
         if (data.letter) {
             const date = new Date(data.letter.timestamp);
             //const utc = date.toUTCString();
-            const day = date.getUTCDate() < 10 ? "0"+date.getUTCDay() : date.getUTCDate();
-            const month = (date.getMonth() + 1) < 10 ? "0"+(date.getMonth()+1) : (date.getMonth() + 1);
-            const formated ="" + day + "." + month + "." + date.getUTCFullYear();
+            const day = date.getUTCDate() < 10 ? "0" + date.getUTCDay() : date.getUTCDate();
+            const month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+            const formated = "" + day + "." + month + "." + date.getUTCFullYear();
             setDateSent(formated);
         }
     }, [data])
@@ -55,19 +55,20 @@ export default function LetterPage() {
 
     if (data?.letter?.id) return (
         <PageContainer>
-            <div className="flex flex-col items-center space-y-2 h-full">
-                <div className="flex flex-row self-start space-x-4">
-                    <div className="hover:bg-blue-200 hover:cursor-pointer" onClick={handleBack}>
-                        <IoArrowBackCircleOutline className="text-5xl text-blue-400 bg-white rounded-full" />
+            <div className="flex flex-col items-center space-y-2 h-full relative">
+                <div className="flex flex-row justify-between w-full">
+                    <div className="flex flex-row hover:bg-gray-200 hover:ring cursor-pointer text-indigo-900" onClick={handleBack}>
+                        <IoChevronBack className="text-xl" />
+                        <div className="text-sm">{t('back_to_inbox')}</div>
                     </div>
-                    <div className="hover:bg-blue-200 hover:cursor-pointer" onClick={handleShowUserInfo}>
-                        <TbUserQuestion className="text-5xl text-blue-400 bg-white rounded-2xl" />
+                    <div className="flex flex-row text-indigo-900 space-x-1 hover:bg-gray-200 hover:ring cursor-pointer" onClick={handleShowUserInfo}>
+                        <LuMailQuestion className="text-xl" />
+                        <div className="text-sm">{showInfo ? t('hide_sender_info') : t('show_sender_info')}</div>
                     </div>
-
-                    <div className={`flex flex-col transition-opacity ease-in duration-700 opacity-0 ${showInfo ? 'opacity-100' : ''}`}>
-                        <div>{t('from')}: {senderData?.user?.email}</div>
-                        <div>{t('date')}: {dateSent}</div>
-                    </div>
+                </div>
+                <div className={`absolute top-[20px] right-0 flex flex-col bg-orange-200 border-2 border-solid rounded-md border-indigo-900 p-2 text-sm text-indigo-900 transition-opacity ease-in duration-700 opacity-0 ${showInfo ? 'opacity-100' : ''}`}>
+                    <div>{t('from')}: <span className="text-red-900">{senderData?.user?.email}</span></div>
+                    <div>{t('date')}: <span className="text-red-900">{dateSent}</span></div>
                 </div>
                 <Letter
                     style={data.letter.style ? getClassNameFromStyleId(data.letter.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
@@ -86,19 +87,3 @@ export default function LetterPage() {
         </PageContainer>
     )
 }
-
-/*
-
-<div className="h-full w-full ">
-                    <textarea
-                        className={`w-[38rem] bg-yellow-100 p-2 resize-none overflow-hidden border-solid border border-amber-800 focus:outline-none focus:ring focus:border-blue-500 text-2xl ${data.letter.style ? getClassNameFromStyleId(data.letter.style) : getClassNameFromStyleId(getAllStyleIds()[0])}`}
-                        id="body"
-                        name="body"
-                        rows="22"
-                        value={data.letter.body}
-                        readOnly
-                    >
-                    </textarea>
-                </div>
-
-*/

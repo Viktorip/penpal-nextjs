@@ -32,11 +32,11 @@ export async function authenticate(formData) {
 
             return user;
         }
-        return 'Signing in failed.';
+        return {error: 'Signing in failed.'};
     } catch (error) {
         console.log("went to error");
 
-        return 'Error while signing in.'
+        return {error: 'Error while signing in.'};
     }
 }
 
@@ -51,9 +51,10 @@ export async function register(formData) {
         }
 
         console.log("failed to get user", user);
-        return null;
+        return {error: 'Failed to create user.'};
     } catch (error) {
         console.log("error", error);
+        return {error: 'System error when trying to create user.'};
     }
 }
 

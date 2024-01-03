@@ -1,7 +1,7 @@
 {
     "en": {
         "navi_home_title": "Home",
-        "navi_inbox_title": "Inbox",
+        "navi_inbox_title": "Mailbox",
         "navi_compose_title": "Write a letter",
         "navi_login_btn": "Sign in",
         "navi_logout_btn": "Sign out",
@@ -47,7 +47,18 @@
         "choose_stamp_title": "Available stamps",
         "choose_stamp_body": "Select the stamp you want to use for your letter by clicking the stamp. Choose the empty white stamp if you want to remove the stamp.",
         "envelope_helper_fill": "Fill in the details",
-        "envelope_helper_preview": "Preview your letter"
+        "envelope_helper_preview": "Preview your letter",
+        "back_to_inbox": "Return to Mailbox",
+        "show_sender_info": "Show sender info",
+        "hide_sender_info": "Hide sender info",
+        "user_succesfully_created": "User succesfully created",
+        "password_again": "Re-type the password",
+        "full_name": "Full name",
+        "full_name_placeholder": "John Doe",
+        "register": "Register",
+        "already_have_account": "I already have an account",
+        "no_account_register": "Don't have an account? Register.",
+        "something_went_wrong": "Something went wrong. Try again later!"
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -97,11 +108,22 @@
         "choose_stamp_title": "Käytettävissä olevat postimerkit",
         "choose_stamp_body": "Liitä postimerkki kirjeeseesi klikkaamalla haluamaasi postimerkkiä. Valitse tyhjä valkoinen postimerkki jos haluat poistaa postimerkin kirjeestä.",
         "envelope_helper_fill": "Täytä kirjeen tiedot",
-        "envelope_helper_preview": "Esikatsele kirje"
+        "envelope_helper_preview": "Esikatsele kirje",
+        "back_to_inbox": "Takaisin postilaatikkoon",
+        "show_sender_info": "Näytä lähettäjä",
+        "hide_sender_info": "Piilota lähettäjä",
+        "user_succesfully_created": "Käyttäjä luotu onnistuneesti",
+        "password_again": "Salasana uudelleen",
+        "full_name": "Koko nimi",
+        "full_name_placeholder": "Ville Virtanen",
+        "register": "Luo tunnus",
+        "already_have_account": "Minulla on jo tunnukset",
+        "no_account_register": "Ei tunnuksia? Luo uusi tunnus.",
+        "something_went_wrong": "Jokin meni pieleen. Yritä myöhemmin uudestaan!"
     },
     "vn": {
         "navi_home_title": "Home",
-        "navi_inbox_title": "Inbox",
+        "navi_inbox_title": "Mailbox",
         "navi_compose_title": "Write a letter",
         "navi_login_btn": "Sign in",
         "navi_logout_btn": "Sign out",
@@ -147,6 +169,17 @@
         "choose_stamp_title": "Available stamps",
         "choose_stamp_body": "Select the stamp you want to use for your letter by clicking the stamp. Choose the empty white stamp if you want to remove the stamp.",
         "envelope_helper_fill": "Fill in the details",
-        "envelope_helper_preview": "Preview your letter"
+        "envelope_helper_preview": "Preview your letter",
+        "back_to_inbox": "Return to Mailbox",
+        "show_sender_info": "Show sender info",
+        "hide_sender_info": "Hide sender info",
+        "user_succesfully_created": "User succesfully created",
+        "password_again": "Re-type the password",
+        "full_name": "Full name",
+        "full_name_placeholder": "John Doe",
+        "register": "Register",
+        "already_have_account": "I already have an account",
+        "no_account_register": "Don't have an account? Register.",
+        "something_went_wrong": "Something went wrong. Try again later!"
     }
 }
