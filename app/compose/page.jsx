@@ -72,28 +72,17 @@ export default function ComposePage() {
     }
 
     const textareaHandler = (targetRef, cb, small = false) => {
-        //let changed = false;
         try {
-            while (targetRef.current.clientHeight < targetRef.current.scrollHeight) {
+            while (targetRef.current.clientHeight + 2 < targetRef.current.scrollHeight) { //+2 because of font #2 not being able to go last line
                 let halved = Math.ceil(Math.abs((targetRef.current.value.length - body.length) / 10));
                 if (halved < 1) halved = 1;
                 if (small) halved = 1;
 
                 targetRef.current.value = targetRef.current.value.substr(0, targetRef.current.value.length - halved);
-                //if (!changed) changed = true;
             }
         } catch (error) {
             console.log("caught error:", error);
         } finally {
-            /*
-            //this seems to do nothing?
-            if (changed) {
-                //set cursor to the end
-                targetRef.current.selectionStart = targetRef.current.selectionEnd = targetRef.current.value.length;
-                targetRef.current.focus();
-            }
-            */
-
             cb(targetRef.current.value);
         }
     }
@@ -245,23 +234,23 @@ export default function ComposePage() {
 const HelperArrow = (props) => {
 
     return (
-        <div className="absolute top-1/2 -right-[140px] text-red-700">
+        <div className="absolute top-1/2 -right-[140px] text-indigo-900">
             <div className={`flex flex-row w-26 h-12 ${props.animate}`}>
                 <div className="w-8 h-8">
                     <BiSolidLeftArrow className="text-5xl" />
                 </div>
-                <div className="w-8 h-10 -ml-4 mt-3">
+                <div className="w-8 h-10 -ml-4 mt-3 ">
                     {props.index === 1 &&
-                        <TbHexagonNumber1 className="text-2xl text-white" />
+                        <TbHexagonNumber1 className="text-2xl text-gray-200" />
                     }
                     {props.index === 2 &&
-                        <TbHexagonNumber2 className="text-2xl text-white" />
+                        <TbHexagonNumber2 className="text-2xl text-gray-200" />
                     }
                     {props.index === 3 &&
-                        <TbHexagonNumber3 className="text-2xl text-white" />
+                        <TbHexagonNumber3 className="text-2xl text-gray-200" />
                     }
                 </div>
-                <div className="text-[13px] w-20 h-10 self-center">
+                <div className="text-[13px] w-20 h-10 -ml-2.5 pl-1 self-center  bg-gradient-to-r from-sky-500 to-indigo-100">
                     {props.body}
                 </div>
             </div>

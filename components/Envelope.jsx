@@ -22,6 +22,7 @@ export default function Envelope(props) {
                             value={props.optionalRecipient}
                             onChange={props.onChangeRecipient}
                             readOnly={props.readOnly ? true : false}
+                            spellCheck={false}
                         >
                         </textarea>
                     </div>
@@ -39,6 +40,7 @@ export default function Envelope(props) {
                             value={props.optionalSender}
                             onChange={props.onChangeSender}
                             readOnly={props.readOnly ? true : false}
+                            spellCheck={false}
                         >
                         </textarea>
                     </div>
