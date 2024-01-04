@@ -18,7 +18,6 @@ export default function InboxPage() {
 
     console.log("Inbox letters:", data.letters);
 
-
     return (
         <PageContainer>
             <div className="flex flex-row flex-wrap gap-4 justify-center">
@@ -38,6 +37,7 @@ export default function InboxPage() {
                         </Link>
                     </div>
                 ))}
+                {data?.letters?.length === 0 && <div>{t('inbox_empty', loc)}</div>}
             </div>
         </PageContainer>
     );

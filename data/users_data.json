@@ -55,6 +55,13 @@
       "password": "$2b$10$2BPACrugbSClJpLZPMYlueXSPBG1zFDSDBloie939SU.BEILsVMbG",
       "fullname": "Jaska Virtanen",
       "created": 1704286459257
+    },
+    {
+      "id": 9,
+      "email": "eunukki@hotmail.com",
+      "password": "$2b$10$7rh6LTko158C2/lXsdEFE.Z4FdNNK7mzPMZKW0b8.w7QOarKw32su",
+      "fullname": "Eunukki Virtanen",
+      "created": 1704383824531
     }
   ]
 }

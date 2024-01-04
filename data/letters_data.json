@@ -142,6 +142,28 @@
       "style": "indieflower",
       "stamp": "stamps/suomi180_stamp.png",
       "timestamp": 170376923232
+    },
+    {
+      "id": 14,
+      "optional_recipient": "Einari Virtanen\r\nEunukkikatu 3 A 8\r\n05600 Savonlinna",
+      "optional_sender": "Testaaja Moikka\r\nOrvokkitie 3 B 18\r\n02600 Espoo",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam nec diam vel elit pulvinar tempus. Vestibulum vehicula rhoncus magna, eu tristique nisl sodales eget. Proin hendrerit ac erat vitae faucibus. Cras condimentum nulla sit amet sapien rutrum dapibus. Mauris sed lacus ante. Phasellus sed nulla sit amet ante ultrices aliquet. Aliquam molestie erat dolor, nec pellentesque sapien ullamcorper ut. Ut mattis libero elit, molestie euismod urna fringilla at. Praesent posuere, metus ut ultricies cursus, odio diam aliquam leo, at facilisis libero dui sed nulla. Aenean sed urna sed tortor ultrices blandit. Phasellus ullamcorper, elit at gravida fermentum, est erat malesuada nulla, non ultrices sapien nisi non tellus. Quisque a lore vai onks.\r\nTerveisin Testaaja.",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "indieflower",
+      "stamp": "stamps/punatulkku_stamp.png",
+      "timestamp": 1704381852860
+    },
+    {
+      "id": 15,
+      "optional_recipient": "Ei tähänkään jaksa",
+      "optional_sender": "Ei jaksa",
+      "body": "Kokeillaan uusiksi.\r\n\r\nJotain jotain okei okei\r\n\r\nOkei tarpeeks, bye\r\n\r\nTerveisin,\r\nTestaaja.",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "caveat",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1704382814843
     }
   ]
 }

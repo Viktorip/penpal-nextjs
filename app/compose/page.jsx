@@ -62,13 +62,12 @@ export default function ComposePage() {
         formData.append("stamp", selectedStamp);
 
         const resp = await sendLetter(formData);
-        if (resp) {
+        if (resp.success) {
             router.push('/success');
-            return;
+        }else{
+            console.log(resp.error);
+            router.push('/error');
         }
-        console.log("Failed to send the letter");
-        setShowSendModal(false);
-        setSending(false);
     }
 
     const textareaHandler = (targetRef, cb, small = false) => {
