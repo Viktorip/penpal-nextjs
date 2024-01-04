@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "key": "USER_LETTER_LIMIT_PER_DAY",
+            "value": "2"
+        },
+        {
+            "key": "ALLOW_REGISTERED_USERS_PER_DAY",
+            "value": "5"
+        },
+        {
+            "key": "LETTER_LIFETIME_DAYS",
+            "value": "14"
+        }
+    ]
+}
