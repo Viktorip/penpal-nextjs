@@ -1,4 +1,4 @@
-export const endpoint = 'https://penpal-nextjs.vercel.app/api/'; //production
+export const endpoint = 'http://penpal-nextjs.vercel.app/api/'; //production
 //export const endpoint = 'http://localhost:3000/api/'; development
 export const cookiename = 'penpaluser';
 export const redirectcookiename = 'redirectedfrom';
