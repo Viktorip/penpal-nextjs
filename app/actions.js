@@ -36,7 +36,7 @@ export async function authenticate(formData) {
     } catch (error) {
         console.log("went to error");
 
-        return {error: 'Error while signing in.'};
+        return {error: error, errorMsg: 'Error while signing in.'};
     }
 }
 

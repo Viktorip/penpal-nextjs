@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
       const foundUser = await isLoggedIn();
       if (foundUser) setUser(foundUser);
     }
-    console.log("public key", process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
+
     checkLogin();
   }, []);
 
