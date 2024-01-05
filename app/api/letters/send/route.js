@@ -8,7 +8,7 @@ const dataFilePath = path.join(process.cwd(), 'data/letters_data.json');
 
 const verifyRecaptcha = async (token) => {
     const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-
+    console.log("Verifying captcha");
     const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
 
     const response = await fetch(verificationUrl,
@@ -24,6 +24,7 @@ const verifyRecaptcha = async (token) => {
 
 export async function POST(req, { params }) {
     const { data } = await req.json();
+    console.log("Sending the letter POST");
     
     const recipient = await getUserById(data.recipientEmail);
 
