@@ -20,7 +20,7 @@ export default function useFetch(url = '', options = {}, callback = ()=>{}, send
                     return;
                 }
                 const result = await response.json();
-                console.log("setting result in useFetch", result);
+                
                 setData(result);
                 setLoading(false);
                 sendData ? callback(result) : callback();

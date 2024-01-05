@@ -24,7 +24,7 @@ const verifyRecaptcha = async (token) => {
 
 export async function POST(req, { params }) {
     const { data } = await req.json();
-    console.log("running POST on letters/send", data);
+    
     const recipient = await getUserById(data.recipientEmail);
 
     if (recipient?.id && data.token) {
@@ -54,8 +54,6 @@ export async function POST(req, { params }) {
                 stamp: data.stamp,
                 timestamp: unixTimeInSeconds
             };
-
-            console.log("created newData to insert:", newData);
 
             objectData.data.push(newData);
 

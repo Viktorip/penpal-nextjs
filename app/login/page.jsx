@@ -23,7 +23,7 @@ export default function LoginForm() {
         setFeedback(`${t('user_succesfully_created', loc)} ( ${formResponse.email} ).`);
       } else {
         setUser(formResponse);
-        console.log("user in login page:", formResponse);
+
         if (formResponse.redirected) {
           router.push(formResponse.redirected);
         } else {
@@ -42,10 +42,8 @@ export default function LoginForm() {
     let resp;
     if (modeRegister) {
       resp = await register(formData);
-      console.log("got response to register", resp);
     } else {
       resp = await authenticate(formData);
-      console.log("got response to signIn", resp);
     }
 
     setFormResponse(resp);

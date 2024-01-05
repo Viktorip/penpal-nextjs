@@ -123,7 +123,6 @@ export default function ComposePage() {
         }
 
         setShowStampModal(false);
-        console.log("selected stamp:", path);
     }
 
     return (

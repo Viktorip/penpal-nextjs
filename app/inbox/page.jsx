@@ -16,8 +16,6 @@ export default function InboxPage() {
     const { loc, setLoc } = useContext(LocalizationContext);
     const [data, loading, error] = useFetch(`${endpoint}/users/${user.id}/letters`); // { cache: 'no-store' }
 
-    console.log("Inbox letters:", data.letters);
-
     return (
         <PageContainer>
             <div className="flex flex-row flex-wrap gap-4 justify-center">

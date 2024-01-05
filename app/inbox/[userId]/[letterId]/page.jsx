@@ -19,7 +19,6 @@ export default function LetterPage() {
     const router = useRouter();
     const [data, loading, error] = useFetch(`${endpoint}/letters/${params.letterId}`);
 
-    console.log("inside letter page data:", data);
     const [senderData, senderLoading, senderError] = useFetch(`${endpoint}/users/${params.userId}`);
 
     const [showInfo, setShowInfo] = useState(false);
