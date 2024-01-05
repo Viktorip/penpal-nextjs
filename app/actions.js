@@ -80,7 +80,6 @@ export async function logout() {
 export async function sendLetter(formData) {
     try {
         console.log("object from entries in sendLetter", Object.fromEntries(formData));
-        await timeout(5000);
         const letter = await send(Object.fromEntries(formData));
         return letter;
     } catch (error) {

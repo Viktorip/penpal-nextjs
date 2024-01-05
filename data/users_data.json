@@ -13,6 +13,20 @@
       "password": "$2b$10$lWo8NW1FG6YYNzKhul.xcuXvDTLetBYM5h8dPTvE80V3pY7Gkho9.",
       "fullname": "Einari Virtanen",
       "created": 1704284858194
+    },
+    {
+      "id": 3,
+      "email": "admin@hotmail.com",
+      "password": "$2b$10$srGrkqzs8eJX9gCY5SlvJeUaj3/Atc7OkWaTsV2c/69vQJ1vsQgWm",
+      "fullname": "Admin Virtanen",
+      "created": 1704474754463
+    },
+    {
+      "id": 4,
+      "email": "whatever@hotmail.com",
+      "password": "$2b$10$PUGPwfPA48ulSGIGMD0PM.5yCzgSzsl.yLfh4GdEV.yK5OZ29BPdS",
+      "fullname": "Wateva Virtanen",
+      "created": 1704474818349
     }
   ]
 }

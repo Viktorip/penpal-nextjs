@@ -1,4 +1,3 @@
-const fs = require('fs');
 import fsPromises from 'fs/promises';
 import path from 'path';
 import { NextResponse } from 'next/server';
