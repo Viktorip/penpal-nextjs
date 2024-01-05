@@ -1,6 +1,5 @@
 'use client';
 import PageContainer from '@/components/PageContainer';
-import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate, register } from '@/app/actions';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -154,9 +153,8 @@ export default function LoginForm() {
 }
 
 function LoginButton({ statusRegister, loc }) {
-  const { pending } = useFormStatus();
 
   return (
-    <button aria-disabled={pending} disabled={pending} className='border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{statusRegister ? t('register', loc) : t('login_btn', loc)}</button>
+    <button aria-disabled={false} disabled={false} className='border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{statusRegister ? t('register', loc) : t('login_btn', loc)}</button>
   )
 }

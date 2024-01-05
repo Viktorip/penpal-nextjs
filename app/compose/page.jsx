@@ -16,6 +16,7 @@ import { GiWaxSeal } from "react-icons/gi";
 import { BiSolidLeftArrow } from "react-icons/bi";
 import { TbHexagonNumber1, TbHexagonNumber2, TbHexagonNumber3 } from "react-icons/tb";
 import { BsEnvelopeExclamation } from "react-icons/bs";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 
 const styleIds = getAllStyleIds();
@@ -26,9 +27,7 @@ export default function ComposePage() {
     const { loc, setLoc } = useContext(LocalizationContext);
     const [body, setBody] = useState('');
     const [recipient, setRecipient] = useState('');
-    const [title, setTitle] = useState('');
     const [closed, setClosed] = useState(false);
-    const [sending, setSending] = useState(false);
     const [selectedStyle, setSelectedStyle] = useState(styleIds[0]);
     const [showWarningModal, setShowWarningModal] = useState({ show: false, blocked: '' });
     const [optionalRecipient, setOptionalRecipient] = useState('');
@@ -44,10 +43,7 @@ export default function ComposePage() {
 
     const router = useRouter();
 
-    /*
-    const [titleIsValid, titleError] = useValidate(title, { type: 'text' });
-    const [recipientIsValid, recipientError] = useValidate(recipient, { type: 'email' });
-    */
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
 
     const formHandler = async () => {
@@ -61,12 +57,26 @@ export default function ComposePage() {
         formData.append("optionalRecipient", optionalRecipient);
         formData.append("stamp", selectedStamp);
 
-        const resp = await sendLetter(formData);
-        if (resp.success) {
-            router.push('/success');
-        }else{
-            console.log(resp.error);
-            router.push('/error');
+        if (!executeRecaptcha) return;
+
+        try {
+            const token = await executeRecaptcha();
+
+            if (!token) {
+                console.log("Failed to get token");
+                return;
+            }
+            formData.append("token", token);
+
+            const resp = await sendLetter(formData);
+            if (resp.success) {
+                router.push('/success');
+            } else {
+                console.log(resp.error);
+                router.push('/error');
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -124,19 +134,19 @@ export default function ComposePage() {
                     cancelCallback={handleModalCancel}
                     type='warning'
                     title={t('modal_changestyle_title', loc)}
-                    body={t('modal_changestyle_body',loc)}
-                    okString={t('modal_changestyle_ok',loc)}
-                    cancelString={t('modal_default_cancel',loc)}
+                    body={t('modal_changestyle_body', loc)}
+                    okString={t('modal_changestyle_ok', loc)}
+                    cancelString={t('modal_default_cancel', loc)}
                 />
             }
             {showStampModal &&
                 <StampSelectionModal
                     cancelCallback={() => setShowStampModal(false)}
                     type='custom'
-                    title={t('choose_stamp_title',loc)}
-                    body={t('choose_stamp_body',loc)}
-                    okString={t('modal_default_ok',loc)}
-                    cancelString={t('modal_default_cancel',loc)}
+                    title={t('choose_stamp_title', loc)}
+                    body={t('choose_stamp_body', loc)}
+                    okString={t('modal_default_ok', loc)}
+                    cancelString={t('modal_default_cancel', loc)}
                     stamps={stamps}
                     stampCallback={handleStampSelection}
                 />
@@ -146,15 +156,13 @@ export default function ComposePage() {
                     value={recipient}
                     onChange={(e) => setRecipient(e.target.value)}
                     formAction={() => {
-                        setSending(true);
                         formHandler();
                     }}
                     cancelCallback={() => { setShowSendModal(false); }}
                     okString={t('send', loc)}
-                    cancelString={t('modal_default_cancel',loc)}
-                    title={t('compose_send_modal_title',loc)}
-                    body={t('compose_send_modal_body',loc)}
-                    sending={sending}
+                    cancelString={t('modal_default_cancel', loc)}
+                    title={t('compose_send_modal_title', loc)}
+                    body={t('compose_send_modal_body', loc)}
                 />
             }
             <div className="space-y-3">
@@ -165,12 +173,12 @@ export default function ComposePage() {
                             <div className="flex flex-row justify-between">
                                 <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => setClosed(false)}>
                                     <GiWaxSeal className="text-red-900 text-2xl" />
-                                    <div className="text-indigo-900">{t('compose_open_letter',loc)}</div>
+                                    <div className="text-indigo-900">{t('compose_open_letter', loc)}</div>
                                 </div>
                                 <div className="flex flex-row cursor-pointer mb-1 text-indigo-900 hover:ring hover:bg-gray-200" onClick={() => setShowSendModal(true)}>
                                     <div><BsEnvelopeExclamation className="text-2xl animate-bounce" /></div>
-                                    <div>{t('continue',loc)}</div>
-                                    </div>
+                                    <div>{t('continue', loc)}</div>
+                                </div>
                             </div>
                             <div className="relative">
                                 <Envelope
@@ -187,7 +195,7 @@ export default function ComposePage() {
                                 <HelperArrow body={t('envelope_helper_fill', loc)} animate="animate-bounce-x" index={1} />
                             </div>
 
-                            <div className="my-2 text-xl text-indigo-900">{t('compose_preview',loc)}</div>
+                            <div className="my-2 text-xl text-indigo-900">{t('compose_preview', loc)}</div>
                             <div className="relative">
                                 <Envelope
                                     optionalSender={optionalSender}
@@ -196,7 +204,7 @@ export default function ComposePage() {
                                     stamp={selectedStamp}
                                     readOnly
                                 />
-                                <HelperArrow body={t('envelope_helper_preview',loc)} animate="animate-bounce-x-slow" index={2} />
+                                <HelperArrow body={t('envelope_helper_preview', loc)} animate="animate-bounce-x-slow" index={2} />
                             </div>
                         </div>
                     ) : (
@@ -206,17 +214,17 @@ export default function ComposePage() {
                                 <div className="flex flex-row justify-between items-center">
                                     <div>
                                         <select ref={styleRef} onChange={(e) => { fontChangeHandler(e) }}>
-                                            {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example',loc)}</option>))}
+                                            {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example', loc)}</option>))}
                                         </select>
                                     </div>
                                     <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => setClosed(true)}>
                                         <GiWaxSeal className="text-red-900 text-2xl" />
-                                        <div className="text-indigo-900">{t('compose_close_letter',loc)}</div>
+                                        <div className="text-indigo-900">{t('compose_close_letter', loc)}</div>
                                     </div>
                                 </div>
                                 <Letter
                                     style={getClassNameFromStyleId(selectedStyle)}
-                                    placeholder={t('compose_body_placeholder',loc)}
+                                    placeholder={t('compose_body_placeholder', loc)}
                                     value={body}
                                     onChange={() => textareaHandler(bodyRef, setBody)}
                                     taRef={bodyRef}

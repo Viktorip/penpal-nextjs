@@ -164,6 +164,28 @@
       "style": "caveat",
       "stamp": "stamps/suomi180_stamp.png",
       "timestamp": 1704382814843
+    },
+    {
+      "id": 16,
+      "optional_recipient": "Not a bot",
+      "optional_sender": "Captcha",
+      "body": "Hello from captcha",
+      "recipient_id": 2,
+      "sender_id": 1,
+      "style": "caveat",
+      "stamp": "stamps/suomi180_stamp.png",
+      "timestamp": 1704468338090
+    },
+    {
+      "id": 17,
+      "optional_recipient": "Captcha",
+      "optional_sender": "Not a bot",
+      "body": "Thanks Captcha. You make the world safe.",
+      "recipient_id": 1,
+      "sender_id": 2,
+      "style": "caveat",
+      "stamp": "stamps/punatulkku_stamp.png",
+      "timestamp": 1704468508336
     }
   ]
 }

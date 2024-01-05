@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation'
 import { createContext, useEffect, useState } from 'react';
 import { robotoFont, robotoHeavyFont } from './fonts';
 import { isLoggedIn } from './actions';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 /*
 export const metadata = {
   title: 'Create Next App',
@@ -27,14 +28,14 @@ export default function RootLayout({ children }) {
 
   const [loc, setLoc] = useState('fi');
   const locProviderValue = { loc, setLoc };
-  
+
 
   useEffect(() => {
     const checkLogin = async () => {
       const foundUser = await isLoggedIn();
       if (foundUser) setUser(foundUser);
     }
-
+    console.log("public key", process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
     checkLogin();
   }, []);
 
@@ -44,9 +45,18 @@ export default function RootLayout({ children }) {
       <body className="min-h-screen bg-[url('/background_paper_big.png')]">
         <AuthContext.Provider value={providerValue}>
           <LocalizationContext.Provider value={locProviderValue}>
-
-            <Navigation className={`${robotoHeavyFont.className}`} />
-            {children}
+            <GoogleReCaptchaProvider
+              reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              scriptProps={{
+                async: false,
+                defer: true,
+                appendTo: "body",
+                nonce: undefined
+              }}
+            >
+              <Navigation className={`${robotoHeavyFont.className}`} />
+              {children}
+            </GoogleReCaptchaProvider>
           </LocalizationContext.Provider>
         </AuthContext.Provider>
       </body>
