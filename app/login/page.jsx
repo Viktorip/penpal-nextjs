@@ -46,7 +46,7 @@ export default function LoginForm() {
     } else {
       resp = await authenticate(formData);
     }
-    
+    console.log("form got response", resp);
     setFormResponse(resp);
   }
 
