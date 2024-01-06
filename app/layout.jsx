@@ -29,15 +29,17 @@ export default function RootLayout({ children }) {
   const [loc, setLoc] = useState('fi');
   const locProviderValue = { loc, setLoc };
 
-
+  
   useEffect(() => {
     const checkLogin = async () => {
       const foundUser = await isLoggedIn();
-      if (foundUser) setUser(foundUser);
+      const parsedUser = JSON.parse(foundUser);
+      if (parsedUser.success) setUser(parsedUser);
     }
 
     checkLogin();
   }, []);
+  
 
   return (
     <html lang="fi">

@@ -17,10 +17,11 @@ export default function LoginForm() {
   const [feedback, setFeedback] = useState('');
 
   useEffect(() => {
-    if (formResponse?.id) {
+    if (formResponse?.success) {
       if (modeRegister) {
         setModeRegister(false);
         setFeedback(`${t('user_succesfully_created', loc)} ( ${formResponse.email} ).`);
+        setFormResponse(null);
       } else {
         setUser(formResponse);
 
@@ -45,7 +46,7 @@ export default function LoginForm() {
     } else {
       resp = await authenticate(formData);
     }
-
+    
     setFormResponse(resp);
   }
 

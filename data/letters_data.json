@@ -186,6 +186,17 @@
       "style": "caveat",
       "stamp": "stamps/punatulkku_stamp.png",
       "timestamp": 1704468508336
+    },
+    {
+      "id": 18,
+      "optional_recipient": "gesgessge",
+      "optional_sender": "sgegsegse",
+      "body": "seggse",
+      "recipient_id": 1,
+      "sender_id": 2,
+      "style": "caveat",
+      "stamp": "",
+      "timestamp": 1704546062795
     }
   ]
 }

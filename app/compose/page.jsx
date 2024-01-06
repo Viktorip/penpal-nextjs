@@ -69,6 +69,7 @@ export default function ComposePage() {
             formData.append("token", token);
 
             const resp = await sendLetter(formData);
+            console.log("sendletter response:", resp);
             if (resp.success) {
                 router.push('/success');
             } else {
