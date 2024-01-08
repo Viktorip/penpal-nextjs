@@ -24,6 +24,7 @@ export default function LoginForm() {
         setFormResponse(null);
       } else {
         setUser(formResponse);
+        console.log("Formresponse in login", formResponse);
 
         if (formResponse.redirected) {
           router.push(formResponse.redirected);

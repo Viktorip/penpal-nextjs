@@ -51,7 +51,7 @@ export default function ComposePage() {
         //validate data first??
         formData.append("body", body);
         formData.append("recipientEmail", recipient);
-        formData.append("senderId", user.id);
+        formData.append("senderId", user._id);
         formData.append("style", selectedStyle);
         formData.append("optionalSender", optionalSender);
         formData.append("optionalRecipient", optionalRecipient);

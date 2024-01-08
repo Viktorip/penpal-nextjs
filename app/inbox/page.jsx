@@ -14,7 +14,7 @@ import Envelope from "@/components/Envelope";
 export default function InboxPage() {
     const { user, setUser } = useContext(AuthContext);
     const { loc, setLoc } = useContext(LocalizationContext);
-    const [data, loading, error] = useFetch(`${endpoint}/users/${user.id}/letters`); // { cache: 'no-store' }
+    const [data, loading, error] = useFetch(`${endpoint}/users/${user._id}/letters`); // { cache: 'no-store' }
 
     return (
         <PageContainer>

@@ -1,5 +1,5 @@
-export const endpoint = 'https://penpal-nextjs.vercel.app/api/'; //production
-//export const endpoint = 'http://localhost:3000/api/';
+//export const endpoint = 'https://penpal-nextjs.vercel.app/api/'; //production
+export const endpoint = 'http://localhost:3000/api/';
 export const cookiename = 'penpaluser';
 export const redirectcookiename = 'redirectedfrom';
 
@@ -10,3 +10,6 @@ export const FONT_PARISIENNE = 'parisienne';
 export const FONT_REENIEBEANIE = 'reeniebeanie';
 export const FONT_TANGERINE = 'tangerine';
 
+export const DB_NAME = 'penpal';
+export const DB_LETTERS = 'letters';
+export const DB_USERS = 'users';

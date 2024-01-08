@@ -10,7 +10,7 @@ export default function LoginButton({className}) {
     const router = useRouter();
     const { user, setUser } = useContext(AuthContext);
     const { loc, setLoc } = useContext(LocalizationContext);
-    const loggedIn = !!user.id;
+    const loggedIn = !!user._id;
 
     const logoutHandler = async () => {
         await logout();

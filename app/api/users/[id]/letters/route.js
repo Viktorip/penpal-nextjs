@@ -1,9 +1,26 @@
-import letters from '@/data/letters_data';
+import { DB_LETTERS, DB_NAME } from '@/utils/constants';
 import { NextResponse } from 'next/server';
 
+const { MongoClient } = require('mongodb');
 
 export async function GET(req, {params}) {
-    const user_letters = letters.data.filter(item => parseInt(item.recipient_id, 10) === parseInt(params.id, 10));
-    
-    return NextResponse.json({"letters":user_letters}, {status: "200"});
+    return NextResponse.json({status:"200"});
+    const client = new MongoClient(process.env.MONGODB_URI);
+    console.log("Fetching letters for id", params);
+    try {
+        await client.connect();
+        console.log("client connected");
+        const cursor = client.db(DB_NAME).collection(DB_LETTERS).find({ recipient_id: params.id }).sort({ timestamp: -1});
+        const letters = await cursor.toArray(); 
+        console.log("Found letters", letters); 
+        if (letters) {
+            return NextResponse.json({data: letters, success: true, status:"200"});
+        }
+        return NextResponse.json({error: 'No letters found', success: false, status: "404"});      
+    }catch (error) {
+        console.log("Error with database connection in getting letters", params.id);
+        return NextResponse.json({error: 'Server error with getting letters', success: false, status: "500"});
+    }finally {
+        await client.close();
+    }
 }
