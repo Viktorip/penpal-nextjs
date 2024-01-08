@@ -4,15 +4,13 @@ import { NextResponse } from 'next/server';
 const { MongoClient } = require('mongodb');
 
 export async function GET(req, {params}) {
-    return NextResponse.json({status:"200"});
     const client = new MongoClient(process.env.MONGODB_URI);
-    console.log("Fetching letters for id", params);
+    
     try {
         await client.connect();
-        console.log("client connected");
         const cursor = client.db(DB_NAME).collection(DB_LETTERS).find({ recipient_id: params.id }).sort({ timestamp: -1});
         const letters = await cursor.toArray(); 
-        console.log("Found letters", letters); 
+
         if (letters) {
             return NextResponse.json({data: letters, success: true, status:"200"});
         }

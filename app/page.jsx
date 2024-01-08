@@ -10,7 +10,7 @@ import { caveat } from './fonts';
 export default function Home() {
   const { user, setUser } = useContext(AuthContext);
   const { loc, setLoc } = useContext(LocalizationContext);
-
+  
   return (
     <PageContainer className="h-full">
 

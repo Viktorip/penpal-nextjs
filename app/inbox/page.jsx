@@ -15,15 +15,15 @@ export default function InboxPage() {
     const { user, setUser } = useContext(AuthContext);
     const { loc, setLoc } = useContext(LocalizationContext);
     const [data, loading, error] = useFetch(`${endpoint}/users/${user._id}/letters`); // { cache: 'no-store' }
-
+    
     return (
         <PageContainer>
             <div className="flex flex-row flex-wrap gap-4 justify-center">
                 {loading && <div>{t('loading', loc)}</div>}
                 {error && <div>{t('inbox_empty', loc)}</div>}
-                {data?.letters?.toReversed()?.map(item => (
-                    <div className="w-[30rem] h-[18rem]" key={item.id}>
-                        <Link href={`inbox/${item.sender_id}/${item.id}`} >
+                {data?.data?.toReversed()?.map(item => (
+                    <div className="w-[30rem] h-[18rem]" key={item._id.toString()}>
+                        <Link href={`inbox/${item.sender_id}/${item._id.toString()}`} >
                             <Envelope
                                 optionalSender={item.optional_sender}
                                 optionalRecipient={item.optional_recipient}
@@ -35,7 +35,7 @@ export default function InboxPage() {
                         </Link>
                     </div>
                 ))}
-                {data?.letters?.length === 0 && <div>{t('inbox_empty', loc)}</div>}
+                {data?.data?.length === 0 && <div>{t('inbox_empty', loc)}</div>}
             </div>
         </PageContainer>
     );
