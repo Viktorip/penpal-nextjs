@@ -17,12 +17,21 @@ export default function LoginForm() {
   const [feedback, setFeedback] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [fullname, setFullname] = useState('');
+
   useEffect(() => {
     if (formResponse?.success) {
       if (modeRegister) {
         setModeRegister(false);
         setFeedback(`${t('user_succesfully_created', loc)} ( ${formResponse.email} ).`);
         setFormResponse(null);
+        setPassword('');
+        setPassword2('');
+        setEmail('');
+        setFullname('');
       } else {
         setUser(formResponse);
 
@@ -32,6 +41,7 @@ export default function LoginForm() {
           router.push('/');
         }
       }
+
     }
 
     if (formResponse?.error) {
@@ -39,10 +49,15 @@ export default function LoginForm() {
     }
 
   }, [formResponse]);
-  
-  const formHandler = async (formData) => {
+
+  const formHandler = async () => {
     let resp;
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
     if (modeRegister) {
+      formData.append("password2", password2);
+      formData.append("fullname", fullname);
       resp = await register(formData);
     } else {
       resp = await authenticate(formData);
@@ -58,7 +73,7 @@ export default function LoginForm() {
           <p className='text-xl text-indigo-900'>
             {t('login_title', loc)}
           </p>
-          <div className='text-md text-black'>
+          <div className='animate-pulse text-md text-black'>
             {feedback}
           </div>
           <div>
@@ -77,6 +92,8 @@ export default function LoginForm() {
                   name="email"
                   placeholder={t('login_email_placeholder', loc)}
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -96,6 +113,8 @@ export default function LoginForm() {
                   placeholder={t('login_password_placeholder', loc)}
                   required
                   minLength={4}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -116,6 +135,8 @@ export default function LoginForm() {
                     placeholder={t('login_password_placeholder', loc)}
                     required
                     minLength={4}
+                    value={password2}
+                    onChange={(e) => setPassword2(e.target.value)}
                   />
                 </div>
               </div>
@@ -136,13 +157,18 @@ export default function LoginForm() {
                     name="fullname"
                     placeholder={t('full_name_placeholder', loc)}
                     required
+                    value={fullname}
+                    onChange={(e) => setFullname(e.target.value)}
                   />
                 </div>
               </div>
             }
           </div>
           <div className='flex flex-row space-x-4 mt-6 items-center'>
-            <LoginButton statusRegister={modeRegister} loading={loading} loc={loc} onClick={() => setLoading(true)} />
+            <LoginButton statusRegister={modeRegister} loc={loc} loading={loading} formHandler={()=> {
+              setLoading(true);
+              formHandler();
+            }} />
             <button type="button" aria-disabled={loading} disabled={loading} className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</button>
           </div>
 
@@ -152,10 +178,12 @@ export default function LoginForm() {
   );
 }
 
-function LoginButton({ statusRegister, loc, loading, onClick }) {
-
+function LoginButton({ statusRegister, loc, formHandler, loading }) {
+  const submitForm = ()=> {
+    formHandler();
+  }
   return (
-    <button aria-disabled={loading} disabled={loading} className='p-1 w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700  hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300' onClick={onClick}>
+    <button onClick={submitForm} aria-disabled={loading} disabled={loading} className='p-1 w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700  hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
       {loading &&
         <Spinner title={t('spinner_login', loc)} />
       }
