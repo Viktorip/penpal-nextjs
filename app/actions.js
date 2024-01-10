@@ -3,7 +3,7 @@ import { signIn, signOut } from "@/lib/auth";
 import { cookies } from 'next/headers';
 import { cookiename, jwtcookiename, redirectcookiename } from "@/utils/constants";
 import { send } from "@/lib/letters";
-import { registerUser } from "@/lib/users";
+import { getUserByEmail, registerUser } from "@/lib/users";
 
 export async function authenticate(formData) {
     try {
@@ -70,6 +70,19 @@ export async function sendLetter(formData) {
         return letter;
     } catch (error) {
         return {error: error, success:false};
+    }
+}
+
+export async function doesUserExist(email) {
+    try {
+        const user = await getUserByEmail(email);
+        if (user) {
+            return {success: true};
+        }
+        return {error:'User doesnt exist', success: false};
+    }catch (error) {
+        console.log('System error in finding out if user exists');
+        return {error: 'System error in trying to find user', success: false};
     }
 }
 

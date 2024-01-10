@@ -4,8 +4,6 @@ import { verifyJwtToken } from "./lib/jwt";
 
 //req is NextRequest type
 export async function middleware(request) {
-    console.log("middleware auth");
-    //authenticate by getting a cookie which will tell if authenticated or not
     const userCookie = request.cookies.get(cookiename);
     const userId = userCookie?.value ? JSON.parse(userCookie.value)._id : null;
     const isLoggedIn = !!userId;

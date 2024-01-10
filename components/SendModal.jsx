@@ -1,6 +1,6 @@
 import { LocalizationContext } from "@/app/layout";
 import t from "@/lib/localization";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GiMailbox } from "react-icons/gi";
 
 export default function SendModal(props) {
@@ -11,6 +11,11 @@ export default function SendModal(props) {
         setBtnDisabled(true);
         props.formAction();
     }
+
+    useEffect(()=>{
+        if (props.userNotFound && !btnDisabled) setBtnDisabled(true); 
+        if (btnDisabled && !props.userNotFound) setBtnDisabled(false);
+    }, [props.userNotFound, btnDisabled]);
     
     return (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -28,6 +33,9 @@ export default function SendModal(props) {
                                         <h3 className="text-base font-semibold leading-6 text-black" id="modal-title">{props.title}</h3>
                                         <div className="mt-2 space-y-4">
                                             <p className="text-sm text-black">{props.body}</p>
+                                            {props.userNotFound &&
+                                                <p className="text-sm text-red-600">Recipient doesnt exists. Check that the address is correctly typed.</p>
+                                            }
                                             <div className="flex flex-row space-x-4">
                                                 <input
                                                     type="email"
@@ -42,7 +50,7 @@ export default function SendModal(props) {
                                 </div>
                             </div>
                             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                <button className="inline-flex w-full justify-center rounded-md bg-green-400 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-green-700 sm:ml-3 sm:w-auto disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" disabled={btnDisabled}>{btnDisabled ? (<Spinner />) : props.okString}</button>
+                                <button className="inline-flex w-full justify-center rounded-md bg-green-400 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-green-700 sm:ml-3 sm:w-auto disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" disabled={btnDisabled}>{btnDisabled && !props.userNotFound ? (<Spinner />) : props.okString}</button>
                                 <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-500 sm:mt-0 sm:w-auto disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" disabled={btnDisabled} onClick={props.cancelCallback}>{props.cancelString}</button>
                             </div>
                         </div>

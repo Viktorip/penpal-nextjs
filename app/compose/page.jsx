@@ -1,6 +1,6 @@
 'use client'
 import PageContainer from "@/components/PageContainer";
-import { sendLetter } from "../actions";
+import { doesUserExist, sendLetter } from "../actions";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import useValidate from "@/hooks/useValidate";
@@ -35,6 +35,7 @@ export default function ComposePage() {
     const [showStampModal, setShowStampModal] = useState(false);
     const [selectedStamp, setSelectedStamp] = useState('');
     const [showSendModal, setShowSendModal] = useState(false);
+    const [userNotFound, setUserNotFound] = useState(false);
 
     const bodyRef = useRef();
     const styleRef = useRef();
@@ -47,8 +48,16 @@ export default function ComposePage() {
 
 
     const formHandler = async () => {
+        //first check if recipient exists, maybe removed once invite feature is implemented
+        const findUser = await doesUserExist(recipient);
+        if (!findUser.success) {
+            console.log(findUser.error);
+            setUserNotFound(true);
+            return;
+        }
+
         const formData = new FormData();
-        //validate data first??
+        //data is validated on the backend
         formData.append("body", body);
         formData.append("recipientEmail", recipient);
         formData.append("senderId", user._id);
@@ -154,7 +163,10 @@ export default function ComposePage() {
             {showSendModal &&
                 <SendModal
                     value={recipient}
-                    onChange={(e) => setRecipient(e.target.value)}
+                    onChange={(e) => {
+                        setRecipient(e.target.value);
+                        if (userNotFound) setUserNotFound(false);
+                    }}
                     formAction={() => {
                         formHandler();
                     }}
@@ -163,6 +175,7 @@ export default function ComposePage() {
                     cancelString={t('modal_default_cancel', loc)}
                     title={t('compose_send_modal_title', loc)}
                     body={t('compose_send_modal_body', loc)}
+                    userNotFound={userNotFound}
                 />
             }
             <div className="space-y-3">

@@ -2,7 +2,6 @@
 import { logout } from "@/app/actions";
 import { AuthContext, LocalizationContext } from "@/app/layout";
 import t from "@/lib/localization";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
