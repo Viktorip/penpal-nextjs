@@ -1,6 +1,7 @@
 export const endpoint = process.env.NODE_ENV == 'development' ? 'http://localhost:3000/api/' : 'https://penpal-nextjs.vercel.app/api/';
 export const cookiename = 'penpaluser';
 export const redirectcookiename = 'redirectedfrom';
+export const jwtcookiename = 'jwttoken';
 
 export const FONT_CAVEAT = 'caveat';
 export const FONT_INDIEFLOWER = 'indieflower';
