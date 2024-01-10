@@ -39,10 +39,9 @@ export default function LoginForm() {
     }
 
   }, [formResponse]);
-
+  
   const formHandler = async (formData) => {
     let resp;
-    setLoading(true);
     if (modeRegister) {
       resp = await register(formData);
     } else {
@@ -143,7 +142,7 @@ export default function LoginForm() {
             }
           </div>
           <div className='flex flex-row space-x-4 mt-6 items-center'>
-            <LoginButton statusRegister={modeRegister} loading={loading} loc={loc} />
+            <LoginButton statusRegister={modeRegister} loading={loading} loc={loc} onClick={() => setLoading(true)} />
             <button type="button" aria-disabled={loading} disabled={loading} className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</button>
           </div>
 
@@ -153,14 +152,16 @@ export default function LoginForm() {
   );
 }
 
-function LoginButton({ statusRegister, loc, loading }) {
+function LoginButton({ statusRegister, loc, loading, onClick }) {
 
   return (
-    <button aria-disabled={loading} disabled={loading} className='p-1 w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700  hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
+    <button aria-disabled={loading} disabled={loading} className='p-1 w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700  hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300' onClick={onClick}>
       {loading &&
-          <Spinner title={t('spinner_login', loc)} />
+        <Spinner title={t('spinner_login', loc)} />
       }
-      {statusRegister ? loading ? t('spinner_register', loc) : t('register', loc) : loading ? t('spinner_login', loc) : t('login_btn', loc)}
+      {!loading &&
+        <span>{statusRegister ? t('register', loc) : t('login_btn', loc)}</span>
+      }
     </button>
   )
 }
