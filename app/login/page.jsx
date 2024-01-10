@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AuthContext, LocalizationContext } from '../layout';
 import t from '@/lib/localization';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 
 export default function LoginForm() {
@@ -21,6 +22,8 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [fullname, setFullname] = useState('');
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   useEffect(() => {
     if (formResponse?.success) {
@@ -52,18 +55,33 @@ export default function LoginForm() {
 
   const formHandler = async () => {
     let resp;
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-    if (modeRegister) {
-      formData.append("password2", password2);
-      formData.append("fullname", fullname);
-      resp = await register(formData);
-    } else {
-      resp = await authenticate(formData);
+    if (!executeRecaptcha) return;
+
+    try {
+      const token = await executeRecaptcha();
+
+      if (!token) {
+        console.log("Failed to get token");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("token", token);
+      formData.append("email", email);
+      formData.append("password", password);
+      if (modeRegister) {
+        formData.append("password2", password2);
+        formData.append("fullname", fullname);
+        resp = await register(formData);
+      } else {
+        resp = await authenticate(formData);
+      }
+    } catch (error) {
+      console.log('System error in sending a request to login.');
+    } finally {
+      setLoading(false);
+      setFormResponse(resp);
     }
-    setLoading(false);
-    setFormResponse(resp);
   }
 
   return (
@@ -165,7 +183,7 @@ export default function LoginForm() {
             }
           </div>
           <div className='flex flex-row space-x-4 mt-6 items-center'>
-            <LoginButton statusRegister={modeRegister} loc={loc} loading={loading} formHandler={()=> {
+            <LoginButton statusRegister={modeRegister} loc={loc} loading={loading} formHandler={() => {
               setLoading(true);
               formHandler();
             }} />
@@ -179,13 +197,13 @@ export default function LoginForm() {
 }
 
 function LoginButton({ statusRegister, loc, formHandler, loading }) {
-  const submitForm = ()=> {
+  const submitForm = () => {
     formHandler();
   }
   return (
     <button onClick={submitForm} aria-disabled={loading} disabled={loading} className='p-1 w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700  hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
       {loading &&
-        <Spinner title={t('spinner_login', loc)} />
+        <Spinner title={statusRegister ? t('spinner_register', loc) : t('spinner_login', loc)} />
       }
       {!loading &&
         <span>{statusRegister ? t('register', loc) : t('login_btn', loc)}</span>
