@@ -1,14 +1,13 @@
 'use client'
 
 import { useContext } from 'react';
-import { AuthContext, LocalizationContext } from './layout';
+import { LocalizationContext } from './layout';
 import PageContainer from '@/components/PageContainer';
 import t from '@/lib/localization';
 import { caveat } from './fonts';
 
 
 export default function Home() {
-  const { user, setUser } = useContext(AuthContext);
   const { loc, setLoc } = useContext(LocalizationContext);
   
   return (

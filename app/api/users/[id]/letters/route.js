@@ -8,7 +8,7 @@ export async function GET(req, {params}) {
     
     try {
         await client.connect();
-        const cursor = client.db(DB_NAME).collection(DB_LETTERS).find({ recipient_id: params.id }).sort({ timestamp: -1});
+        const cursor = client.db(DB_NAME).collection(DB_LETTERS).find({ recipient_id: params.id }).sort({ timestamp: 1});
         const letters = await cursor.toArray(); 
 
         if (letters) {
