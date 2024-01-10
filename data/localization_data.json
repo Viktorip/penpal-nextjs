@@ -58,7 +58,10 @@
         "register": "Register",
         "already_have_account": "I already have an account",
         "no_account_register": "Don't have an account? Register.",
-        "something_went_wrong": "Something went wrong. Try again later!"
+        "something_went_wrong": "Something went wrong. Try again later!",
+        "spinner_sending": "Sending...",
+        "spinner_login": "Logging...",
+        "spinner_register": "Registering..."
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -119,7 +122,10 @@
         "register": "Luo tunnus",
         "already_have_account": "Minulla on jo tunnukset",
         "no_account_register": "Ei tunnuksia? Luo uusi tunnus.",
-        "something_went_wrong": "Jokin meni pieleen. Yritä myöhemmin uudestaan!"
+        "something_went_wrong": "Jokin meni pieleen. Yritä myöhemmin uudestaan!",
+        "spinner_sending": "Lähetetään...",
+        "spinner_login": "Kirjaudutaan...",
+        "spinner_register": "Rekisteröidään..."
     },
     "vn": {
         "navi_home_title": "Home",
@@ -180,6 +186,9 @@
         "register": "Register",
         "already_have_account": "I already have an account",
         "no_account_register": "Don't have an account? Register.",
-        "something_went_wrong": "Something went wrong. Try again later!"
+        "something_went_wrong": "Something went wrong. Try again later!",
+        "spinner_sending": "Sending...",
+        "spinner_login": "Logging...",
+        "spinner_register": "Registering..."
     }
 }

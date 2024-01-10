@@ -15,6 +15,7 @@ export default function LoginForm() {
 
   const [modeRegister, setModeRegister] = useState(false);
   const [feedback, setFeedback] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (formResponse?.success) {
@@ -24,7 +25,6 @@ export default function LoginForm() {
         setFormResponse(null);
       } else {
         setUser(formResponse);
-        console.log("Formresponse in login", formResponse);
 
         if (formResponse.redirected) {
           router.push(formResponse.redirected);
@@ -42,12 +42,13 @@ export default function LoginForm() {
 
   const formHandler = async (formData) => {
     let resp;
+    setLoading(true);
     if (modeRegister) {
       resp = await register(formData);
     } else {
       resp = await authenticate(formData);
     }
-    console.log("form got response", resp);
+    setLoading(false);
     setFormResponse(resp);
   }
 
@@ -142,8 +143,8 @@ export default function LoginForm() {
             }
           </div>
           <div className='flex flex-row space-x-4 mt-6 items-center'>
-            <LoginButton statusRegister={modeRegister} loc={loc} />
-            <div className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</div>
+            <LoginButton statusRegister={modeRegister} loading={loading} loc={loc} />
+            <button type="button" aria-disabled={loading} disabled={loading} className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</button>
           </div>
 
         </div>
@@ -152,9 +153,27 @@ export default function LoginForm() {
   );
 }
 
-function LoginButton({ statusRegister, loc }) {
+function LoginButton({ statusRegister, loc, loading }) {
 
   return (
-    <button aria-disabled={false} disabled={false} className='border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 enabled:hover:bg-blue-400 disabled:bg-gray-400 p-1 w-24'>{statusRegister ? t('register', loc) : t('login_btn', loc)}</button>
+    <button aria-disabled={loading} disabled={loading} className='p-1 w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700  hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
+      {loading &&
+          <Spinner title={t('spinner_login', loc)} />
+      }
+      {statusRegister ? loading ? t('spinner_register', loc) : t('register', loc) : loading ? t('spinner_login', loc) : t('login_btn', loc)}
+    </button>
+  )
+}
+
+const Spinner = ({ title }) => {
+
+  return (
+    <div className="flex flex-row">
+      <svg className="animate-spin h-5 w-5 mr-3 place-self-center" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      {title}
+    </div>
   )
 }
