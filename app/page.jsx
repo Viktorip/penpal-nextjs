@@ -19,6 +19,8 @@ export default function Home() {
             {t('home_greeting',loc)}
             <br /> <br />
             {t('home_welcome',loc)}
+            <br /> <br /> <br /> <br />
+            {t('home_get_started',loc)}
           </p>
         </div>
       </div>

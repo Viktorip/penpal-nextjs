@@ -15,7 +15,7 @@ export default function SendModal(props) {
     useEffect(()=>{
         if (props.userNotFound && !btnDisabled) setBtnDisabled(true); 
         if (btnDisabled && !props.userNotFound) setBtnDisabled(false);
-    }, [props.userNotFound, btnDisabled]);
+    }, [props.userNotFound]);
     
     return (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">

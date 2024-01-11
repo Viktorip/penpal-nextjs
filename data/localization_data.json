@@ -61,7 +61,8 @@
         "something_went_wrong": "Something went wrong. Try again later!",
         "spinner_sending": "Sending...",
         "spinner_login": "Logging...",
-        "spinner_register": "Registering..."
+        "spinner_register": "Registering...",
+        "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!"
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -125,7 +126,8 @@
         "something_went_wrong": "Jokin meni pieleen. Yritä myöhemmin uudestaan!",
         "spinner_sending": "Lähetetään...",
         "spinner_login": "Kirjaudutaan...",
-        "spinner_register": "Luodaan..."
+        "spinner_register": "Luodaan...",
+        "home_get_started": "Jk. Aloita klikkaamalla yläpalkista 'Kirjoita kirje' ja lähetä kirje rakkaallesi!"
     },
     "vn": {
         "navi_home_title": "Home",
@@ -189,6 +191,7 @@
         "something_went_wrong": "Something went wrong. Try again later!",
         "spinner_sending": "Sending...",
         "spinner_login": "Logging...",
-        "spinner_register": "Registering..."
+        "spinner_register": "Registering...",
+        "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!"
     }
 }
