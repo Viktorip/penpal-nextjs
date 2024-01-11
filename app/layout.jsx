@@ -31,13 +31,12 @@ export default function RootLayout({ children }) {
   const locProviderValue = { loc, setLoc };
 
   useEffect(() => {
-    const handleUnload = async () => {
-      await logout();
-
+    const handleUnload = () => {
+      logout();
     };
-    window.addEventListener('unload', handleUnload);
+    window.addEventListener('beforeunload', handleUnload);
     return () => {
-      window.removeEventListener('unload', handleUnload);
+      window.removeEventListener('beforeunload', handleUnload);
     };
   }, []);
 

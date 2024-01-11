@@ -15,7 +15,7 @@ export async function authenticate(formData) {
                 maxAge: 7200,
                 secure: true,
                 httpOnly: true,
-                sameSite: true
+                sameSite: "strict"
             });
             //check if user was redirected
             const redicookie = cookies().get(redirectcookiename);
