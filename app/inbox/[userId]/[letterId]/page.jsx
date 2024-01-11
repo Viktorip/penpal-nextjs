@@ -56,7 +56,7 @@ export default function LetterPage() {
                     </div>
                 </div>
                 <div className={`absolute top-[20px] right-0 flex flex-col bg-orange-200 border-2 border-solid rounded-md border-indigo-900 p-2 text-sm text-indigo-900 transition-opacity ease-in duration-700 opacity-0 ${showInfo ? 'opacity-100' : ''}`}>
-                    <div>{t('from',loc)}: <span className="text-red-900">{senderData?.data?.email}</span></div>
+                    <div>{t('from',loc)}: <span className="text-red-900">{senderData?.data?.fullname}</span></div>
                     <div>{t('date',loc)}: <span className="text-red-900">{dateSent}</span></div>
                 </div>
                 <Letter

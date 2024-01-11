@@ -6,7 +6,7 @@ import { AuthContext, LocalizationContext } from "../layout";
 import useFetch from "@/hooks/useFetch";
 import { endpoint } from "@/utils/constants";
 import Link from "next/link";
-import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
+import { getClassNameFromStyleId } from "@/utils/helper";
 import t from "@/lib/localization";
 import Envelope from "@/components/Envelope";
 
