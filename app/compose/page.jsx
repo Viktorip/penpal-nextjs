@@ -224,15 +224,15 @@ export default function ComposePage() {
                         //Open letter
                         <div>
                             <div className="mt-4">
-                                <div className="flex flex-row justify-between items-center">
-                                    <div>
+                                <div className="flex flex-row items-center justify-between">
+                                    <div className="max-sm:text-sm sm:text-md">
                                         <select ref={styleRef} onChange={(e) => { fontChangeHandler(e) }}>
                                             {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example', loc)}</option>))}
                                         </select>
                                     </div>
                                     <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => setClosed(true)}>
-                                        <GiWaxSeal className="text-red-900 text-2xl" />
-                                        <div className="text-indigo-900">{t('compose_close_letter', loc)}</div>
+                                        <GiWaxSeal className="text-red-900 max-sm:text-lg sm:text-2xl" />
+                                        <div className="max-sm:text-sm sm:text-md text-indigo-900">{t('compose_close_letter', loc)}</div>
                                     </div>
                                 </div>
                                 <Letter
@@ -254,7 +254,7 @@ export default function ComposePage() {
 const HelperArrow = (props) => {
 
     return (
-        <div className="absolute top-1/2 -right-[140px] text-indigo-900">
+        <div className="absolute max-sm:top-1/3 max-sm:right-0 sm:top-1/2 sm:-right-[140px] text-indigo-900">
             <div className={`flex flex-row w-26 h-12 ${props.animate}`}>
                 <div className="w-8 h-8">
                     <BiSolidLeftArrow className="text-5xl" />

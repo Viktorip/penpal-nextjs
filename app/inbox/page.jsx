@@ -22,7 +22,7 @@ export default function InboxPage() {
                 {loading && <div>{t('loading', loc)}</div>}
                 {error && <div>{t('inbox_empty', loc)}</div>}
                 {data?.data?.toReversed()?.map(item => (
-                    <div className="w-[30rem] h-[18rem]" key={item._id.toString()}>
+                    <div className="" key={item._id.toString()}>
                         <Link href={`inbox/${item.sender_id}/${item._id.toString()}`} >
                             <Envelope
                                 optionalSender={item.optional_sender}

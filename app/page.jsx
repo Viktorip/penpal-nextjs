@@ -14,8 +14,8 @@ export default function Home() {
     <PageContainer className="h-full">
 
       <div className="flex flex-col items-center w-[32rem] h-[42rem] bg-[url('/welcome_note.jpg')] bg-contain bg-no-repeat bg-top">
-        <div className='p-20'>
-          <p className={`text-3xl text-justify text-indigo-900 ${caveat.className}`}>
+        <div className='pt-20 px-14  sm:p-20'>
+          <p className={`max-sm:text-xl sm:text-3xl text-justify text-indigo-900 ${caveat.className}`}>
             {t('home_greeting',loc)}
             <br /> <br />
             {t('home_welcome',loc)}

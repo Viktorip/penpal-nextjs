@@ -88,7 +88,7 @@ export default function LoginForm() {
     <PageContainer>
       <form action={formHandler} className="space-y-3">
         <div className='w-96'>
-          <p className='text-xl text-indigo-900'>
+          <p className='max-sm:text-lg sm:text-xl text-indigo-900'>
             {t('login_title', loc)}
           </p>
           <div className='animate-pulse text-md text-black'>
@@ -97,14 +97,14 @@ export default function LoginForm() {
           <div>
             <div>
               <label
-                className="mb-3 mt-5 block text-s font-medium text-indigo-900"
+                className="mb-3 mt-5 block max-sm:text-sm sm:text-md font-medium text-indigo-900"
                 htmlFor="email"
               >
                 {t('login_email', loc)}
               </label>
               <div>
                 <input
-                  className="w-80 p-1 focus:outline-none focus:ring focus:border-blue-500"
+                  className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
                   id="email"
                   type="email"
                   name="email"
@@ -117,14 +117,14 @@ export default function LoginForm() {
             </div>
             <div className="mt-4">
               <label
-                className="mb-3 mt-5 block text-s font-medium text-indigo-900"
+                className="mb-3 mt-5 block max-sm:text-sm sm:text-md font-medium text-indigo-900"
                 htmlFor="password"
               >
                 {t('login_password', loc)}
               </label>
               <div>
                 <input
-                  className="w-80 p-1 focus:outline-none focus:ring focus:border-blue-500"
+                  className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
                   id="password"
                   type="password"
                   name="password"
@@ -139,14 +139,14 @@ export default function LoginForm() {
             {modeRegister &&
               <div className="mt-4 animate-fade-in">
                 <label
-                  className="mb-3 mt-5 block text-s font-medium text-indigo-900"
+                  className="mb-3 mt-5 block max-sm:text-sm sm:text-md font-medium text-indigo-900"
                   htmlFor="password2"
                 >
                   {t('password_again', loc)}
                 </label>
                 <div>
                   <input
-                    className="w-80 p-1 focus:outline-none focus:ring focus:border-blue-500"
+                    className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
                     id="password2"
                     type="password"
                     name="password2"
@@ -162,14 +162,14 @@ export default function LoginForm() {
             {modeRegister &&
               <div className='animate-fade-in'>
                 <label
-                  className="mb-3 mt-5 block text-s font-medium text-indigo-900"
+                  className="mb-3 mt-5 block max-sm:text-sm sm:text-md font-medium text-indigo-900"
                   htmlFor="fullname"
                 >
                   {t('full_name', loc)}
                 </label>
                 <div>
                   <input
-                    className="w-80 p-1 focus:outline-none focus:ring focus:border-blue-500"
+                    className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
                     id="fullname"
                     type="text"
                     name="fullname"
@@ -201,7 +201,7 @@ function LoginButton({ statusRegister, loc, formHandler, loading }) {
     formHandler();
   }
   return (
-    <button onClick={submitForm} aria-disabled={loading} disabled={loading} className='p-1 w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700  hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
+    <button onClick={submitForm} aria-disabled={loading} disabled={loading} className='p-1 max-sm:w-32 sm:w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 max-sm:text-sm sm:text-md hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
       {loading &&
         <Spinner title={statusRegister ? t('spinner_register', loc) : t('spinner_login', loc)} />
       }
