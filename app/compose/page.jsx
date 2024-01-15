@@ -205,7 +205,9 @@ export default function ComposePage() {
                                     onClickStamp={() => setShowStampModal(true)}
                                     stamp={selectedStamp}
                                 />
+                                <div className="max-sm:hidden">
                                 <HelperArrow body={t('envelope_helper_fill', loc)} animate="animate-bounce-x" index={1} />
+                                </div>
                             </div>
 
                             <div className="my-2 text-xl text-indigo-900">{t('compose_preview', loc)}</div>
@@ -217,7 +219,9 @@ export default function ComposePage() {
                                     stamp={selectedStamp}
                                     readOnly
                                 />
+                                <div className="max-sm:hidden">
                                 <HelperArrow body={t('envelope_helper_preview', loc)} animate="animate-bounce-x-slow" index={2} />
+                                </div>
                             </div>
                         </div>
                     ) : (

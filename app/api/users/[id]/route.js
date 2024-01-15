@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { DB_NAME, DB_USERS, cookiename, jwtcookiename } from "@/utils/constants";
+import { verifyJwtToken } from "@/lib/jwt";
 
 const { MongoClient, ObjectId } = require('mongodb');
 
