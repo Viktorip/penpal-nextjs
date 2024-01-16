@@ -5,7 +5,7 @@ import t from "@/lib/localization";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
-export default function LoginButton({className}) {
+export default function LoginButton({className, callback = ()=>{}}) {
     const router = useRouter();
     const { user, setUser } = useContext(AuthContext);
     const { loc, setLoc } = useContext(LocalizationContext);
@@ -14,10 +14,12 @@ export default function LoginButton({className}) {
     const logoutHandler = async () => {
         await logout();
         setUser({});
+        callback();
         router.push('/logout');
     }
 
     const loginHandler = () => {
+        callback();
         router.push('/login');
     }
     return (

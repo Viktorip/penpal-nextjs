@@ -87,7 +87,7 @@ export default function LoginForm() {
   return (
     <PageContainer>
       <form action={formHandler} className="space-y-3">
-        <div className='w-96'>
+        <div className='sm:w-96 max-sm:w-screen max-sm:p-2'>
           <p className='max-sm:text-lg sm:text-xl text-indigo-900'>
             {t('login_title', loc)}
           </p>
