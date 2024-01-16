@@ -17,6 +17,8 @@ import { BiSolidLeftArrow } from "react-icons/bi";
 import { TbHexagonNumber1, TbHexagonNumber2, TbHexagonNumber3 } from "react-icons/tb";
 import { BsEnvelopeExclamation } from "react-icons/bs";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import useFetch from "@/hooks/useFetch";
+import { endpoint } from "@/utils/constants";
 
 
 const styleIds = getAllStyleIds();
@@ -45,7 +47,7 @@ export default function ComposePage() {
     const router = useRouter();
 
     const { executeRecaptcha } = useGoogleReCaptcha();
-
+    const [addressbook, addressbookLoading, addressbookError] = useFetch(`${endpoint}/users/${user._id}/addressbook`);
 
     const formHandler = async () => {
         //first check if recipient exists, maybe removed once invite feature is implemented
@@ -135,6 +137,10 @@ export default function ComposePage() {
         setShowStampModal(false);
     }
 
+    const handleAddressbookClick = (address) => {
+        setRecipient(address);
+    }
+
     return (
         <PageContainer className="relative">
             {showWarningModal.show &&
@@ -176,6 +182,8 @@ export default function ComposePage() {
                     title={t('compose_send_modal_title', loc)}
                     body={t('compose_send_modal_body', loc)}
                     userNotFound={userNotFound}
+                    addressbookList={addressbook?.data}
+                    handleAddressbookClick={handleAddressbookClick}
                 />
             }
             <div className="space-y-3">

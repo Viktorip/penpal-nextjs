@@ -31,16 +31,6 @@ export default function RootLayout({ children }) {
   const locProviderValue = { loc, setLoc };
 
   useEffect(() => {
-    const handleUnload = () => {
-      logout();
-    };
-    window.addEventListener('beforeunload', handleUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
-  }, []);
-
-  useEffect(() => {
     const checkLogin = async () => {
       const foundUser = await isLoggedIn();
       const parsedUser = JSON.parse(foundUser);

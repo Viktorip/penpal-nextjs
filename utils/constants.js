@@ -13,3 +13,7 @@ export const FONT_TANGERINE = 'tangerine';
 export const DB_NAME = 'penpal';
 export const DB_LETTERS = 'letters';
 export const DB_USERS = 'users';
+export const DB_ADDRESSBOOK = 'addressbook';
+
+export const VISIBILITY_PRIVATE = 'private';
+export const VISIBILITY_PUBLIC = 'public';
