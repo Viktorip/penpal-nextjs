@@ -62,7 +62,7 @@ export default function LoginForm() {
   }, [formResponse]);
 
   const formHandler = ()=>{
-    if (!passwordsMatch) return;
+    if (modeRegister && !passwordsMatch) return;
     setLoading(true);
     submitForm();
   }
