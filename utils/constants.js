@@ -17,3 +17,11 @@ export const DB_ADDRESSBOOK = 'addressbook';
 
 export const VISIBILITY_PRIVATE = 'private';
 export const VISIBILITY_PUBLIC = 'public';
+
+export const ERROR_MESSAGE_KEYS = {
+    404: 'error_not_found_404',
+    403: 'error_access_denied_403',
+    500: 'error_server_500',
+    200: 'status_ok_200',
+    600: 'error_invalid_email'
+}

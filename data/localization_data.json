@@ -62,7 +62,9 @@
         "spinner_sending": "Sending...",
         "spinner_login": "Logging...",
         "spinner_register": "Registering...",
-        "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!"
+        "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!",
+        "error_passwords_not_match": "The passwords do not match!",
+        "error_invalid_email": "Invalid email. Please check that the email address is a valid email address."
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -127,7 +129,9 @@
         "spinner_sending": "Lähetetään...",
         "spinner_login": "Kirjaudutaan...",
         "spinner_register": "Luodaan...",
-        "home_get_started": "Jk. Aloita klikkaamalla yläpalkista 'Kirjoita kirje' ja lähetä kirje rakkaallesi!"
+        "home_get_started": "Jk. Aloita klikkaamalla yläpalkista 'Kirjoita kirje' ja lähetä kirje rakkaallesi!",
+        "error_passwords_not_match": "Salasanat eivät ole samoja!",
+        "error_invalid_email": "Sähköposti osoite ei ole sallittu. Tarkista, että osoite on kirjoitettu oikein."
     },
     "vn": {
         "navi_home_title": "Home",
@@ -192,6 +196,8 @@
         "spinner_sending": "Sending...",
         "spinner_login": "Logging...",
         "spinner_register": "Registering...",
-        "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!"
+        "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!",
+        "error_passwords_not_match": "The passwords do not match!",
+        "error_invalid_email": "Invalid email. Please check that the email address is a valid email address."
     }
 }

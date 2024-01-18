@@ -1,17 +1,18 @@
 'use client'
 import Link from "next/link"
-import LoginButton from "./LoginButton";
 import { useContext, useState } from "react";
 import { AuthContext, LocalizationContext } from "@/app/layout";
 import t from "@/lib/localization";
 import Image from "next/image";
-import { ImMenu3 } from "react-icons/im";
 import { IoMdMenu } from "react-icons/io";
+import { useRouter } from "next/navigation";
+import { logout } from "@/app/actions";
 
 export default function Navigation({ className }) {
     const { user, setUser } = useContext(AuthContext);
     const { loc, setLoc } = useContext(LocalizationContext);
     const [showMenu, setShowMenu] = useState(false);
+    const router = useRouter();
 
     const changeLocalization = (id) => {
         if (id === loc) return;
@@ -40,7 +41,7 @@ export default function Navigation({ className }) {
                                             <div className="ml-2 text-sm text-indigo-900">
                                                 {user && <span>{user.email}</span>}
                                             </div>
-                                            <LoginButton className="p-1 text-indigo-900 bg-transparent text-center text-sm w-24 hover:bg-gray-200 hover:ring" callback={()=>setShowMenu(false)} />
+                                            <LoginButton className="p-1 text-indigo-900 bg-transparent text-center text-sm w-24 hover:bg-gray-200 hover:ring" callback={()=>setShowMenu(false)} router={router} setUser={setUser} loggedIn={!!user._id} loc={loc} />
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +56,7 @@ export default function Navigation({ className }) {
                     </div>
                     <div className="flex flex-row sm:justify-end items-center mr-2 max-sm:space-x-2">
                         <div className="text-center max-sm:hidden">
-                            <LoginButton className="p-1 text-indigo-900 bg-transparent text-center text-xs sm:text-sm w-20 sm:w-24 hover:bg-gray-200 hover:ring" />
+                            <LoginButton className="p-1 text-indigo-900 bg-transparent text-center text-xs sm:text-sm w-20 sm:w-24 hover:bg-gray-200 hover:ring" router={router} setUser={setUser} loggedIn={!!user._id} loc={loc} />
                         </div>
                         <div>
                             <button className="border-4 border-transparent rounded-full hover:border-indigo-500/50" onClick={() => changeLocalization('fi')}>
@@ -95,6 +96,34 @@ export default function Navigation({ className }) {
                     <div><Link className="text-sm sm:text-lg p-2 hover:bg-gray-200 hover:ring" href='/compose'>{t('navi_compose_title', loc)}</Link></div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+const LoginButton = ({className, router, setUser, loc, loggedIn, callback = ()=>{}}) => {
+
+    const logoutHandler = async () => {
+        await logout();
+        setUser({});
+        callback();
+        router.push('/logout');
+    }
+
+    const loginHandler = () => {
+        callback();
+        router.push('/login');
+    }
+    return (
+        <div>
+            {loggedIn ?
+                <button className={className} onClick={logoutHandler}>
+                    {t('navi_logout_btn', loc)}
+                </button>
+                :
+                <button className={className} onClick={loginHandler}>
+                    {t('navi_login_btn', loc)}
+                </button>
+            }
         </div>
     )
 }

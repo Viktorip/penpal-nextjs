@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { AuthContext, LocalizationContext } from '../layout';
 import t from '@/lib/localization';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { ERROR_MESSAGE_KEYS } from '@/utils/constants';
 
 
 export default function LoginForm() {
@@ -22,6 +23,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [fullname, setFullname] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(false);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -48,13 +50,26 @@ export default function LoginForm() {
     }
 
     if (formResponse?.error) {
-      setFeedback(t('something_went_wrong', loc));
+      if (formResponse?.status === 600) {
+        const errorId = ERROR_MESSAGE_KEYS[formResponse.status];
+        setFeedback(t(errorId, loc),);
+      }else{
+        setFeedback(t('something_went_wrong', loc));
+      }
+      
     }
 
   }, [formResponse]);
 
-  const formHandler = async () => {
+  const formHandler = ()=>{
+    if (!passwordsMatch) return;
+    setLoading(true);
+    submitForm();
+  }
+
+  const submitForm = async () => {
     let resp;
+    
     if (!executeRecaptcha) return;
 
     try {
@@ -62,6 +77,7 @@ export default function LoginForm() {
 
       if (!token) {
         console.log("Failed to get token");
+        resp = {error: true, success: false};
         return;
       }
 
@@ -84,6 +100,11 @@ export default function LoginForm() {
     }
   }
 
+  const checkPasswordMatch = (pw1, pw2) => {
+    if (pw1 === pw2) return true;
+    return false;
+  }
+
   return (
     <PageContainer>
       <form action={formHandler} className="space-y-3">
@@ -104,7 +125,7 @@ export default function LoginForm() {
               </label>
               <div>
                 <input
-                  className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
+                  className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 border-2 focus:outline-none focus:ring focus:border-blue-500"
                   id="email"
                   type="email"
                   name="email"
@@ -124,7 +145,7 @@ export default function LoginForm() {
               </label>
               <div>
                 <input
-                  className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
+                  className={`max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500 border-2 ${modeRegister ? passwordsMatch ? 'border-green-500' : 'border-red-500' : 'valid:border-green-500 invalid:border-red-500'}`}
                   id="password"
                   type="password"
                   name="password"
@@ -132,12 +153,17 @@ export default function LoginForm() {
                   required
                   minLength={4}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    const match = checkPasswordMatch(e.target.value, password2);
+                    setPasswordsMatch(match);
+                  }}
                 />
               </div>
             </div>
             {modeRegister &&
               <div className="mt-4 animate-fade-in">
+                {!passwordsMatch && <p className='text-xs text-red-500'>{t('error_passwords_not_match', loc)}</p>}
                 <label
                   className="mb-3 mt-5 block max-sm:text-sm sm:text-md font-medium text-indigo-900"
                   htmlFor="password2"
@@ -146,7 +172,7 @@ export default function LoginForm() {
                 </label>
                 <div>
                   <input
-                    className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
+                    className={`max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500 border-2 ${passwordsMatch ? 'border-green-500' : 'border-red-500'}`}
                     id="password2"
                     type="password"
                     name="password2"
@@ -154,7 +180,11 @@ export default function LoginForm() {
                     required
                     minLength={4}
                     value={password2}
-                    onChange={(e) => setPassword2(e.target.value)}
+                    onChange={(e) => {
+                      setPassword2(e.target.value);
+                      const match = checkPasswordMatch(password, e.target.value);
+                      setPasswordsMatch(match);
+                    }}
                   />
                 </div>
               </div>
@@ -169,12 +199,13 @@ export default function LoginForm() {
                 </label>
                 <div>
                   <input
-                    className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500"
+                    className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 focus:outline-none focus:ring focus:border-blue-500 border-2 valid:border-green-500 invalid:border-red-500"
                     id="fullname"
                     type="text"
                     name="fullname"
                     placeholder={t('full_name_placeholder', loc)}
                     required
+                    minLength={3}
                     value={fullname}
                     onChange={(e) => setFullname(e.target.value)}
                   />
@@ -183,11 +214,14 @@ export default function LoginForm() {
             }
           </div>
           <div className='flex flex-row space-x-4 mt-6 items-center'>
-            <LoginButton statusRegister={modeRegister} loc={loc} loading={loading} formHandler={() => {
-              setLoading(true);
-              formHandler();
-            }} />
-            <button type="button" aria-disabled={loading} disabled={loading} className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" onClick={() => setModeRegister(!modeRegister)}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</button>
+            <LoginButton statusRegister={modeRegister} loc={loc} loading={loading} />
+            <button type="button" aria-disabled={loading} disabled={loading} className="text-xs text-blue-500 cursor-pointer hover:bg-gray-200 hover:ring disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300" onClick={() => {
+              setPassword('');
+              setPassword2('');
+              setFullname('');
+              setModeRegister(!modeRegister);
+              
+            }}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</button>
           </div>
 
         </div>
@@ -196,12 +230,10 @@ export default function LoginForm() {
   );
 }
 
-function LoginButton({ statusRegister, loc, formHandler, loading }) {
-  const submitForm = () => {
-    formHandler();
-  }
+function LoginButton({ statusRegister, loc, loading }) {
+
   return (
-    <button onClick={submitForm} aria-disabled={loading} disabled={loading} className='p-1 max-sm:w-32 sm:w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 max-sm:text-sm sm:text-md hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
+    <button aria-disabled={loading} disabled={loading} className='p-1 max-sm:w-32 sm:w-40 border-solid border-2 rounded-md border-indigo-700 bg-white text-blue-700 max-sm:text-sm sm:text-md hover:bg-blue-400 disabled:hover:cursor-not-allowed disabled:hover:bg-gray-300'>
       {loading &&
         <Spinner title={statusRegister ? t('spinner_register', loc) : t('spinner_login', loc)} />
       }
