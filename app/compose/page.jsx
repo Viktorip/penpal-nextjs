@@ -118,7 +118,7 @@ export default function ComposePage() {
 
     const textareaHandler = (targetRef, cb, small = false) => {
         try {
-            while (targetRef.current.clientHeight + 2 < targetRef.current.scrollHeight) { //+2 because of font #2 not being able to go last line
+            while (targetRef.current.clientHeight < targetRef.current.scrollHeight) { //+2 because of font #2 not being able to go last line
                 let halved = Math.ceil(Math.abs((targetRef.current.value.length - body.length) / 10));
                 if (halved < 1) halved = 1;
                 if (small) halved = 1;
