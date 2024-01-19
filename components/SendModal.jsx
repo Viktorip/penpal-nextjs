@@ -28,7 +28,7 @@ export default function SendModal(props) {
                                         <div className="relative flex justify-center mb-1" onClick={() => setAddressbookOpen(!addressbookOpen)}>
                                             <FaAddressBook className="text-7xl text-green-500 hover:ring hover:bg-gray-200" />
                                             {addressbookOpen &&
-                                                <AddressbookList list={props.addressbookList ?? ['No contacts found']} clickHandler={props.handleAddressbookClick} />
+                                                <AddressbookList list={props.addressbookList ?? [t('addressbook_no_contacts', loc)]} clickHandler={props.handleAddressbookClick} />
                                             }
                                         </div>
                                     </div>

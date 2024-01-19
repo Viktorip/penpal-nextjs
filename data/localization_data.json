@@ -66,7 +66,8 @@
         "error_passwords_not_match": "The passwords do not match!",
         "error_invalid_email": "Invalid email. Please check that the email address is a valid email address.",
         "error_body_empty": "Your letter can not be empty. Please write something.",
-        "error_user_not_found": "User does not exist."
+        "error_user_not_found": "User does not exist.",
+        "addressbook_no_contacts": "No contacts found."
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -135,7 +136,8 @@
         "error_passwords_not_match": "Salasanat eivät ole samoja!",
         "error_invalid_email": "Sähköposti osoite ei ole sallittu. Tarkista, että osoite on kirjoitettu oikein.",
         "error_body_empty": "Kirjeesi ei voi olla tyhjä. Kirjoita jokin viesti kirjeeseen.",
-        "error_user_not_found": "Käyttäjää ei löytynyt."
+        "error_user_not_found": "Käyttäjää ei löytynyt.",
+        "addressbook_no_contacts": "Kontakteja ei löytynyt."
     },
     "vn": {
         "navi_home_title": "Home",
@@ -204,6 +206,7 @@
         "error_passwords_not_match": "The passwords do not match!",
         "error_invalid_email": "Invalid email. Please check that the email address is a valid email address.",
         "error_body_empty": "Your letter can not be empty. Please write something.",
-        "error_user_not_found": "User does not exist."
+        "error_user_not_found": "User does not exist.",
+        "addressbook_no_contacts": "No contacts found."
     }
 }
