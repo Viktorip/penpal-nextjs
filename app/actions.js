@@ -77,12 +77,12 @@ export async function doesUserExist(email) {
     try {
         const user = await getUserByEmail(email);
         if (user) {
-            return {success: true};
+            return {success: true, status:200};
         }
-        return {error:'User doesnt exist', success: false};
+        return {error:'User doesnt exist', success: false, status: 601};
     }catch (error) {
         console.log('System error in finding out if user exists');
-        return {error: 'System error in trying to find user', success: false};
+        return {error: 'System error in trying to find user', success: false, status: 500};
     }
 }
 

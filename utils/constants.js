@@ -23,5 +23,6 @@ export const ERROR_MESSAGE_KEYS = {
     403: 'error_access_denied_403',
     500: 'error_server_500',
     200: 'status_ok_200',
-    600: 'error_invalid_email'
+    600: 'error_invalid_email',
+    601: 'error_user_not_found'
 }

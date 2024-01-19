@@ -64,7 +64,9 @@
         "spinner_register": "Registering...",
         "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!",
         "error_passwords_not_match": "The passwords do not match!",
-        "error_invalid_email": "Invalid email. Please check that the email address is a valid email address."
+        "error_invalid_email": "Invalid email. Please check that the email address is a valid email address.",
+        "error_body_empty": "Your letter can not be empty. Please write something.",
+        "error_user_not_found": "User does not exist."
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -131,7 +133,9 @@
         "spinner_register": "Luodaan...",
         "home_get_started": "Jk. Aloita klikkaamalla yläpalkista 'Kirjoita kirje' ja lähetä kirje rakkaallesi!",
         "error_passwords_not_match": "Salasanat eivät ole samoja!",
-        "error_invalid_email": "Sähköposti osoite ei ole sallittu. Tarkista, että osoite on kirjoitettu oikein."
+        "error_invalid_email": "Sähköposti osoite ei ole sallittu. Tarkista, että osoite on kirjoitettu oikein.",
+        "error_body_empty": "Kirjeesi ei voi olla tyhjä. Kirjoita jokin viesti kirjeeseen.",
+        "error_user_not_found": "Käyttäjää ei löytynyt."
     },
     "vn": {
         "navi_home_title": "Home",
@@ -198,6 +202,8 @@
         "spinner_register": "Registering...",
         "home_get_started": "P.S. Start by clicking 'Write a letter' at the top bar and send a letter to a loved one!",
         "error_passwords_not_match": "The passwords do not match!",
-        "error_invalid_email": "Invalid email. Please check that the email address is a valid email address."
+        "error_invalid_email": "Invalid email. Please check that the email address is a valid email address.",
+        "error_body_empty": "Your letter can not be empty. Please write something.",
+        "error_user_not_found": "User does not exist."
     }
 }

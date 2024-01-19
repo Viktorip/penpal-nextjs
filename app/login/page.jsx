@@ -95,7 +95,7 @@ export default function LoginForm() {
     } catch (error) {
       console.log('System error in sending a request to login.');
     } finally {
-      setLoading(false);
+      if (!resp?.success) setLoading(false);
       setFormResponse(resp);
     }
   }

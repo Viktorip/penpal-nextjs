@@ -18,7 +18,7 @@ import { TbHexagonNumber1, TbHexagonNumber2, TbHexagonNumber3 } from "react-icon
 import { BsEnvelopeExclamation } from "react-icons/bs";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import useFetch from "@/hooks/useFetch";
-import { endpoint } from "@/utils/constants";
+import { ERROR_MESSAGE_KEYS, endpoint } from "@/utils/constants";
 
 
 const styleIds = getAllStyleIds();
@@ -37,7 +37,9 @@ export default function ComposePage() {
     const [showStampModal, setShowStampModal] = useState(false);
     const [selectedStamp, setSelectedStamp] = useState('');
     const [showSendModal, setShowSendModal] = useState(false);
-    const [userNotFound, setUserNotFound] = useState(false);
+    const [validationError, setValidationError] = useState('');
+    const [sending, setSending] = useState(false);
+    const [submitError, setSubmitError] = useState();
 
     const bodyRef = useRef();
     const styleRef = useRef();
@@ -49,12 +51,35 @@ export default function ComposePage() {
     const { executeRecaptcha } = useGoogleReCaptcha();
     const [addressbook, addressbookLoading, addressbookError] = useFetch(`${endpoint}/users/${user._id}/addressbook`);
 
-    const formHandler = async () => {
+    useEffect(()=>{
+        //I dont know why I need to do this shit like this
+        if (sending) {
+            submitForm();
+        }
+    }, [sending]);
+
+    const formHandler = () => {
+        setSending(true);
+    }
+
+    const submitForm = async () => {
         //first check if recipient exists, maybe removed once invite feature is implemented
-        const findUser = await doesUserExist(recipient);
-        if (!findUser.success) {
-            console.log(findUser.error);
-            setUserNotFound(true);
+        if (!sending) return;
+        try{
+            const findUser = await doesUserExist(recipient);
+            if (!findUser.success) {
+                console.log(findUser.error);
+                setSubmitError(findUser.status);
+                setSending(false);
+                return;
+            }
+        }catch(error) {
+            setSending(false);
+            console.log("System error finding user.");
+        }
+
+        if (!executeRecaptcha) {
+            setSending(false);
             return;
         }
 
@@ -68,8 +93,6 @@ export default function ComposePage() {
         formData.append("optionalRecipient", optionalRecipient);
         formData.append("stamp", selectedStamp);
 
-        if (!executeRecaptcha) return;
-
         try {
             const token = await executeRecaptcha();
 
@@ -80,7 +103,7 @@ export default function ComposePage() {
             formData.append("token", token);
 
             const resp = await sendLetter(formData);
-            console.log("sendletter response:", resp);
+            
             if (resp.success) {
                 router.push('/success');
             } else {
@@ -89,6 +112,7 @@ export default function ComposePage() {
             }
         } catch (error) {
             console.log(error);
+            setSending(false);
         }
     }
 
@@ -105,6 +129,7 @@ export default function ComposePage() {
             console.log("caught error:", error);
         } finally {
             cb(targetRef.current.value);
+            if (validationError) setValidationError(false);
         }
     }
 
@@ -171,17 +196,16 @@ export default function ComposePage() {
                     value={recipient}
                     onChange={(e) => {
                         setRecipient(e.target.value);
-                        if (userNotFound) setUserNotFound(false);
+                        setSubmitError(null);
                     }}
-                    formAction={() => {
-                        formHandler();
-                    }}
+                    formAction={formHandler}
                     cancelCallback={() => { setShowSendModal(false); }}
                     okString={t('send', loc)}
                     cancelString={t('modal_default_cancel', loc)}
                     title={t('compose_send_modal_title', loc)}
                     body={t('compose_send_modal_body', loc)}
-                    userNotFound={userNotFound}
+                    sending={sending}
+                    error={submitError}
                     addressbookList={addressbook?.data}
                     handleAddressbookClick={handleAddressbookClick}
                 />
@@ -236,13 +260,20 @@ export default function ComposePage() {
                         //Open letter
                         <div>
                             <div className="mt-4">
-                                <div className="flex flex-row items-center justify-between">
+                                <div className="relative flex flex-row items-center justify-between">
                                     <div className="max-sm:text-sm sm:text-md">
                                         <select ref={styleRef} onChange={(e) => { fontChangeHandler(e) }}>
                                             {styleIds.map(item => (<option value={item} className={getClassNameFromStyleId(item)} key={item}>{t('compose_style_example', loc)}</option>))}
                                         </select>
                                     </div>
-                                    <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => setClosed(true)}>
+                                    {validationError && <div className="absolute -top-6 right-0 text-xs text-red-500 animate-pulse">{t('error_body_empty', loc)}</div>}
+                                    <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => {
+                                        if (!body) {
+                                            setValidationError(true);
+                                        }else{
+                                            setClosed(true);
+                                        }                                        
+                                    }}>
                                         <GiWaxSeal className="text-red-900 max-sm:text-lg sm:text-2xl" />
                                         <div className="max-sm:text-sm sm:text-md text-indigo-900">{t('compose_close_letter', loc)}</div>
                                     </div>
