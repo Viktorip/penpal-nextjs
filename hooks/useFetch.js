@@ -33,7 +33,7 @@ export default function useFetch(url = '', options = {}, callback = ()=>{}, send
         getData();
 
         return () => { active = false };
-    }, [])
+    }, []);
 
     return [data, loading, error];
 }

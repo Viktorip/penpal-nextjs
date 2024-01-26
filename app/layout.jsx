@@ -2,8 +2,8 @@
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import { createContext, useEffect, useState } from 'react';
-import { robotoFont, robotoHeavyFont } from './fonts';
-import { isLoggedIn, logout } from './actions';
+import { robotoHeavyFont } from './fonts';
+import { isLoggedIn } from './actions';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 /*
@@ -34,7 +34,11 @@ export default function RootLayout({ children }) {
     const checkLogin = async () => {
       const foundUser = await isLoggedIn();
       const parsedUser = JSON.parse(foundUser);
-      if (parsedUser.success) setUser(parsedUser);
+      if (parsedUser.success) {
+        setUser(parsedUser);
+      }else{
+        setUser({});
+      }
     }
 
     checkLogin();

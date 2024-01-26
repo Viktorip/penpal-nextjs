@@ -3,13 +3,14 @@ import { signIn, signOut } from "@/lib/auth";
 import { cookies } from 'next/headers';
 import { cookiename, jwtcookiename, redirectcookiename } from "@/utils/constants";
 import { send } from "@/lib/letters";
-import { getUserByEmail, registerUser } from "@/lib/users";
+import { getUserByEmail, isUserVerified, registerUser } from "@/lib/users";
 
 export async function authenticate(formData) {
     try {
         const user = await signIn(Object.fromEntries(formData));
         
         if (user.success) {
+            delete user.password;
             cookies().set(cookiename, JSON.stringify(user), {
                 path: "/",
                 maxAge: 7200,
@@ -42,6 +43,8 @@ export async function authenticate(formData) {
 export async function register(formData) {
     try {
         const user = await registerUser(Object.fromEntries(formData));
+        console.log("Registering returning user:", user);
+        if (user?.password) delete user.password;
         return user;
     } catch (error) {
         console.log("System error in registering", error);
@@ -66,10 +69,13 @@ export async function logout() {
 
 export async function sendLetter(formData) {
     try {
-        const letter = await send(Object.fromEntries(formData));
+        const data = Object.fromEntries(formData);
+        const verified = await isUserVerified(data.senderId);
+        if (!verified) return {error: 'User not verified', success: false, status: 400}
+        const letter = await send(data);
         return letter;
     } catch (error) {
-        return {error: error, success:false};
+        return {error: error, success:false, status: 500};
     }
 }
 
@@ -86,6 +92,6 @@ export async function doesUserExist(email) {
     }
 }
 
-export async function timeout(ms) {
+async function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -19,7 +19,7 @@ export default function StampSelectionModal(props) {
                                     <div className="mt-2 flex flex-row space-x-4">
                                         {
                                             props.stamps ?
-                                                props.stamps.map(path => (<div key={path} className="cursor-pointer p-2 hover:bg-blue-200"><Image width={90} height={90} src={`/${path}`} alt={path} onClick={() => props.stampCallback(path)} /></div>)) :
+                                                props.stamps.map(path => (<div key={path} className="cursor-pointer p-2 hover:bg-blue-200"><Image width={90} height={90} src={`/${path}`} alt={path} onClick={() => props.stampCallback(path)} as='image' /></div>)) :
                                                 'No stamps found'
                                         }
                                     </div>

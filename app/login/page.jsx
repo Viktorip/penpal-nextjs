@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation';
 import { AuthContext, LocalizationContext } from '../layout';
 import t from '@/lib/localization';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import { ERROR_MESSAGE_KEYS } from '@/utils/constants';
-
+import { ERROR_MESSAGE_KEYS, ACCEPTED_DOMAINS } from '@/utils/constants';
+import { BsFillQuestionCircleFill } from "react-icons/bs";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -24,6 +24,8 @@ export default function LoginForm() {
   const [password2, setPassword2] = useState('');
   const [fullname, setFullname] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(false);
+  const [showAllowedDomainsInfo, setShowAllowedDomainsInfo] = useState(false);
+  const [showAllowedDomainsList, setShowAllowedDomainsList] = useState(true);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -37,8 +39,10 @@ export default function LoginForm() {
         setPassword2('');
         setEmail('');
         setFullname('');
+        setLoading(false);
       } else {
         setUser(formResponse);
+        console.log("Got user:", formResponse);
 
         if (formResponse.redirected) {
           router.push(formResponse.redirected);
@@ -53,15 +57,15 @@ export default function LoginForm() {
       if (formResponse?.status === 600) {
         const errorId = ERROR_MESSAGE_KEYS[formResponse.status];
         setFeedback(t(errorId, loc),);
-      }else{
+      } else {
         setFeedback(t('something_went_wrong', loc));
       }
-      
+
     }
 
   }, [formResponse]);
 
-  const formHandler = ()=>{
+  const formHandler = () => {
     if (modeRegister && !passwordsMatch) return;
     setLoading(true);
     submitForm();
@@ -69,7 +73,7 @@ export default function LoginForm() {
 
   const submitForm = async () => {
     let resp;
-    
+
     if (!executeRecaptcha) return;
 
     try {
@@ -77,7 +81,7 @@ export default function LoginForm() {
 
       if (!token) {
         console.log("Failed to get token");
-        resp = {error: true, success: false};
+        resp = { error: true, success: false };
         return;
       }
 
@@ -88,6 +92,7 @@ export default function LoginForm() {
       if (modeRegister) {
         formData.append("password2", password2);
         formData.append("fullname", fullname);
+        formData.append("loc", loc);
         resp = await register(formData);
       } else {
         resp = await authenticate(formData);
@@ -123,7 +128,7 @@ export default function LoginForm() {
               >
                 {t('login_email', loc)}
               </label>
-              <div>
+              <div className='relative'>
                 <input
                   className="max-sm:w-full sm:w-80 max-sm:text-sm sm:text-lg p-1 border-2 focus:outline-none focus:ring focus:border-blue-500"
                   id="email"
@@ -134,6 +139,25 @@ export default function LoginForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                {showAllowedDomainsInfo &&
+                  <div className='animate-fade-in absolute top-2 sm:left-[18rem] max-sm:left-[22rem]'>
+                    <div className='relative'>
+                      <div className='cursor-pointer hover:ring hover:bg-gray-200' onClick={() => {
+                        setShowAllowedDomainsList(!showAllowedDomainsList);
+                      }}>
+                        <BsFillQuestionCircleFill className='text-indigo-900 text-2xl' />
+                      </div>
+                      {showAllowedDomainsList &&
+                        <div className='absolute w-48 p-1 top-full right-0 border-2 border-black rounded-md bg-white' onClick={() => {
+                          setShowAllowedDomainsList(false);
+                        }}>
+                          <div className='text-sm text-indigo-900'>{t('allowed_domains', loc)}:</div>
+                          <AllowedDomainsList />
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
               </div>
             </div>
             <div className="mt-4">
@@ -220,7 +244,9 @@ export default function LoginForm() {
               setPassword2('');
               setFullname('');
               setModeRegister(!modeRegister);
-              
+              setShowAllowedDomainsInfo(!showAllowedDomainsInfo);
+              setShowAllowedDomainsList(true);
+
             }}>{modeRegister ? t('already_have_account', loc) : t('no_account_register', loc)}</button>
           </div>
 
@@ -255,4 +281,10 @@ const Spinner = ({ title }) => {
       {title}
     </div>
   )
+}
+
+const AllowedDomainsList = () => {
+  const allowed_domains = ACCEPTED_DOMAINS;
+
+  return allowed_domains?.map(domain => (<div className='text-green-800 text-xs' key={domain}>{domain}</div>));
 }
