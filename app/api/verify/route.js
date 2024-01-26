@@ -20,18 +20,17 @@ export async function POST(req, { params }) {
         return NextResponse.json({ success: false, status: 400 });
     }
     try {
-        const isVerifiedAlready = await isUserVerified(userId);
-        if (isVerifiedAlready) {
-            console.log("Is already verified");
-            const updatedUser = await updateCookie();
-            return NextResponse.json({ success: true, status: 201, user: updatedUser });
-        }
-
         const client = new MongoClient(process.env.MONGODB_URI);
         await client.connect();
         const mongo_id = new ObjectId(verifyId);
-        const result = await client.db(DB_NAME).collection(DB_VERIFY).findOne({ _id: mongo_id });
+        const result = await client.db(DB_NAME).collection(DB_VERIFY).findOne({ _id: mongo_id, owner: userId });
         if (result) {
+            const isVerifiedAlready = await isUserVerified(userId);
+            if (isVerifiedAlready) {
+                const updatedUser = await updateCookie();
+                return NextResponse.json({ success: true, status: 201, user: updatedUser });
+            }
+
             const ownerId = result?.owner.toString();
             if (userId === ownerId) {
                 const verified = await client.db(DB_NAME).collection(DB_VERIFY).updateOne({ _id: mongo_id }, { $set: { verified: Date.now() } });
@@ -41,7 +40,7 @@ export async function POST(req, { params }) {
                 }
             }
         }
-        console.log("Got no result, returning error", result);
+        
         return NextResponse.json({ success: false, status: 400 });
 
     } catch (error) {
@@ -55,7 +54,7 @@ async function updateCookie() {
     const userCookie = cookies().get(cookiename);
     const user = JSON.parse(userCookie.value);
     console.log("user value is:", user);
-    const updatedUser = {...user, verified: true};
+    const updatedUser = { ...user, verified: true };
     cookies().set(cookiename, JSON.stringify(updatedUser), {
         path: "/",
         maxAge: 7200,

@@ -54,10 +54,10 @@ export default function LoginForm() {
     }
 
     if (formResponse?.error) {
-      if (formResponse?.status === 600) {
+      if (formResponse?.status === 600 || formResponse?.status === 400) {
         const errorId = ERROR_MESSAGE_KEYS[formResponse.status];
         setFeedback(t(errorId, loc),);
-      } else {
+      }else{
         setFeedback(t('something_went_wrong', loc));
       }
 

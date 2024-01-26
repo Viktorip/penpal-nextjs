@@ -67,6 +67,7 @@
         "error_invalid_email": "Invalid email. Please check that the email address is a valid email address.",
         "error_body_empty": "Your letter can not be empty. Please write something.",
         "error_user_not_found": "User does not exist.",
+        "error_invalid_credentials": "Invalid data",
         "addressbook_no_contacts": "No contacts found.",
         "allowed_domains": "Allowed domains",
         "verify_email_title": "Please verify your email to kirjekaverit.fi",
@@ -74,7 +75,9 @@
         "verify_email_body2": "Click the below button to verify your email",
         "verify_email_verify": "Verify Email",
         "verify_email_manual_link": "If the button doesn't work click the link below",
-        "verify_email_warning": "Account needs to be verified before sending letters. Check your email inbox for the message from kirjekaverit.fi to verify your account."
+        "verify_email_warning": "Account needs to be verified before sending letters. Check your email inbox for the message from kirjekaverit.fi to verify your account.",
+        "spinner_verifying": "Verifying...",
+        "verify_email_success": "Verification done successfully!"
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -144,6 +147,7 @@
         "error_invalid_email": "Sähköposti osoite ei ole sallittu. Tarkista, että osoite on kirjoitettu oikein.",
         "error_body_empty": "Kirjeesi ei voi olla tyhjä. Kirjoita jokin viesti kirjeeseen.",
         "error_user_not_found": "Käyttäjää ei löytynyt.",
+        "error_invalid_credentials": "Syöte oli väärin",
         "addressbook_no_contacts": "Kontakteja ei löytynyt.",
         "allowed_domains": "Sallitut domainit",
         "verify_email_title": "Vahvista sähköpostiosoitteesi kirjekaverit.fi palveluun",
@@ -151,7 +155,9 @@
         "verify_email_body2": "Klikkaa alla olevaa nappia vahvistaaksesi sähköpostiosoitteesi",
         "verify_email_verify": "Vahvista sähköpostiosoite",
         "verify_email_manual_link": "Jos nappi ei toimi niin vahvista sähköposti alla olevasta linkistä",
-        "verify_email_warning": "Tunnus pitää vahvistaa ennenkuin voit lähettää kirjeitä. Tarkista sähköpostiosoitteesi ja seuraa kirjekaverit.fi lähettämän viestin ohjeita vahvistaaksesi tunnuksesi."
+        "verify_email_warning": "Tunnus pitää vahvistaa ennenkuin voit lähettää kirjeitä. Tarkista sähköpostiosoitteesi ja seuraa kirjekaverit.fi lähettämän viestin ohjeita vahvistaaksesi tunnuksesi.",
+        "spinner_verifying": "Vahvistetaan...",
+        "verify_email_success": "Vahvistettu onnistuneesti!"
     },
     "vn": {
         "navi_home_title": "Home",
@@ -221,6 +227,7 @@
         "error_invalid_email": "Invalid email. Please check that the email address is a valid email address.",
         "error_body_empty": "Your letter can not be empty. Please write something.",
         "error_user_not_found": "User does not exist.",
+        "error_invalid_credentials": "Invalid data",
         "addressbook_no_contacts": "No contacts found.",
         "allowed_domains": "Allowed domains",
         "verify_email_title": "Please verify your email to kirjekaverit.fi",
@@ -228,6 +235,8 @@
         "verify_email_body2": "Click the below button to verify your email",
         "verify_email_verify": "Verify Email",
         "verify_email_manual_link": "If the button doesn't work click the link below",
-        "verify_email_warning": "Account needs to be verified before sending letters. Check your email inbox for the message from kirjekaverit.fi to verify your account."
+        "verify_email_warning": "Account needs to be verified before sending letters. Check your email inbox for the message from kirjekaverit.fi to verify your account.",
+        "spinner_verifying": "Verifying...",
+        "verify_email_success": "Verification done successfully!"
     }
 }

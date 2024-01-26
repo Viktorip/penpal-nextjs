@@ -21,6 +21,7 @@ export const VISIBILITY_PRIVATE = 'private';
 export const VISIBILITY_PUBLIC = 'public';
 
 export const ERROR_MESSAGE_KEYS = {
+    400: 'error_invalid_credentials',
     404: 'error_not_found_404',
     403: 'error_access_denied_403',
     500: 'error_server_500',

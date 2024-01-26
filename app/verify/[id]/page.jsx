@@ -1,21 +1,19 @@
 'use client'
-import { AuthContext } from "@/app/layout";
+import { AuthContext, LocalizationContext } from "@/app/layout";
 import PageContainer from "@/components/PageContainer";
-import useFetch from "@/hooks/useFetch";
-import { cookiename, endpoint } from "@/utils/constants";
+import t from "@/lib/localization";
+import { endpoint } from "@/utils/constants";
 import { useParams } from "next/navigation"
 import { useContext, useEffect, useState } from "react";
-import Cookies from "universal-cookie";
 
 
 
 export default function VerifyPage() {
     const params = useParams();
     const { user, setUser } = useContext(AuthContext);
-    
+    const {loc, setLoc} = useContext(LocalizationContext);
 
     const [status, setStatus] = useState('waiting');
-    const [errorMsg, setErrorMsg] = useState('');
 
     const verifyUser = async (userId, verifyId) => {
         if (status === 'loading') {
@@ -35,7 +33,6 @@ export default function VerifyPage() {
             setUser(data.user);
         }else{
             setStatus('error');
-            setErrorMsg(data?.error);
         }
     }
 
@@ -45,19 +42,19 @@ export default function VerifyPage() {
             verifyUser(user._id, params.id);
         }
     }, [user]);
-
+    
     return (
         <PageContainer>
             {(status !== 'complete' && status !== 'error') &&
                 <div className="animate-pulse">
-                    <Spinner title="Verifying..." />
+                    <Spinner title={t('spinner_verifying', loc)} />
                 </div>
             }
             {status === 'complete' &&
-                <div>Success! Verified</div>
+                <div>{t('verify_email_success', loc)}</div>
             }
             {status === 'error' &&
-                <div>Error! {errorMsg}</div>
+                <div>{t('something_went_wrong', loc)}</div>
             }
         </PageContainer>
     )
