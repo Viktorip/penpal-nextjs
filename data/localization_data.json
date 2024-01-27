@@ -77,7 +77,8 @@
         "verify_email_manual_link": "If the button doesn't work click the link below",
         "verify_email_warning": "Account needs to be verified before sending letters. Check your email inbox for the message from kirjekaverit.fi to verify your account.",
         "spinner_verifying": "Verifying...",
-        "verify_email_success": "Verification done successfully!"
+        "verify_email_success": "Verification done successfully!",
+        "verify_email_warning2": "Account needs to be verified before you can read letters. Check your email inbox for the message from kirjekaverit.fi to verify your account."
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -157,7 +158,8 @@
         "verify_email_manual_link": "Jos nappi ei toimi niin vahvista sähköposti alla olevasta linkistä",
         "verify_email_warning": "Tunnus pitää vahvistaa ennenkuin voit lähettää kirjeitä. Tarkista sähköpostiosoitteesi ja seuraa kirjekaverit.fi lähettämän viestin ohjeita vahvistaaksesi tunnuksesi.",
         "spinner_verifying": "Vahvistetaan...",
-        "verify_email_success": "Vahvistettu onnistuneesti!"
+        "verify_email_success": "Vahvistettu onnistuneesti!",
+        "verify_email_warning2": "Tunnus pitää vahvistaa ennenkuin voit lukea kirjeitä. Tarkista sähköpostiosoitteesi ja seuraa kirjekaverit.fi lähettämän viestin ohjeita vahvistaaksesi tunnuksesi."
     },
     "vn": {
         "navi_home_title": "Home",
@@ -237,6 +239,7 @@
         "verify_email_manual_link": "If the button doesn't work click the link below",
         "verify_email_warning": "Account needs to be verified before sending letters. Check your email inbox for the message from kirjekaverit.fi to verify your account.",
         "spinner_verifying": "Verifying...",
-        "verify_email_success": "Verification done successfully!"
+        "verify_email_success": "Verification done successfully!",
+        "verify_email_warning2": "Account needs to be verified before you can read letters. Check your email inbox for the message from kirjekaverit.fi to verify your account."
     }
 }

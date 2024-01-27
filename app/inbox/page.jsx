@@ -15,15 +15,22 @@ export default function InboxPage() {
     const { user, setUser } = useContext(AuthContext);
     const { loc, setLoc } = useContext(LocalizationContext);
     const [data, loading, error] = useFetch(`${endpoint}/users/${user._id}/letters`); // { cache: 'no-store' }
-    
+
     return (
-        <PageContainer>
+        <PageContainer className="flex-col">
+            {!user?.verified &&
+                <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[24rem]">
+                    <p className="text-white text-xs">
+                        {t('verify_email_warning2', loc)}
+                    </p>
+                </div>
+            }
             <div className="flex flex-row flex-wrap gap-4 justify-center">
                 {loading && <div>{t('loading', loc)}</div>}
                 {error && <div>{t('inbox_empty', loc)}</div>}
                 {data?.data?.toReversed()?.map(item => (
                     <div className="" key={item._id.toString()}>
-                        <Link href={`inbox/${item.sender_id}/${item._id.toString()}`} >
+                        <Link href={`inbox/${item.sender_id}/${item._id.toString()}`} className={`${!user?.verified && 'pointer-events-none'}`} >
                             <Envelope
                                 optionalSender={item.optional_sender}
                                 optionalRecipient={item.optional_recipient}

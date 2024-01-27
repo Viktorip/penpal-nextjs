@@ -1,5 +1,5 @@
 'use client'
-import { LocalizationContext } from "@/app/layout";
+import { AuthContext, LocalizationContext } from "@/app/layout";
 import Letter from "@/components/Letter";
 import PageContainer from "@/components/PageContainer";
 import useFetch from "@/hooks/useFetch";
@@ -15,9 +15,10 @@ import { LuMailQuestion } from "react-icons/lu";
 
 export default function LetterPage() {
     const { loc, setLoc } = useContext(LocalizationContext);
+    const { user, setUser } = useContext(AuthContext);
     const params = useParams();
     const router = useRouter();
-    
+
     const [letter, loading, error] = useFetch(`${endpoint}/letters/${params.letterId}`);
 
     const [senderData, senderLoading, senderError] = useFetch(`${endpoint}/users/${params.userId}`);
@@ -33,7 +34,7 @@ export default function LetterPage() {
             const formated = "" + day + "." + month + "." + date.getUTCFullYear();
             setDateSent(formated);
         }
-    }, [letter])
+    }, [letter]);
 
     const handleBack = () => {
         router.push('/inbox');
@@ -45,23 +46,30 @@ export default function LetterPage() {
     return (
         <PageContainer>
             <div className="flex flex-col items-center space-y-2 h-full relative">
+                {!user?.verified &&
+                    <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[24rem]">
+                        <p className="text-white text-xs">
+                            {t('verify_email_warning2', loc)}
+                        </p>
+                    </div>
+                }
                 <div className="flex flex-row justify-between w-full">
                     <div className="flex flex-row hover:bg-gray-200 hover:ring cursor-pointer text-indigo-900" onClick={handleBack}>
                         <IoChevronBack className="text-xl" />
-                        <div className="text-sm">{t('back_to_inbox',loc)}</div>
+                        <div className="text-sm">{t('back_to_inbox', loc)}</div>
                     </div>
                     <div className="flex flex-row text-indigo-900 space-x-1 hover:bg-gray-200 hover:ring cursor-pointer" onClick={handleShowUserInfo}>
                         <LuMailQuestion className="text-xl" />
-                        <div className="text-sm">{showInfo ? t('hide_sender_info', loc) : t('show_sender_info',loc)}</div>
+                        <div className="text-sm">{showInfo ? t('hide_sender_info', loc) : t('show_sender_info', loc)}</div>
                     </div>
                 </div>
                 <div className={`absolute top-[20px] right-0 flex flex-col bg-orange-200 border-2 border-solid rounded-md border-indigo-900 p-2 text-sm text-indigo-900 transition-opacity ease-in duration-700 opacity-0 ${showInfo ? 'opacity-100' : ''}`}>
-                    <div>{t('from',loc)}: <span className="text-red-900">{senderData?.data?.fullname}</span></div>
-                    <div>{t('date',loc)}: <span className="text-red-900">{dateSent}</span></div>
+                    <div>{t('from', loc)}: <span className="text-red-900">{senderData?.data?.fullname}</span></div>
+                    <div>{t('date', loc)}: <span className="text-red-900">{dateSent}</span></div>
                 </div>
                 <Letter
                     style={letter?.data?.style ? getClassNameFromStyleId(letter?.data?.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
-                    value={loading ? t('loading',loc) : error ? t('something_went_wrong',loc) : letter?.data?.body}
+                    value={loading ? t('loading', loc) : letter?.error ? t('something_went_wrong', loc) : letter?.data?.body}
                     readOnly={true}
                     className={loading ? 'animate-pulse' : ''}
                 />

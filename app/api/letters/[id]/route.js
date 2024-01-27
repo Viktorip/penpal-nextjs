@@ -12,6 +12,11 @@ export async function GET(req, { params }) {
     try {
         const token = JSON.parse(jwtCookie.value);
         const user = JSON.parse(userCookie.value);
+
+        if (!user?.verified) {
+            console.log('User is not verified. Access denied.');
+            return NextResponse.json({ error: 'Access denied', success: false, status: 403 });
+        }
         const payload = await verifyJwtToken(token);
 
         if (!(user?._id === payload?._id)) {
