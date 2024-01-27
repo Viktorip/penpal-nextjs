@@ -1,9 +1,8 @@
 'use client'
 import './globals.css'
 import Navigation from '@/components/Navigation'
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { robotoHeavyFont } from './fonts';
-import { isLoggedIn } from './actions';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 /*
@@ -29,21 +28,6 @@ export default function RootLayout({ children }) {
 
   const [loc, setLoc] = useState('fi');
   const locProviderValue = { loc, setLoc };
-
-  useEffect(() => {
-    const checkLogin = async () => {
-      const foundUser = await isLoggedIn();
-      const parsedUser = JSON.parse(foundUser);
-      if (parsedUser.success) {
-        setUser(parsedUser);
-      }else{
-        setUser({});
-      }
-    }
-
-    checkLogin();
-  }, []);
-
 
   return (
     <html lang="fi">
