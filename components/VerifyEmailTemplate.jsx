@@ -9,31 +9,28 @@ export default function VerifyEmailTemplate({ email, fullname, loc, verifyLink }
             border: "1px solid white",
             backgroundColor: "lightblue",
             textAlign: "center",
-            fontSize: "14px",
+            fontSize: "16px",
             padding: "16px",
             borderRadius: "6px",
         },
         buttonCont: {
             width: "50%",
-            margin:"auto"
+            margin:"0 25% 0 25%"
 
         },
         linkInfo: {
-            fontSize: "10px"
+            fontSize: "12px"
         },
         linkContainer: {
-            fontSize: "10px"
+            fontSize: "12px"
         },
         body: {
             color: "rgb(49 46 129)",
             padding: "8px",
-            position: "relative"
+            textAlign: "justify",
         },
-        backgroundImg: {
-            position: "absolute",
-            top: "0",
-            left: "0",
-            zIndex: "-1"
+        paragraph: {
+            fontSize: "16px"
         }
     }
 
@@ -41,10 +38,9 @@ export default function VerifyEmailTemplate({ email, fullname, loc, verifyLink }
         <div>
             <img src="https://swfozb1ng6po0bsb.public.blob.vercel-storage.com/email_banner-TiVMIdxRUEDlk61DcCbkkPt5J1cIhr.png" alt="banner"></img>
             <div style={styles.body}>
-                <img style={styles.backgroundImg} src="https://swfozb1ng6po0bsb.public.blob.vercel-storage.com/email_background-KTh9ADiY7vJ0MzAcOxZHwwIbzec7rp.png" alt="background"></img>
-                <p>{fullname}, {t('verify_email_body1', loc)}</p>
+                <p style={styles.paragraph}>{fullname}, {t('verify_email_body1', loc)}</p>
                 <br />
-                <p>{t('verify_email_body2', loc)} ( {email} )</p>
+                <p style={styles.paragraph}>{t('verify_email_body2', loc)} ( {email} )</p>
                 <br />
                 <div style={styles.buttonCont}>
                     <a href={verifyLink}><div style={styles.button}>{t('verify_email_verify', loc)}</div></a>
