@@ -102,11 +102,10 @@ export default function Navigation({ className }) {
 
 const LoginButton = ({className, router, setUser, loc, loggedIn, callback = ()=>{}}) => {
 
-    const logoutHandler = async () => {
-        await logout();
-        setUser({});
+    const logoutHandler = async () => {        
         callback();
         router.push('/logout');
+        
     }
 
     const loginHandler = () => {

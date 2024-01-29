@@ -14,6 +14,12 @@ export async function GET(req, {params}) {
         //currently used to get sender info on a letter
         const token = JSON.parse(jwtCookie.value);
         const userc = JSON.parse(userCookie.value);
+
+        if (!userc?.verified) {
+            console.log('User is not verified. Access denied.');
+            return NextResponse.json({ error: 'Access denied', success: false, status: 403 });
+        }
+
         const payload = await verifyJwtToken(token);
 
         if (!(userc?._id === payload?._id)) {
