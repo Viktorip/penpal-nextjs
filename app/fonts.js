@@ -1,13 +1,16 @@
 import localFont from 'next/font/local';
 
-
-export const caveat = localFont({
-    src: './../fonts/Caveat-VariableFont_wght.ttf',
+export const gluten = localFont({
+    src: './../fonts/Gluten-Regular.ttf',
+    display: 'swap'
+});
+export const grechen = localFont({
+    src: './../fonts/GrechenFuemen-Regular.ttf',
     display: 'swap'
 });
 
-export const indieflower = localFont({
-    src: './../fonts/IndieFlower-Regular.ttf',
+export const shantell = localFont({
+    src: './../fonts/ShantellSans-Regular.ttf',
     display: 'swap'
 });
 

@@ -4,8 +4,10 @@ import { useContext } from 'react';
 import { LocalizationContext } from './layout';
 import PageContainer from '@/components/PageContainer';
 import t from '@/lib/localization';
-import { caveat } from './fonts';
 import { endpoint } from '@/utils/constants';
+import { getAllStyleIds, getClassNameFromStyleId } from '@/utils/helper';
+
+const defaultFont = getClassNameFromStyleId(getAllStyleIds()[0]);
 
 
 export default function Home() {
@@ -35,7 +37,7 @@ export default function Home() {
     <PageContainer className="h-full max-sm:p-1">
       <div className="flex flex-col items-center w-[32rem] h-[42rem] bg-[url('/welcome_note.jpg')] bg-contain bg-no-repeat bg-top">
         <div className='sm:pt-20 sm:px-[4.5rem] max-sm:pt-16 max-sm:px-12'>
-          <p className={`max-sm:text-xl sm:text-3xl text-justify text-indigo-900 ${caveat.className}`}>
+          <p className={`max-sm:text-xl sm:text-3xl text-justify text-indigo-900 ${defaultFont}`}>
             {t('home_greeting',loc)}
             <br /> <br />
             {t('home_welcome',loc)}

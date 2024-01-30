@@ -1,14 +1,22 @@
-import { caveat, indieflower, serious, dancing, grapenuts, squarepeg } from "@/app/fonts";
-import { FONT_CAVEAT, FONT_DANCING, FONT_GRAPENUTS, FONT_INDIEFLOWER, FONT_SERIOUS, FONT_SQUAREPEG } from "./constants";
+import { gluten, grechen, shantell, serious, dancing, grapenuts, squarepeg } from "@/app/fonts";
+import { FONT_DANCING, FONT_GLUTEN, FONT_GRAPENUTS, FONT_GRECHEN, FONT_SERIOUS, FONT_SHANTELL, FONT_SQUAREPEG } from "./constants";
 
 const fontmap = [
     {
-        id: FONT_CAVEAT,
-        className: caveat.className
+        id: FONT_GRAPENUTS,
+        className: grapenuts.className
     },
     {
-        id: FONT_INDIEFLOWER,
-        className: indieflower.className
+        id: FONT_GLUTEN,
+        className: gluten.className
+    },
+    {
+        id: FONT_GRECHEN,
+        className: grechen.className
+    },
+    {
+        id: FONT_SHANTELL,
+        className: shantell.className
     },
     {
         id: FONT_SERIOUS,
@@ -17,10 +25,6 @@ const fontmap = [
     {
         id: FONT_DANCING,
         className: dancing.className
-    },
-    {
-        id: FONT_GRAPENUTS,
-        className: grapenuts.className
     },
     {
         id: FONT_SQUAREPEG,
@@ -35,7 +39,7 @@ export const getAllStyleIds = () => {
 
 export const getClassNameFromStyleId = (id) => {
     const style = fontmap.find(item => (item.id === id));
-    return style.className;
+    return style?.className || fontmap[0].className;
 }
 
 export const getAllStamps = ()=>{

@@ -4,12 +4,14 @@ export const cookiename = 'penpaluser';
 export const redirectcookiename = 'redirectedfrom';
 export const jwtcookiename = 'jwttoken';
 
-export const FONT_CAVEAT = 'caveat';
-export const FONT_INDIEFLOWER = 'indieflower';
+export const FONT_GLUTEN = 'gluten';
+export const FONT_GRECHEN = 'grechen';
+export const FONT_SHANTELL = 'shantell';
 export const FONT_SERIOUS = 'serious';
 export const FONT_DANCING = 'dancing';
 export const FONT_GRAPENUTS = 'grapenuts';
 export const FONT_SQUAREPEG = 'squarepeg';
+
 
 export const DB_NAME = 'penpal';
 export const DB_LETTERS = 'letters';
