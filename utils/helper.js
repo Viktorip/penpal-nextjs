@@ -1,5 +1,5 @@
-import { caveat, indieflower, nothing, parisienne, reeniebeanie, tangerine } from "@/app/fonts";
-import { FONT_CAVEAT, FONT_INDIEFLOWER, FONT_NOTHING, FONT_PARISIENNE, FONT_REENIEBEANIE, FONT_TANGERINE } from "./constants";
+import { caveat, indieflower, serious, dancing, grapenuts, squarepeg } from "@/app/fonts";
+import { FONT_CAVEAT, FONT_DANCING, FONT_GRAPENUTS, FONT_INDIEFLOWER, FONT_SERIOUS, FONT_SQUAREPEG } from "./constants";
 
 const fontmap = [
     {
@@ -11,20 +11,20 @@ const fontmap = [
         className: indieflower.className
     },
     {
-        id: FONT_NOTHING,
-        className: nothing.className
+        id: FONT_SERIOUS,
+        className: serious.className
     },
     {
-        id: FONT_PARISIENNE,
-        className: parisienne.className
+        id: FONT_DANCING,
+        className: dancing.className
     },
     {
-        id: FONT_REENIEBEANIE,
-        className: reeniebeanie.className
+        id: FONT_GRAPENUTS,
+        className: grapenuts.className
     },
     {
-        id: FONT_TANGERINE,
-        className: tangerine.className
+        id: FONT_SQUAREPEG,
+        className: squarepeg.className
     },
 ];
 

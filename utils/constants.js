@@ -6,10 +6,10 @@ export const jwtcookiename = 'jwttoken';
 
 export const FONT_CAVEAT = 'caveat';
 export const FONT_INDIEFLOWER = 'indieflower';
-export const FONT_NOTHING = 'nothing';
-export const FONT_PARISIENNE = 'parisienne';
-export const FONT_REENIEBEANIE = 'reeniebeanie';
-export const FONT_TANGERINE = 'tangerine';
+export const FONT_SERIOUS = 'serious';
+export const FONT_DANCING = 'dancing';
+export const FONT_GRAPENUTS = 'grapenuts';
+export const FONT_SQUAREPEG = 'squarepeg';
 
 export const DB_NAME = 'penpal';
 export const DB_LETTERS = 'letters';

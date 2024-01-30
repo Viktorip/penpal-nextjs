@@ -1,6 +1,5 @@
-
 import localFont from 'next/font/local';
-//import { Inter, Roboto_Mono } from "next/font/google";
+
 
 export const caveat = localFont({
     src: './../fonts/Caveat-VariableFont_wght.ttf',
@@ -12,23 +11,23 @@ export const indieflower = localFont({
     display: 'swap'
 });
 
-export const nothing = localFont({
-    src: './../fonts/NothingYouCouldDo-Regular.ttf',
+export const serious = localFont({
+    src: './../fonts/AreYouSerious-Regular.ttf',
     display: 'swap'
 });
 
-export const parisienne = localFont({
-    src: './../fonts/Parisienne-Regular.ttf',
+export const dancing = localFont({
+    src: './../fonts/DancingScript-Regular.ttf',
     display: 'swap'
 });
 
-export const reeniebeanie = localFont({
-    src: './../fonts/ReenieBeanie-Regular.ttf',
+export const grapenuts = localFont({
+    src: './../fonts/GrapeNuts-Regular.ttf',
     display: 'swap'
 });
 
-export const tangerine = localFont({
-    src: './../fonts/Tangerine-Regular.ttf',
+export const squarepeg = localFont({
+    src: './../fonts/SquarePeg-Regular.ttf',
     display: 'swap'
 });
 
