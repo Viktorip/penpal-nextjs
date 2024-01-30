@@ -12,26 +12,6 @@ const defaultFont = getClassNameFromStyleId(getAllStyleIds()[0]);
 
 export default function Home() {
   const { loc, setLoc } = useContext(LocalizationContext);
-
-  const handleEmailTest = async () => {
-    console.log("running email test");
-    const data = {email: 'posti_paikka@hotmail.com', fullname:'Jaska Jokunen', loc: 'en'};
-    try {
-      const response = await fetch(`${endpoint}/send`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'content-type': 'application/json'
-        }
-      });
-
-      console.log("got response:", response);
-  
-    }catch (error) {
-      console.log("error", error);
-    }
-    
-  }
   
   return (
     <PageContainer className="h-full max-sm:p-1">

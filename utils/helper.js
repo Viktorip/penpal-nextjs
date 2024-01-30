@@ -1,7 +1,11 @@
-import { gluten, grechen, shantell, serious, dancing, grapenuts, squarepeg } from "@/app/fonts";
-import { FONT_DANCING, FONT_GLUTEN, FONT_GRAPENUTS, FONT_GRECHEN, FONT_SERIOUS, FONT_SHANTELL, FONT_SQUAREPEG } from "./constants";
+import { gluten, grechen, shantell, serious, dancing, grapenuts, squarepeg, patrick } from "@/app/fonts";
+import { FONT_DANCING, FONT_GLUTEN, FONT_GRAPENUTS, FONT_GRECHEN, FONT_SERIOUS, FONT_SHANTELL, FONT_SQUAREPEG, FONT_PATRICK } from "./constants";
 
 const fontmap = [
+    {
+        id: FONT_PATRICK,
+        className: patrick.className
+    },
     {
         id: FONT_GRAPENUTS,
         className: grapenuts.className

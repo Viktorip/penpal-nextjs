@@ -11,6 +11,7 @@ export const FONT_SERIOUS = 'serious';
 export const FONT_DANCING = 'dancing';
 export const FONT_GRAPENUTS = 'grapenuts';
 export const FONT_SQUAREPEG = 'squarepeg';
+export const FONT_PATRICK = 'patrick';
 
 
 export const DB_NAME = 'penpal';

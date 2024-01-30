@@ -34,6 +34,10 @@ export const squarepeg = localFont({
     display: 'swap'
 });
 
+export const patrick = localFont({
+    src: './../fonts/PatrickHand-Regular.ttf',
+    display: 'swap'
+});
 
 
 export const robotoHeavyFont = localFont({
