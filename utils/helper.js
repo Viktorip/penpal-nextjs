@@ -1,5 +1,5 @@
-import { gluten, grechen, shantell, serious, dancing, grapenuts, squarepeg, patrick } from "@/app/fonts";
-import { FONT_DANCING, FONT_GLUTEN, FONT_GRAPENUTS, FONT_GRECHEN, FONT_SERIOUS, FONT_SHANTELL, FONT_SQUAREPEG, FONT_PATRICK } from "./constants";
+import {grechen, shantell, serious, dancing, grapenuts, patrick, pacifico } from "@/app/fonts";
+import { FONT_DANCING, FONT_GRAPENUTS, FONT_GRECHEN, FONT_SERIOUS, FONT_SHANTELL, FONT_PATRICK, FONT_PACIFICO } from "./constants";
 
 const fontmap = [
     {
@@ -9,10 +9,6 @@ const fontmap = [
     {
         id: FONT_GRAPENUTS,
         className: grapenuts.className
-    },
-    {
-        id: FONT_GLUTEN,
-        className: gluten.className
     },
     {
         id: FONT_GRECHEN,
@@ -31,8 +27,8 @@ const fontmap = [
         className: dancing.className
     },
     {
-        id: FONT_SQUAREPEG,
-        className: squarepeg.className
+        id: FONT_PACIFICO,
+        className: pacifico.className
     },
 ];
 

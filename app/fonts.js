@@ -1,9 +1,5 @@
 import localFont from 'next/font/local';
 
-export const gluten = localFont({
-    src: './../fonts/Gluten-Regular.ttf',
-    display: 'swap'
-});
 export const grechen = localFont({
     src: './../fonts/GrechenFuemen-Regular.ttf',
     display: 'swap'
@@ -29,13 +25,13 @@ export const grapenuts = localFont({
     display: 'swap'
 });
 
-export const squarepeg = localFont({
-    src: './../fonts/SquarePeg-Regular.ttf',
+export const patrick = localFont({
+    src: './../fonts/PatrickHand-Regular.ttf',
     display: 'swap'
 });
 
-export const patrick = localFont({
-    src: './../fonts/PatrickHand-Regular.ttf',
+export const pacifico = localFont({
+    src: './../fonts/Pacifico-Regular.ttf',
     display: 'swap'
 });
 
