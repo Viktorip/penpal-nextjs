@@ -35,3 +35,5 @@ export const ERROR_MESSAGE_KEYS = {
 export const ACCEPTED_DOMAINS = ['gmail.com', 'hotmail.com', 'yahoo.com', 'aol.com', 'msn.com', 'live.com', 'outlook.com'];
 
 export const NO_REPLY_EMAIL = 'no-reply@kirjekaverit.fi';
+
+export const PAGE_BREAK_ID = '---newpage---';

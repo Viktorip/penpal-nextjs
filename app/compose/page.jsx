@@ -18,7 +18,7 @@ import { TbHexagonNumber1, TbHexagonNumber2, TbHexagonNumber3 } from "react-icon
 import { BsEnvelopeExclamation } from "react-icons/bs";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import useFetch from "@/hooks/useFetch";
-import { ERROR_MESSAGE_KEYS, endpoint } from "@/utils/constants";
+import { ERROR_MESSAGE_KEYS, PAGE_BREAK_ID, endpoint } from "@/utils/constants";
 
 
 const styleIds = getAllStyleIds();
@@ -27,7 +27,7 @@ const stamps = getAllStamps();
 export default function ComposePage() {
     const { user, setUser } = useContext(AuthContext);
     const { loc, setLoc } = useContext(LocalizationContext);
-    const [body, setBody] = useState('');
+    const [body, setBody] = useState(['']);
     const [recipient, setRecipient] = useState('');
     const [closed, setClosed] = useState(false);
     const [selectedStyle, setSelectedStyle] = useState(styleIds[0]);
@@ -41,7 +41,6 @@ export default function ComposePage() {
     const [sending, setSending] = useState(false);
     const [submitError, setSubmitError] = useState();
 
-    const bodyRef = useRef();
     const styleRef = useRef();
     const optionalRecipientRef = useRef();
     const optionalSenderRef = useRef();
@@ -76,6 +75,7 @@ export default function ComposePage() {
         }catch(error) {
             setSending(false);
             console.log("System error finding user.");
+            return;
         }
 
         if (!executeRecaptcha) {
@@ -83,9 +83,16 @@ export default function ComposePage() {
             return;
         }
 
+        //clown check
+        if (body.length > 10) {           
+            setSending(false);
+            console.log("Too many pages in letter, cant send");
+            return;
+        }
+
         const formData = new FormData();
-        //data is validated on the backend
-        formData.append("body", body);
+        //data is validated on the backend       
+        formData.append("body", body.join(PAGE_BREAK_ID));
         formData.append("recipientEmail", recipient);
         formData.append("senderId", user._id);
         formData.append("style", selectedStyle);
@@ -113,10 +120,26 @@ export default function ComposePage() {
         } catch (error) {
             console.log(error);
             setSending(false);
+            return;
         }
     }
 
-    const textareaHandler = (targetRef, cb, small = false) => {
+    const letterBodyHandler = (val, id, pagebreakVal) => {
+        const arr = [...body];
+        arr[id] = val;
+        if (id !== 0 && val.trim() === '') {
+            arr.splice(id, 1);
+        }
+        if (pagebreakVal) {
+            if (arr[id+1] === undefined) {
+                arr.push(pagebreakVal.trim());
+            }            
+        }
+
+        setBody(arr);
+    }
+
+    const textareaHandler = (targetRef, cb = ()=>{}, small = false) => {
         try {
             while (targetRef.current.clientHeight < targetRef.current.scrollHeight) { //+2 because of font #2 not being able to go last line
                 let halved = Math.ceil(Math.abs((targetRef.current.value.length - body.length) / 10));
@@ -135,7 +158,6 @@ export default function ComposePage() {
 
     const fontChangeHandler = (e) => {
         if (body.length > 0) {
-            textareaHandler(bodyRef, (val) => setBody(val));
             setShowWarningModal({ show: true, blocked: e.target.value });
         } else {
             setSelectedStyle(e.target.value);
@@ -286,13 +308,18 @@ export default function ComposePage() {
                                         <div className="max-sm:text-sm sm:text-md text-indigo-900">{t('compose_close_letter', loc)}</div>
                                     </div>
                                 </div>
+                                {body.map((item, id) => (
                                 <Letter
                                     style={getClassNameFromStyleId(selectedStyle)}
-                                    placeholder={t('compose_body_placeholder', loc)}
-                                    value={body}
-                                    onChange={() => textareaHandler(bodyRef, setBody)}
-                                    taRef={bodyRef}
-                                />
+                                    callback={(val, pagebreakVal)=>{
+                                        letterBodyHandler(val, id, pagebreakVal);
+                                    }}
+                                    key={id}
+                                    startingValue={item}
+                                    className='mb-4'
+                                />))}
+                                
+                                
                             </div>
                         </div>
                     )}
@@ -301,6 +328,16 @@ export default function ComposePage() {
         </PageContainer>
     )
 }
+
+/*
+<Letter
+                                    style={getClassNameFromStyleId(selectedStyle)}
+                                    placeholder={t('compose_body_placeholder', loc)}
+                                    value={body}
+                                    onChange={() => textareaHandler(bodyRef, setBody)}
+                                    taRef={bodyRef}
+                                />
+                                */
 
 const HelperArrow = (props) => {
 

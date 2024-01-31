@@ -6,7 +6,6 @@ import t from "@/lib/localization";
 import Image from "next/image";
 import { IoMdMenu } from "react-icons/io";
 import { useRouter } from "next/navigation";
-import { logout } from "@/app/actions";
 
 export default function Navigation({ className }) {
     const { user, setUser } = useContext(AuthContext);

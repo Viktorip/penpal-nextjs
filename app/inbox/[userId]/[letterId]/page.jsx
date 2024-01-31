@@ -4,7 +4,7 @@ import Letter from "@/components/Letter";
 import PageContainer from "@/components/PageContainer";
 import useFetch from "@/hooks/useFetch";
 import t from "@/lib/localization";
-import { endpoint } from "@/utils/constants";
+import { PAGE_BREAK_ID, endpoint } from "@/utils/constants";
 import { getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
@@ -26,6 +26,8 @@ export default function LetterPage() {
     const [showInfo, setShowInfo] = useState(false);
     const [dateSent, setDateSent] = useState();
 
+    const [letterPages, setLetterPages] = useState(['']);
+
     useEffect(() => {
         if (letter.success) {
             const date = new Date(letter.data.timestamp);
@@ -33,8 +35,14 @@ export default function LetterPage() {
             const month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
             const formated = "" + day + "." + month + "." + date.getUTCFullYear();
             setDateSent(formated);
+            splitLetter(letter.data.body);
         }
     }, [letter]);
+
+    const splitLetter = (body) => {
+        const arr = body.split(PAGE_BREAK_ID);
+        setLetterPages(arr);
+    }
 
     const handleBack = () => {
         router.push('/inbox');
@@ -68,15 +76,26 @@ export default function LetterPage() {
                     <div>{t('login_email', loc)}: <span className="text-red-900">{senderData?.data?.email}</span></div>
                     <div>{t('date', loc)}: <span className="text-red-900">{dateSent}</span></div>
                 </div>
-                <Letter
+                {letterPages?.map((item, id)=>(<Letter
+                    startingValue={loading ? t('loading', loc) : letter?.error ? t('something_went_wrong', loc) : item}
                     style={letter?.data?.style ? getClassNameFromStyleId(letter?.data?.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
-                    value={loading ? t('loading', loc) : letter?.error ? t('something_went_wrong', loc) : letter?.data?.body}
-                    readOnly={true}
+                    key={id}
+                    readOnly
                     className={loading ? 'animate-pulse' : ''}
-                />
+                />))}
+                
 
             </div>
 
         </PageContainer>
     );
 }
+
+/*
+<Letter
+                    style={letter?.data?.style ? getClassNameFromStyleId(letter?.data?.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
+                    value={loading ? t('loading', loc) : letter?.error ? t('something_went_wrong', loc) : letter?.data?.body}
+                    readOnly={true}
+                    className={loading ? 'animate-pulse' : ''}
+                />
+                */
