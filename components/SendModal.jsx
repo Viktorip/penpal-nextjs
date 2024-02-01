@@ -26,7 +26,7 @@ export default function SendModal(props) {
                                             <GiMailbox className="text-blue-500 text-5xl" />
                                         </div>
                                         <div className="relative flex justify-center mb-1" onClick={() => setAddressbookOpen(!addressbookOpen)}>
-                                            <FaAddressBook className="text-7xl text-green-500 hover:ring hover:bg-gray-200" />
+                                            <FaAddressBook className={`text-7xl text-green-500 hover:ring hover:bg-gray-200 ${!addressbookOpen && 'animate-wiggle'}`} />
                                             {addressbookOpen &&
                                                 <AddressbookList list={props.addressbookList ?? [t('addressbook_no_contacts', loc)]} clickHandler={props.handleAddressbookClick} />
                                             }

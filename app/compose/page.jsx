@@ -84,7 +84,7 @@ export default function ComposePage() {
         }
 
         //clown check
-        if (body.length > 10) {           
+        if (body.length > 5) {           
             setSending(false);
             console.log("Too many pages in letter, cant send");
             return;
@@ -131,7 +131,7 @@ export default function ComposePage() {
             arr.splice(id, 1);
         }
         if (pagebreakVal) {
-            if (arr[id+1] === undefined) {
+            if (arr[id+1] === undefined && arr.length < 5) {
                 arr.push(pagebreakVal.trim());
             }            
         }

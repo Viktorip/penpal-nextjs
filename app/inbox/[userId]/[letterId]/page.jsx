@@ -10,7 +10,9 @@ import { useParams, useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import { LuMailQuestion } from "react-icons/lu";
-
+import { BsEnvelopeCheckFill } from "react-icons/bs";
+import { ImAddressBook } from "react-icons/im";
+import { addUserToAddressbook } from "@/lib/users";
 
 
 export default function LetterPage() {
@@ -22,9 +24,13 @@ export default function LetterPage() {
     const [letter, loading, error] = useFetch(`${endpoint}/letters/${params.letterId}`);
 
     const [senderData, senderLoading, senderError] = useFetch(`${endpoint}/users/${params.userId}`);
+    const [addressbook, addressbookLoading, addressbookError] = useFetch(`${endpoint}/users/${params.userId}/addressbook`);
 
     const [showInfo, setShowInfo] = useState(false);
     const [dateSent, setDateSent] = useState();
+
+    const [addressSaved, setAddressSaved] = useState();
+    const [savingAddress, setSavingAddress] = useState(false);
 
     const [letterPages, setLetterPages] = useState(['']);
 
@@ -39,6 +45,13 @@ export default function LetterPage() {
         }
     }, [letter]);
 
+    useEffect(()=>{
+        if (addressbook?.success && senderData?.success) {
+            const isIn = !!addressbook.data.find(address => address.email === senderData?.data.email);
+            setAddressSaved(isIn);
+        }
+    }, [addressbook, senderData]);
+
     const splitLetter = (body) => {
         const arr = body.split(PAGE_BREAK_ID);
         setLetterPages(arr);
@@ -49,6 +62,23 @@ export default function LetterPage() {
     }
     const handleShowUserInfo = () => {
         setShowInfo(!showInfo);
+    }
+
+    const handleSaveAddress = () => {
+        setSavingAddress(true);
+        saveAddress();
+    }
+
+    const saveAddress = async () => {
+        if (user._id && senderData?.data?.email) {
+            const result = await addUserToAddressbook(user._id, senderData.data.email);
+            if (result.success) {
+                setAddressSaved(true);
+            }else{
+                setSavingAddress(false);
+            }
+        }
+        
     }
 
     return (
@@ -75,15 +105,26 @@ export default function LetterPage() {
                     <div>{t('from', loc)}: <span className="text-red-900">{senderData?.data?.fullname}</span></div>
                     <div>{t('login_email', loc)}: <span className="text-red-900">{senderData?.data?.email}</span></div>
                     <div>{t('date', loc)}: <span className="text-red-900">{dateSent}</span></div>
+                    {addressSaved ?
+                        <div className="flex flex-row justify-center mt-1 w-full space-x-1">
+                            <BsEnvelopeCheckFill className="text-xl text-green-800" />
+                            <div className="text-sm text-green-800">{t('addressbook_saved', loc)}</div>
+                        </div>
+                        :
+                        <div className={`flex flex-row justify-center mt-1 w-full hover:ring hover:bg-gray-200  cursor-pointer ${savingAddress && 'pointer-events-none'}`} onClick={handleSaveAddress}>
+                            <ImAddressBook className="text-xl text-blue-600 animate-wiggle" />
+                            <div className="text-sm text-blue-600">{t('addressbook_save_address', loc)}</div>
+                        </div>
+                    }
                 </div>
-                {letterPages?.map((item, id)=>(<Letter
+                {letterPages?.map((item, id) => (<Letter
                     startingValue={loading ? t('loading', loc) : letter?.error ? t('something_went_wrong', loc) : item}
                     style={letter?.data?.style ? getClassNameFromStyleId(letter?.data?.style) : getClassNameFromStyleId(getAllStyleIds()[0])}
                     key={id}
                     readOnly
                     className={loading ? 'animate-pulse' : ''}
                 />))}
-                
+
 
             </div>
 

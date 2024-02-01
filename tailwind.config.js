@@ -15,7 +15,8 @@ module.exports = {
       animation: {
         'bounce-x': 'bouncex 1s 8',
         'bounce-x-slow': 'bouncex 1s 8 8s',
-        'fade-in': 'fadeIn 2s 1'
+        'fade-in': 'fadeIn 2s 1',
+        'wiggle': 'wiggle 1s ease-in-out infinite',
       },
       keyframes: {
         bouncex: {
@@ -35,6 +36,10 @@ module.exports = {
           '100%': {
             opacity: 1
           }
+        },
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
         }
       }
     },

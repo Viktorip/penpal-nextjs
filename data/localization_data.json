@@ -77,7 +77,9 @@
         "verify_email_warning": "Account needs to be verified before sending letters. Check your email inbox for the message from kirjekaverit.fi to verify your account.",
         "spinner_verifying": "Verifying...",
         "verify_email_success": "Verification done successfully!",
-        "verify_email_warning2": "Account needs to be verified before you can read letters. Check your email inbox for the message from kirjekaverit.fi to verify your account."
+        "verify_email_warning2": "Account needs to be verified before you can read letters. Check your email inbox for the message from kirjekaverit.fi to verify your account.",
+        "addressbook_saved": "Saved",
+        "addressbook_save_address": "Save address"
     },
     "fi": {
         "navi_home_title": "Etusivu",
@@ -157,7 +159,9 @@
         "verify_email_warning": "Tunnus pitää vahvistaa ennenkuin voit lähettää kirjeitä. Tarkista sähköpostiosoitteesi ja seuraa kirjekaverit.fi lähettämän viestin ohjeita vahvistaaksesi tunnuksesi.",
         "spinner_verifying": "Vahvistetaan...",
         "verify_email_success": "Vahvistettu onnistuneesti!",
-        "verify_email_warning2": "Tunnus pitää vahvistaa ennenkuin voit lukea kirjeitä. Tarkista sähköpostiosoitteesi ja seuraa kirjekaverit.fi lähettämän viestin ohjeita vahvistaaksesi tunnuksesi."
+        "verify_email_warning2": "Tunnus pitää vahvistaa ennenkuin voit lukea kirjeitä. Tarkista sähköpostiosoitteesi ja seuraa kirjekaverit.fi lähettämän viestin ohjeita vahvistaaksesi tunnuksesi.",
+        "addressbook_saved": "Tallennettu",
+        "addressbook_save_address": "Tallenna osoite"
     },
     "vn": {
         "navi_home_title": "Trang chủ",
@@ -237,6 +241,8 @@
         "verify_email_warning": "Tài khoản cần được xác thực trước khi gửi các lá thư đi. Kiểm tra lại hộp thư đếm của bạn ở kirjekaverit.fi để xác thực tài khoản của bạn.",
         "spinner_verifying": "Đang xác thực...",
         "verify_email_success": "Xác thực đã hoàn thành!",
-        "verify_email_warning2": "Tài khoản cần được xác thực trước khi bạn có thể đọc lá thư. Kiểm tra lại hộp thư đến để nhận được tin nhắn từ kirjekaverit.fi để xác thực tài khoản của bạn."
+        "verify_email_warning2": "Tài khoản cần được xác thực trước khi bạn có thể đọc lá thư. Kiểm tra lại hộp thư đến để nhận được tin nhắn từ kirjekaverit.fi để xác thực tài khoản của bạn.",
+        "addressbook_saved": "Saved",
+        "addressbook_save_address": "Save address"
     }
 }
