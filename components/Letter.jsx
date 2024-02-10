@@ -1,10 +1,12 @@
+import { LocalizationContext } from "@/app/layout";
 import t from "@/lib/localization";
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 
 export default function Letter({callback, readOnly, style, className, startingValue}) {
     const ref = useRef();
     const anchorRef = useRef();
     const [body, setBody] = useState(startingValue);
+    const {loc, setLoc} = useContext(LocalizationContext);
 
     useEffect(()=>{
         setBody(startingValue);
@@ -48,7 +50,7 @@ export default function Letter({callback, readOnly, style, className, startingVa
                 className={`w-full h-full sm:text-[1.5rem] max-sm:text-[1.1rem] sm:leading-[1.5rem] max-sm:leading-[1.05rem] pr-1 resize-none overflow-hidden focus:outline-none text-blue-700 text-justify ${style} placeholder:text-gray-500 bg-transparent`}
                 id="body"
                 name="body"
-                placeholder={t('compose_body_placeholder', 'fi')}
+                placeholder={t('compose_body_placeholder', loc)}
                 required
                 rows="22"
                 maxLength={2000}
