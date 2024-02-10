@@ -21,8 +21,8 @@ export default function Drawing({ options, data, unmountCallback = () => { }, cl
         const ww = window.innerWidth;
         
         if (ww < 640) {
-            setCanvasWidth(384);
-            setCanvasHeight(480);        
+            setCanvasWidth(360);
+            setCanvasHeight(448);        
         }else{
             setCanvasWidth(512);
             setCanvasHeight(640);

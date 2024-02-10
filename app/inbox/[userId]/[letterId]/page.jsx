@@ -100,7 +100,7 @@ export default function LetterPage() {
             }
             <div className="flex flex-col items-center space-y-2 h-full relative">
                 {!user?.verified &&
-                    <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[24rem]">
+                    <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[22.5rem]">
                         <p className="text-white text-xs">
                             {t('verify_email_warning2', loc)}
                         </p>

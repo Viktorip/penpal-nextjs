@@ -19,13 +19,13 @@ export default function InboxPage() {
     return (
         <PageContainer className="flex-col">
             {!user?.verified &&
-                <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[24rem]">
+                <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[22.5rem]">
                     <p className="text-white text-xs">
                         {t('verify_email_warning2', loc)}
                     </p>
                 </div>
             }
-            <div className="flex flex-row flex-wrap gap-4 justify-center">
+            <div className="flex sm:flex-row sm:flex-wrap sm:gap-4 sm:justify-center max-sm:flex-col max-sm:items-center max-sm:space-y-4">
                 {loading && <div>{t('loading', loc)}</div>}
                 {error && <div>{t('inbox_empty', loc)}</div>}
                 {data?.data?.toReversed()?.map(item => (

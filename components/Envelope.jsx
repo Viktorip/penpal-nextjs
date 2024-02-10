@@ -9,8 +9,8 @@ export default function Envelope(props) {
     
     return (
         <div className={props.className}>
-            <div className="max-sm:w-[24rem] max-sm:h-[14rem] sm:w-[30rem] sm:h-[17.5rem] bg-[url('/envelope_v2.png')] bg-contain bg-no-repeat relative">
-                <div className="absolute max-sm:top-[6rem] max-sm:left-[7rem] sm:top-[8rem] sm:left-[8.25rem]">
+            <div className="max-sm:w-[22.5rem] max-sm:h-[13rem] sm:w-[30rem] sm:h-[17.5rem] bg-[url('/envelope_v2.png')] bg-contain bg-no-repeat relative">
+                <div className="absolute max-sm:top-[6rem] max-sm:left-[6rem] sm:top-[8rem] sm:left-[8.25rem]">
                     <div>
                         <textarea
                             className={`focus:outline-none resize-none overflow-hidden max-sm:text-md sm:text-xl text-gray-200 text-center ${props.style} ${props.readOnly ? 'bg-transparent hover:cursor-default' : 'focus:ring focus:border-blue-500 bg-zinc-900'}`}
@@ -45,7 +45,7 @@ export default function Envelope(props) {
                         </textarea>
                     </div>
                 </div>
-                <div className="absolute max-sm:top-[0.5rem] sm:top-[1rem] max-sm:left-[19.25rem] sm:left-[24.15rem] z-4 max-sm:w-16 max-sm:h-12 sm:w-20 sm:h-20" onClick={props.onClickStamp}>
+                <div className="absolute max-sm:top-[0.5rem] sm:top-[1rem] max-sm:left-[18rem] sm:left-[24.15rem] z-4 max-sm:w-16 max-sm:h-12 sm:w-20 sm:h-20" onClick={props.onClickStamp}>
                     {props.stamp ?
                         <Image
                             width={90}
