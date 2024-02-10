@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react"
 
 export default function Letter({callback, readOnly, style, className, startingValue}) {
     const ref = useRef();
+    const anchorRef = useRef();
     const [body, setBody] = useState(startingValue);
 
     useEffect(()=>{
@@ -11,7 +12,7 @@ export default function Letter({callback, readOnly, style, className, startingVa
 
     useEffect(()=>{
         if (!readOnly) {
-            ref.current.scrollIntoView({behavior: "smooth"});
+            anchorRef.current.scrollIntoView({behavior: "smooth"});
             ref.current.focus();
             ref.current.setSelectionRange(9999,9999);
         }
@@ -41,8 +42,8 @@ export default function Letter({callback, readOnly, style, className, startingVa
     }
 
     return (
-        <div className={`sm:w-[32rem] sm:h-[40rem] max-sm:w-[24rem] max-sm:h-[30rem] sm:py-7 sm:px-10 max-sm:py-5 max-sm:px-7 bg-[url('/custom_letter_v3.png')] bg-contain bg-no-repeat ${className}`}>
-            
+        <div className={`relative sm:w-[32rem] sm:h-[40rem] max-sm:w-[24rem] max-sm:h-[30rem] sm:py-7 sm:px-10 max-sm:py-5 max-sm:px-7 bg-[url('/custom_letter_v3.png')] bg-contain bg-no-repeat ${className}`}>
+            <div ref={anchorRef} className="absolute -top-64 left-0"></div>
             <textarea
                 className={`w-full h-full sm:text-[1.5rem] max-sm:text-[1.14rem] sm:leading-[1.5rem] max-sm:leading-[1.13rem] pr-1 resize-none overflow-hidden focus:outline-none text-blue-700 text-justify ${style} placeholder:text-gray-500 bg-transparent`}
                 id="body"

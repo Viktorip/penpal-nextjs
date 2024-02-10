@@ -13,6 +13,9 @@ import { LuMailQuestion } from "react-icons/lu";
 import { BsEnvelopeCheckFill } from "react-icons/bs";
 import { ImAddressBook } from "react-icons/im";
 import { addUserToAddressbook } from "@/lib/users";
+import DrawingModal from "@/components/DrawingModal";
+import lzString from "lz-string";
+import Drawing from "@/components/Drawing";
 
 
 export default function LetterPage() {
@@ -33,6 +36,8 @@ export default function LetterPage() {
     const [savingAddress, setSavingAddress] = useState(false);
 
     const [letterPages, setLetterPages] = useState(['']);
+    const [drawingData, setDrawingData] = useState(null);
+    const [showDrawingModal, setShowDrawingModal] = useState(false);
 
     useEffect(() => {
         if (letter.success) {
@@ -42,10 +47,15 @@ export default function LetterPage() {
             const formated = "" + day + "." + month + "." + date.getUTCFullYear();
             setDateSent(formated);
             splitLetter(letter.data.body);
+            if (letter.data.drawing) {
+                const uncompressed = lzString.decompressFromEncodedURIComponent(letter.data.drawing);
+                setDrawingData(uncompressed);
+                setShowDrawingModal(true);
+            }
         }
     }, [letter]);
 
-    useEffect(()=>{
+    useEffect(() => {
         if (addressbook?.success && senderData?.success) {
             const isIn = !!addressbook.data.find(address => address.email === senderData?.data.email);
             setAddressSaved(isIn);
@@ -74,15 +84,20 @@ export default function LetterPage() {
             const result = await addUserToAddressbook(user._id, senderData.data.email);
             if (result.success) {
                 setAddressSaved(true);
-            }else{
+            } else {
                 setSavingAddress(false);
             }
         }
-        
+
     }
 
     return (
         <PageContainer>
+            {showDrawingModal &&
+                <DrawingModal drawingData={drawingData} onClose={() => {
+                    setShowDrawingModal(false);
+                }} />
+            }
             <div className="flex flex-col items-center space-y-2 h-full relative">
                 {!user?.verified &&
                     <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[24rem]">
@@ -101,7 +116,7 @@ export default function LetterPage() {
                         <div className="text-sm">{showInfo ? t('hide_sender_info', loc) : t('show_sender_info', loc)}</div>
                     </div>
                 </div>
-                <div className={`absolute top-[20px] right-0 flex flex-col bg-orange-200 border-2 border-solid rounded-md border-indigo-900 p-2 text-sm text-indigo-900 transition-opacity ease-in duration-700 opacity-0 ${showInfo ? 'opacity-100' : ''}`}>
+                <div className={`absolute top-[20px] right-0 flex flex-col bg-orange-200 border-2 border-solid rounded-md border-indigo-900 p-2 text-sm text-indigo-900 transition-opacity ease-in duration-700 opacity-0 z-10 ${showInfo ? 'opacity-100' : ''}`}>
                     <div>{t('from', loc)}: <span className="text-red-900">{senderData?.data?.fullname}</span></div>
                     <div>{t('login_email', loc)}: <span className="text-red-900">{senderData?.data?.email}</span></div>
                     <div>{t('date', loc)}: <span className="text-red-900">{dateSent}</span></div>
@@ -124,7 +139,14 @@ export default function LetterPage() {
                     readOnly
                     className={loading ? 'animate-pulse' : ''}
                 />))}
-
+                {(drawingData && !showDrawingModal) &&
+                    <Drawing options={{
+                        disabled: true,
+                        hideInterface: true,
+                        saveData: drawingData,
+                        immediateLoading: true,
+                    }} data={drawingData} hideUI={true} className="py-6" />
+                }
 
             </div>
 

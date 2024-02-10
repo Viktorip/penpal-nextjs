@@ -3,7 +3,6 @@ import PageContainer from "@/components/PageContainer";
 import { doesUserExist, sendLetter } from "../actions";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import useValidate from "@/hooks/useValidate";
 import { AuthContext, LocalizationContext } from "../layout";
 import Modal from "@/components/Modal";
 import { getAllStamps, getAllStyleIds, getClassNameFromStyleId } from "@/utils/helper";
@@ -18,7 +17,10 @@ import { TbHexagonNumber1, TbHexagonNumber2, TbHexagonNumber3 } from "react-icon
 import { BsEnvelopeExclamation } from "react-icons/bs";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import useFetch from "@/hooks/useFetch";
-import { ERROR_MESSAGE_KEYS, PAGE_BREAK_ID, endpoint } from "@/utils/constants";
+import { PAGE_BREAK_ID, endpoint } from "@/utils/constants";
+import Drawing from "@/components/Drawing";
+import lzString from "lz-string";
+import { FcPicture } from "react-icons/fc";
 
 
 const styleIds = getAllStyleIds();
@@ -40,6 +42,8 @@ export default function ComposePage() {
     const [validationError, setValidationError] = useState('');
     const [sending, setSending] = useState(false);
     const [submitError, setSubmitError] = useState();
+    const [drawingData, setDrawingData] = useState('');
+    const [showDrawing, setShowDrawing] = useState(false);
 
     const styleRef = useRef();
     const optionalRecipientRef = useRef();
@@ -50,12 +54,14 @@ export default function ComposePage() {
     const { executeRecaptcha } = useGoogleReCaptcha();
     const [addressbook, addressbookLoading, addressbookError] = useFetch(`${endpoint}/users/${user._id}/addressbook`);
 
-    useEffect(()=>{
+    useEffect(() => {
         //I dont know why I need to do this shit like this
         if (sending) {
             submitForm();
         }
     }, [sending]);
+
+
 
     const formHandler = () => {
         setSending(true);
@@ -63,8 +69,9 @@ export default function ComposePage() {
 
     const submitForm = async () => {
         //first check if recipient exists, maybe removed once invite feature is implemented
+
         if (!sending) return;
-        try{
+        try {
             const findUser = await doesUserExist(recipient);
             if (!findUser.success) {
                 console.log(findUser.error);
@@ -72,7 +79,7 @@ export default function ComposePage() {
                 setSending(false);
                 return;
             }
-        }catch(error) {
+        } catch (error) {
             setSending(false);
             console.log("System error finding user.");
             return;
@@ -84,7 +91,7 @@ export default function ComposePage() {
         }
 
         //clown check
-        if (body.length > 5) {           
+        if (body.length > 5) {
             setSending(false);
             console.log("Too many pages in letter, cant send");
             return;
@@ -100,6 +107,12 @@ export default function ComposePage() {
         formData.append("optionalRecipient", optionalRecipient);
         formData.append("stamp", selectedStamp);
 
+        const dd = drawingData.length ? JSON.parse(drawingData) : null;
+        if (dd?.lines.length && showDrawing) {
+            const compressed = lzString.compressToEncodedURIComponent(drawingData);
+            formData.append("drawing", compressed);
+        }
+
         try {
             const token = await executeRecaptcha();
 
@@ -110,7 +123,7 @@ export default function ComposePage() {
             formData.append("token", token);
 
             const resp = await sendLetter(formData);
-            
+
             if (resp.success) {
                 router.push('/success');
             } else {
@@ -131,15 +144,15 @@ export default function ComposePage() {
             arr.splice(id, 1);
         }
         if (pagebreakVal) {
-            if (arr[id+1] === undefined && arr.length < 5) {
+            if (arr[id + 1] === undefined && arr.length < 5) {
                 arr.push(pagebreakVal.trim());
-            }            
+            }
         }
-
+        if (arr[0]?.trim()?.length && validationError) setValidationError(false);
         setBody(arr);
     }
 
-    const textareaHandler = (targetRef, cb = ()=>{}, small = false) => {
+    const textareaHandler = (targetRef, cb = () => { }, small = false) => {
         try {
             while (targetRef.current.clientHeight < targetRef.current.scrollHeight) { //+2 because of font #2 not being able to go last line
                 let halved = Math.ceil(Math.abs((targetRef.current.value.length - body.length) / 10));
@@ -152,7 +165,6 @@ export default function ComposePage() {
             console.log("caught error:", error);
         } finally {
             cb(targetRef.current.value);
-            if (validationError) setValidationError(false);
         }
     }
 
@@ -186,6 +198,10 @@ export default function ComposePage() {
 
     const handleAddressbookClick = (address) => {
         setRecipient(address);
+    }
+
+    const handleDrawingUnmount = (data) => {
+        setDrawingData(data);
     }
 
     return (
@@ -237,11 +253,11 @@ export default function ComposePage() {
                     {!user?.verified &&
                         <div className="self-center border-2 border-black rounded-md bg-red-800 p-6 mb-6 text-center text-white sm:w-[30rem] max-sm:w-[24rem]">
                             <p className="text-white text-xs">
-                            {t('verify_email_warning', loc)}
+                                {t('verify_email_warning', loc)}
                             </p>
                         </div>
                     }
-                    
+
                     {closed ? (
                         //Closed letter
                         <div>
@@ -268,7 +284,7 @@ export default function ComposePage() {
                                     stamp={selectedStamp}
                                 />
                                 <div className="max-sm:hidden">
-                                <HelperArrow body={t('envelope_helper_fill', loc)} animate="animate-bounce-x" index={1} />
+                                    <HelperArrow body={t('envelope_helper_fill', loc)} animate="animate-bounce-x" index={1} />
                                 </div>
                             </div>
 
@@ -282,7 +298,7 @@ export default function ComposePage() {
                                     readOnly
                                 />
                                 <div className="max-sm:hidden">
-                                <HelperArrow body={t('envelope_helper_preview', loc)} animate="animate-bounce-x-slow" index={2} />
+                                    <HelperArrow body={t('envelope_helper_preview', loc)} animate="animate-bounce-x-slow" index={2} />
                                 </div>
                             </div>
                         </div>
@@ -298,28 +314,48 @@ export default function ComposePage() {
                                     </div>
                                     {validationError && <div className="absolute -top-6 right-0 text-xs text-red-500 animate-pulse">{t('error_body_empty', loc)}</div>}
                                     <div className="flex flex-row space-x-2 cursor-pointer text-center mb-1 hover:bg-gray-200 hover:ring" onClick={() => {
-                                        if (!body) {
+                                        if (!body[0]?.trim()?.length) {
                                             setValidationError(true);
-                                        }else{
+                                        } else {
                                             setClosed(true);
-                                        }                                        
+                                        }
                                     }}>
                                         <GiWaxSeal className="text-red-900 max-sm:text-lg sm:text-2xl" />
                                         <div className="max-sm:text-sm sm:text-md text-indigo-900">{t('compose_close_letter', loc)}</div>
                                     </div>
                                 </div>
+
                                 {body.map((item, id) => (
-                                <Letter
-                                    style={getClassNameFromStyleId(selectedStyle)}
-                                    callback={(val, pagebreakVal)=>{
-                                        letterBodyHandler(val, id, pagebreakVal);
-                                    }}
-                                    key={id}
-                                    startingValue={item}
-                                    className='mb-4'
-                                />))}
-                                
-                                
+                                    <Letter
+                                        style={getClassNameFromStyleId(selectedStyle)}
+                                        callback={(val, pagebreakVal) => {
+                                            letterBodyHandler(val, id, pagebreakVal);
+                                        }}
+                                        key={id}
+                                        startingValue={item}
+                                        className='mb-4'
+                                    />))
+                                }
+                                <div className="flex flex-row justify-center items-center space-x-1 mb-4 text-sm text-indigo-900 hover:ring hover:bg-gray-200 cursor-pointer" onClick={() => 
+                                    {
+                                        setShowDrawing(!showDrawing);
+                                }}>
+                                    <FcPicture className="text-2xl" />
+                                    <div>{showDrawing ? t('remove_drawing', loc) : t('add_drawing', loc)}</div>
+                                </div>
+                                {showDrawing &&
+                                    <Drawing
+                                        options={{
+                                            lazyRadius: 0,
+                                            saveData: drawingData,
+                                            immediateLoading: true
+                                        }}
+                                        unmountCallback={handleDrawingUnmount}
+                                        data={drawingData}
+                                        className="mb-6"
+                                        noDraw={true}
+                                    />
+                                }
                             </div>
                         </div>
                     )}
