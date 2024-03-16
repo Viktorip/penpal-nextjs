@@ -73,10 +73,10 @@ async function verifyDataFromJwt(token, userId) {
     /*
         payload returns:
         {
-            _id: '659a73b6be9a27df33b65eb5',
+            _id: '1234abcdef',
             iat: 1704806297,
-            iss: 'kirjekaverit',
-            aud: 'kirjekaveritkirjoittajat',
+            iss: 'something',
+            aud: 'somethingsomething',
             exp: 1704813497
         }
     */
